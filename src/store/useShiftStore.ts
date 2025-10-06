@@ -17,12 +17,14 @@ type MonthDays = Day[];
 interface ShiftState {
   startDayPattern: number;
   startDayChosen: boolean;
+  shiftPatternKey: string;
   shiftPattern: ShiftType[];
   dayHours: number[];
   nightHours: number[];
   dayByMonth: MonthDays[];
   setStartDayPattern: (value: number) => void;
   setStartDayChosen: (value: boolean) => void;
+  setShiftPatternKey:(value: string) => void;
   setShiftPattern: (pattern: ShiftType[]) => void;
   setDayHours: (pattern: number[]) => void;
   setNightHours: (pattern: number[]) => void;
@@ -35,12 +37,14 @@ export const useShiftStore = create<ShiftState>()(
     (set) => ({
       startDayPattern: 0,
       startDayChosen: false,
+      shiftPatternKey: "",
       shiftPattern: [],
       dayByMonth: [],
       dayHours: [],
       nightHours: [],
       setStartDayPattern: (value) => set({ startDayPattern: value }),
       setStartDayChosen: (value) => set({ startDayChosen: value }),
+      setShiftPatternKey: (value) => set({shiftPatternKey: value}),
       setShiftPattern: (pattern) => set({ shiftPattern: pattern }),
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
@@ -58,29 +62,3 @@ export const useShiftStore = create<ShiftState>()(
   )
 );
 
-interface SalaryState {
-  salaryPerMonth: number;
-  districtCoefficient: number;
-  northCoefficient: number;
-
-  setSalaryPerMonth: (value: number) => void;
-  setDistrictCoefficient: (value: number) => void;
-  setNorthCoefficient: (value: number) => void;
-}
-
-export const useSalaryStore = create<SalaryState>()(
-  persist(
-    (set) => ({
-      salaryPerMonth: 0,
-      districtCoefficient: 1,
-      northCoefficient: 1,
-
-      setSalaryPerMonth: (value) => set({ salaryPerMonth: value }),
-      setDistrictCoefficient: (value) => set({ districtCoefficient: value }),
-      setNorthCoefficient: (value) => set({ northCoefficient: value }),
-    }),
-    {
-      name: "salary-storage", // unique name for localStorage key
-    }
-  )
-);

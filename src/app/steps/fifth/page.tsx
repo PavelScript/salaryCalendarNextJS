@@ -1,0 +1,36 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
+import Header from "@/components/Header/Header";
+import styles from "../Questions.module.scss";
+import { useSalaryStore } from "@/store/useSalaryStore";
+
+const StepFive = () => {
+  const { setNorthCoefficient, northCoefficient } = useSalaryStore();
+  const router = useRouter();
+
+  const handleSubmit = (data: { salary: string }) => {
+    setNorthCoefficient(parseFloat(data.salary));
+    router.push("/steps/sixth");
+  };
+
+  return (
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.questionForm}>
+        <QuestionInput
+          title="Введите размер северного коэффициента"
+          label="В формате: 1.15 или 1"
+          inputMode="decimal"
+          placeholder="   Например: 1.15 или 1"
+          onSubmit={handleSubmit}
+          currentValue={northCoefficient}
+        />
+
+      </div>
+    </div>
+  );
+};
+
+export default StepFive;

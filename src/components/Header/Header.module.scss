@@ -1,0 +1,16 @@
+
+.header {
+    width:100vw;
+    display: flex;
+    font-size:18px;
+    align-items: center;
+    justify-content:flex-start;
+    gap: 100px;
+    padding-left: 5vw;
+    height: 50px;
+    background-color:rgb(40, 40, 40);
+
+    .home {
+        font-weight:700;
+    }
+}

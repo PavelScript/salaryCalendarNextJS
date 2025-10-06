@@ -1,22 +1,28 @@
 .container {
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100vw;
-    height: 100vh;
-    justify-content: center;
+    height: 100dvh;
+    justify-content: space-between;
     align-items: center;
+
+    .questionForm {
+        margin-bottom: 20vh;
+
+    }
 
 
     .inputField {
         color: black;
-        width: 50rem;
-        height: fit-content;
+        width: 95%;
+        height:35vh;
         background-color: #ffffff;
-        border: 10px solid #bebebe;
         border-radius: 15px;
         display: flex;
         flex-direction: column;
+        margin-bottom: 20vh;
+        justify-content: space-between;
 
 
         h1 {
@@ -25,33 +31,36 @@
             font-size: 2rem;
             color: black;
             font-size: 0.9rem;
-            width:90%;
-            align-self:center;
+            margin-left: 1rem;
+            width: 90%;
+
 
         }
 
         p {
-            width:90%;
+            padding-top:40px;
+            width: 90%;
+            font-size: 0.8rem;
             margin-top: 1rem;
             margin-left: 1rem;
             color: black;
-            margin-bottom: 0.5rem;
+            margin-bottom: 01rem;
 
-            &:nth-child(3) {
-                font-size: 0.7rem;
-                margin-bottom: 1rem;
-                
-            }
+
 
         }
 
 
         button {
+            margin-bottom: 10px;
             height: 50px;
+            width: 95%;
+            border-radius: 15px;
+            align-self: center;
             color: #ffffff;
             background-color: #363636;
-            font-size: 1.5rem;
-            font-weight:600;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
 
