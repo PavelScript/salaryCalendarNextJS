@@ -9,7 +9,7 @@ import { salarySchemaNumbers } from "@/schemas/salarySchemaNumbers";
 type SalaryFormData = z.infer<typeof salarySchemaNumbers>;
 
 type QuestionFormProps = {
-  title: string;
+  title: React.ReactNode;
   label: string;
   inputMode: "decimal" | "numeric" | "tel" | "text";
   placeholder: string;

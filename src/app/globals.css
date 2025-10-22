@@ -1,5 +1,5 @@
 :root {
-  --background: linear-gradient(340deg, rgb(16, 66, 117) 0%, #00d5ff 50%, #00ff66 100%);
+  --background: linear-gradient(340deg, rgb(16, 66, 117) 0%, #0ab6d8 50%, #e69111 100%);
   --foreground: #e2e1e1;
 }
 
@@ -37,6 +37,7 @@ a {
 button {
   border: none;
   cursor:pointer;
+  color:white;
 }
 
 input,

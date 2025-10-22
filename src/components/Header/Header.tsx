@@ -7,9 +7,9 @@ const Header = () => {
       <Link href="/" className={styles.home}>
         Главная
       </Link>
-      <Link href="/" className={styles.help}>
+      {/* <Link href="/" className={styles.help}>
         Помощь
-      </Link>
+      </Link> */}
     </div>
   );
 };

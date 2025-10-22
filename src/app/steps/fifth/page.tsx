@@ -20,14 +20,27 @@ const StepFive = () => {
       <Header />
       <div className={styles.questionForm}>
         <QuestionInput
-          title="Введите размер северного коэффициента"
+          title={
+            <>
+              Введите размер{" "}
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                  color: "rgba(239, 131, 0, 1)",
+                }}
+              >
+                северного
+              </span>{" "}
+              коэффициента
+            </>
+          }
           label="В формате: 1.15 или 1"
           inputMode="decimal"
           placeholder="   Например: 1.15 или 1"
           onSubmit={handleSubmit}
           currentValue={northCoefficient}
         />
-
       </div>
     </div>
   );

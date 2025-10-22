@@ -27,7 +27,7 @@ export const generateShiftPattern = (
 
     for (let id = 1; id <= daysInMonth; id++) {
       // День недели (0 - воскресенье, 6 - суббота)
-      const weekDay = new Date(year, month, id).getDay();
+      const dayOfWeek = new Date(year, month, id).getDay();
 
       DAYS.push({
         yearId: yearId++,
@@ -35,7 +35,7 @@ export const generateShiftPattern = (
         year: year,
         month: month,
         workShift: "offShift",
-        weekDay: weekDay,
+        weekDay: dayOfWeek,
         holiday: false,
         extraShift: false,
         dayHours: 0,
@@ -86,6 +86,8 @@ const daysByMonth: ShiftDay[][] = Array.from({ length: 12 }, () => []);
 for (const day of DAYS) {
   daysByMonth[day.month].push(day);
 }
+
+
 
   return daysByMonth;
 };

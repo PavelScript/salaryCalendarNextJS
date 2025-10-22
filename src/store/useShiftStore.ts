@@ -5,15 +5,19 @@ import { persist } from "zustand/middleware";
 type ShiftType = "dayShift" | "nightShift" | "offShift";
 
 interface Day {
-  id: number;
-  dayOfWeek: number;
-  date: Date;
-  shift?: ShiftType;
   yearId: number;
+  id: number; // день месяца (1–31)
+  year: number;
+  month: number; // 0–11 (как в JS Date)
+  workShift: "dayShift" | "nightShift" | "offShift";
+  weekDay: number; // 0 (воскресенье) – 6 (суббота)
+  holiday: boolean;
+  extraShift: boolean;
+  dayHours: number;
+  nightHours: number;
 }
 
 type MonthDays = Day[];
-
 interface ShiftState {
   startDayPattern: number;
   startDayChosen: boolean;
@@ -29,7 +33,6 @@ interface ShiftState {
   setDayHours: (pattern: number[]) => void;
   setNightHours: (pattern: number[]) => void;
   setDayByMonth: (days: MonthDays[]) => void;
-
 }
 
 export const useShiftStore = create<ShiftState>()(

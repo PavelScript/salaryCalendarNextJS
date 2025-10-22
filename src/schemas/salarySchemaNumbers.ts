@@ -6,7 +6,7 @@ export const salarySchemaNumbers = z.object({
     .refine(
       (val) => {
         // Проверяем, что строка содержит только цифры, одну точку/запятую и не начинается с них
-        const validPattern = /^\d+(\.\d+)?$/; // или /^(\d+\.?\d*)?$/ — зависит от нужного формата
+        const validPattern = /^\d+([.,]\d+)?$/; // или /^(\d+\.?\d*)?$/ — зависит от нужного формата
         return validPattern.test(val);
       },
       { message: 'Введите корректную сумму (только цифры и одна точка)' }
