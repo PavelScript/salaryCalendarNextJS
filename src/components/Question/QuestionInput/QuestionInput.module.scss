@@ -30,18 +30,19 @@
 
         form {
             display: flex;
-
-
-            label {
-                margin-top:30px;
-                font-size:0.9rem;
-                input {
+             input {
                     width:200px;
                     padding-left:5px;
                     font-size: 16px;
-                    margin-top: 10px;
+                    margin-top: 85px;
                     height:3rem;
                 }
+
+
+            label {
+                margin-top:100px;
+                font-size:0.9rem;
+               
             }
 
             button {
@@ -75,4 +76,23 @@
         font-weight: 700;
         background-color: rgb(39, 39, 39);
     }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        .inputField {
+            width: 60vw;
+            height:20vh;
+            margin-bottom: 10vh;
+            align-items: center;
+            
+
+            form {
+                gap:10px;
+                
+            }          
+            
+        }
+    }
+
 }

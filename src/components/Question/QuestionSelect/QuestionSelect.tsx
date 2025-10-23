@@ -42,23 +42,21 @@ const QuestionSelect = ({
       <div className={styles.inputField}>
         <h2>{title}</h2>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <label>
-            {label}
-            <select
-              {...register("shiftPatternKey")}
-              className={styles.select}
-              required
-            >
-              <option value="" disabled hidden>
-                Выберите график
+          <label>{label}</label>
+          <select
+            {...register("shiftPatternKey")}
+            className={styles.select}
+            required
+          >
+            <option value="" disabled hidden>
+              Выберите график
+            </option>
+            {options.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
               </option>
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
+            ))}
+          </select>
 
           <button type="submit">Далее</button>
         </form>

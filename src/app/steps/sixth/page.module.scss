@@ -19,3 +19,18 @@
     }
 
 }
+
+@media(min-width:1200px) {
+    .container {
+        .fieldContainer {
+            height:90vh;
+            .gridContainer {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+
+            }
+        }
+    }
+
+
+}

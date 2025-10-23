@@ -1,5 +1,5 @@
 .container {
-    width:100wv;
+    width: 100wv;
 
     .fieldContainer {
         display: flex;
@@ -14,8 +14,22 @@
 
         p {
             text-align: center;
-            font-weight:200;
+            font-weight: 200;
         }
     }
+
+}
+
+@media(min-width:1200px) {
+    .container {
+        .fieldContainer {
+        height:90vh;
+            .calendarYear {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    }
+
 
 }

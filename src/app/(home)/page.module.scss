@@ -5,12 +5,6 @@
     flex-direction: column;
     justify-content: space-between;
 
- 
-   
-
-
-
-
     .startCalcBtn {
         align-self: center;
         background-color: #ffffff;
@@ -24,17 +18,31 @@
     }
 
     .text {
-        align-self:center;
-        width:90vw;
+        align-self: center;
+        width: 90vw;
         color: black;
-        font-size:2rem;
+        font-size: 2rem;
 
-        span{
-            font-weight:800;
+        span {
+            font-weight: 800;
         }
 
     }
 
 
 
+}
+
+@media(min-width: 1200px) {
+    .container {
+        .text {
+            font-size: 3.5rem;
+        }
+
+        .startCalcBtn {
+            height: 50px;
+            font-size: 1.5rem;
+        }
+
+    }
 }

@@ -24,16 +24,18 @@ const ShiftsReady = () => {
   return (
     <div className={styles.container}>
       <Header />
-      
+
       <div className={styles.fieldContainer}>
         <p>Ваш график смен на год</p>
-        {dayByMonth.map((monthDays, monthIndex) => (
-          <Month
-            key={`choose-start-${monthIndex}`}
-            monthIndex={monthIndex}
-            days={monthDays}
-          />
-        ))}
+        <div className={styles.calendarYear}>
+          {dayByMonth.map((monthDays, monthIndex) => (
+            <Month
+              key={`choose-start-${monthIndex}`}
+              monthIndex={monthIndex}
+              days={monthDays}
+            />
+          ))}
+        </div>
       </div>
       <div className={styles.buttonContainer}>
         {/* <button onClick={toPreviousQuestion}>Назад</button>

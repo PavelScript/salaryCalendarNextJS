@@ -14,14 +14,13 @@
 
 
     .inputField {
-        color: black;
         width: 95%;
-        height:35vh;
-        background-color: #ffffff;
+        height: 35vh;
+        background-color: rgb(39, 39, 39);
         border-radius: 15px;
         display: flex;
         flex-direction: column;
-        margin-bottom: 20vh;
+        margin-bottom: 30vh;
         justify-content: space-between;
 
 
@@ -29,7 +28,6 @@
             text-align: left;
             margin-top: 2rem;
             font-size: 2rem;
-            color: black;
             font-size: 0.9rem;
             margin-left: 1rem;
             width: 90%;
@@ -38,13 +36,12 @@
         }
 
         p {
-            padding-top:40px;
+            padding-top: 40px;
             width: 90%;
             font-size: 0.8rem;
             margin-top: 1rem;
             margin-left: 1rem;
-            color: black;
-            margin-bottom: 01rem;
+            margin-bottom: 1rem;
 
 
 
@@ -57,8 +54,8 @@
             width: 95%;
             border-radius: 15px;
             align-self: center;
-            color: #ffffff;
-            background-color: #363636;
+            color: black;
+            background-color: #e69111;
             font-size: 1.2rem;
             font-weight: 600;
         }
@@ -133,6 +130,26 @@
     }
 
 
+    @media(min-width: 1200px) {
+        .inputField {
+            width: 60vw;
+            height:20vh;
 
+            h1 {
+                font-size: 1.5rem;
+                text-align:center;
+
+            }
+
+            p {
+                font-size: 1rem;
+                text-align:center;
+                opacity:0.8;
+                margin-bottom:0.5rem;
+                
+
+            }
+        }
+    }
 
 }

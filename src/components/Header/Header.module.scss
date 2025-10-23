@@ -13,4 +13,10 @@
     .home {
         font-weight:700;
     }
+
+    @media (min-width:1200px) {
+        .home {
+            font-size:1.5rem;
+        }
+    }
 }

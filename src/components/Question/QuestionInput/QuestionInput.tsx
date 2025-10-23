@@ -46,16 +46,14 @@ const QuestionInput = ({
       <div className={styles.inputField}>
         <h2>{title}</h2>
         <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <label>
-            {label}
-            <input
-              {...register("salary")} // 👈 Регистрация поля по имени из схемы
-              type="tel"
-              inputMode={inputMode}
-              placeholder={placeholder}
-              className={errors.salary ? styles.inputError : ""}
-            />
-          </label>
+          <label>{label}</label>
+          <input
+            {...register("salary")} // 👈 Регистрация поля по имени из схемы
+            type="tel"
+            inputMode={inputMode}
+            placeholder={placeholder}
+            className={errors.salary ? styles.inputError : ""}
+          />
 
           <button type="submit">Далее</button>
         </form>

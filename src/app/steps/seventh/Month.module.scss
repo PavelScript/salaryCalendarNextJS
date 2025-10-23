@@ -1,5 +1,4 @@
 .container {
-
     margin: 0;
     padding: 0;
     display: flex;
@@ -19,7 +18,7 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-gap: 1px;
+        grid-gap: 7px;
         justify-content: center;
         text-align: center;
 
@@ -27,39 +26,40 @@
 
         .month {
             grid-column: span 5 / span 5;
-            font-weight:500;
+            font-weight: 500;
 
         }
 
-         button{
-            background-color:rgb(14, 101, 125);
-            width:40px;
-            height:20px;
-            border-radius:3px;
+        button {
+            background-color: rgb(14, 101, 125);
+            width: 40px;
+            height: 20px;
+            border-radius: 3px;
         }
-    
 
-    .btnChosenDay {
-        background-color: goldenrod;
+
+        .btnChosenDay {
+            background-color: goldenrod;
+        }
+
+        .btnChosenNight {
+            background-color: rgb(15, 44, 138);
+        }
+
+        .holidayDays {
+            background-color: rgb(221, 74, 30);
+        }
+
+        .holidayDaysChosen {
+            background-color: rgb(151, 34, 34);
+            ;
+        }
+
+        .moneyPerMonth {
+            margin-top: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+
     }
-
-    .btnChosenNight {
-        background-color: rgb(15, 44, 138);
-    }
-
-    .holidayDays {
-        background-color: rgb(221, 74, 30);
-    }
-
-    .holidayDaysChosen {
-        background-color: rgb(151, 34, 34);
-        ;
-    }
-
-    .moneyPerMonth {
-        margin-top: 0.4rem;
-        margin-bottom: 1.5rem;
-    }
-
-
-}}
+}
