@@ -10,6 +10,10 @@ const StepFive = () => {
   const { setNorthCoefficient, northCoefficient } = useSalaryStore();
   const router = useRouter();
 
+    const goBack = () => {
+    router.push("/steps/fourth");
+  };
+
   const handleSubmit = (data: { salary: string }) => {
     setNorthCoefficient(parseFloat(data.salary));
     router.push("/steps/sixth");
@@ -39,6 +43,7 @@ const StepFive = () => {
           inputMode="decimal"
           placeholder="   Например: 1.15 или 1"
           onSubmit={handleSubmit}
+          onBack={goBack}
           currentValue={northCoefficient}
         />
       </div>

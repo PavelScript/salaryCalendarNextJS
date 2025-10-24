@@ -11,6 +11,7 @@ type QuestionFormProps = {
   label: string;
   options: { value: string; label: string }[];
   onSubmit: (data: ShiftSelectData) => void;
+   onBack: () => void;
   defaultValue?: string;
 };
 
@@ -19,6 +20,7 @@ const QuestionSelect = ({
   label,
   options,
   onSubmit,
+  onBack,
   defaultValue,
 }: QuestionFormProps) => {
   const {
@@ -58,7 +60,16 @@ const QuestionSelect = ({
             ))}
           </select>
 
-          <button type="submit">Далее</button>
+          <div className={styles.buttons}>
+            <button
+              type="button"
+              onClick={onBack}
+              className={styles.backButton}
+            >
+              Назад
+            </button>
+            <button type="submit">Далее</button>
+          </div>
         </form>
       </div>
       <div className={styles.errorMessageContainer}>

@@ -10,6 +10,10 @@ const StepFour = () => {
   const { setDistrictCoefficient, districtCoefficient } = useSalaryStore();
   const router = useRouter();
 
+  const goBack = () => {
+    router.push("/steps/third");
+  };
+
   const handleSubmit = (data: { salary: string }) => {
     setDistrictCoefficient(parseFloat(data.salary));
     router.push("/steps/fifth");
@@ -22,7 +26,16 @@ const StepFour = () => {
         <QuestionInput
           title={
             <>
-              Введите размер <span style={{ fontWeight: "bold", fontStyle: "italic", color: "rgba(239, 131, 0, 1)" }}>районного</span>{" "}
+              Введите размер{" "}
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                  color: "rgba(239, 131, 0, 1)",
+                }}
+              >
+                районного
+              </span>{" "}
               коэффициента
             </>
           }
@@ -30,6 +43,7 @@ const StepFour = () => {
           inputMode="decimal"
           placeholder="   Например: 1.15 или 1"
           onSubmit={handleSubmit}
+          onBack={goBack}
           currentValue={districtCoefficient}
         />
       </div>

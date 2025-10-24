@@ -51,7 +51,6 @@ const Sixth = () => {
     router.push("/steps/seventh");
   };
 
-  console.log(dayByMonth)
 
 
   return (

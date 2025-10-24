@@ -14,7 +14,8 @@ type QuestionFormProps = {
   inputMode: "decimal" | "numeric" | "tel" | "text";
   placeholder: string;
   currentValue: number;
-  onSubmit: (data: SalaryFormData) => void; // 👈 Теперь передаём объект, а не строку
+  onSubmit: (data: SalaryFormData) => void;
+  onBack: () => void; // 👈 Теперь передаём объект, а не строку
 };
 const QuestionInput = ({
   title,
@@ -23,6 +24,7 @@ const QuestionInput = ({
   placeholder,
   currentValue,
   onSubmit,
+  onBack,
 }: QuestionFormProps) => {
   const {
     register,
@@ -54,8 +56,16 @@ const QuestionInput = ({
             placeholder={placeholder}
             className={errors.salary ? styles.inputError : ""}
           />
-
-          <button type="submit">Далее</button>
+          <div className={styles.buttons}>
+            <button
+              type="button"
+              onClick={onBack}
+              className={styles.backButton}
+            >
+              Назад
+            </button>
+            <button type="submit">Далее</button>
+          </div>
         </form>
       </div>
       <div className={styles.errorMessageContainer}>

@@ -29,40 +29,47 @@
 
         form {
             display: flex;
+            flex-direction: column;
 
             select {
-                margin-top: 90px;
+                margin-top:10px;
                 padding-left: 5px;
                 font-size: 16px;
-                height: 3rem;
-                width: 200px;
+                height: 40px;
+                width: 100%;
                 border-radius: 7;
-                background-color: white;
-                color: black;
+                background-color: rgb(46, 45, 45);
+                color: rgb(255, 255, 255);
             }
 
             label {
-                margin-top: 100px;
+                margin-top:10px;
                 font-size: 0.9rem;
 
 
             }
 
-            button {
-                background-color: rgb(255, 136, 0);
-                align-self: end;
-                border-radius: 15px;
-                width: 120px;
-                height: 3rem;
-                font-size: 1rem;
-                color: black;
+            .buttons {
+                display: flex;
+                gap: 5px;
 
-                &:hover {
-                    background-color: rgba(255, 136, 0, 0.468);
+
+                button {
+                    background-color: rgb(255, 136, 0);
+                    border-radius: 15px;
+                    width: 52%;
+                    height: 40px;
+                    font-size: 1rem;
+                    color: black;
+                    margin-top: 10px;
+                    font-weight: 600;
+
+                    &:hover {
+                        background-color: rgba(255, 136, 0, 0.468);
+                    }
                 }
+
             }
-
-
 
         }
     }

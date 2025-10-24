@@ -26,6 +26,11 @@ const StepThree = () => {
     { value: "1day1nightDayOff", label: "1 день / 1 ночь / выходной" },
   ];
 
+    const goBack = () => {
+    router.push("/steps/second");
+  };
+
+
   const handleSubmit = ({ shiftPatternKey }: { shiftPatternKey: string }) => {
     setShiftPatternKey(shiftPatternKey);
     switch (shiftPatternKey) {
@@ -76,6 +81,7 @@ const StepThree = () => {
           options={shiftOptionsKey}
           onSubmit={handleSubmit}
           defaultValue={shiftPatternKey}
+          onBack={goBack}
         />
       </div>
     </div>
