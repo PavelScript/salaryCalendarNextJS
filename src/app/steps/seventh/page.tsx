@@ -1,50 +1,77 @@
+//Pick the first Day Page
 "use client";
 
 import styles from "./page.module.scss";
+import { useRouter } from "next/navigation";
 import { useShiftStore } from "@/store/useShiftStore";
+import { useMemo, useEffect, useState } from "react";
+import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
+import ChooseStartDay from "../seventh/chooseStartDay";
 import Header from "@/components/Header/Header";
 
-import Month from "./Month";
 
-const ShiftsReady = () => {
-  //   const navigate = useNavigate();
+const StepSeven = () => {
+  const router = useRouter();
+  const {
+    startDayPattern,
+    setStartDayPattern,
+    shiftPattern,
+    setDayByMonth,
+    dayHours,
+    nightHours,
+  } = useShiftStore();
 
-  const { dayByMonth } = useShiftStore();
+  const [selectedDay, setSelectedDay] = useState<{ id: number; month: number } | null>(null);
 
-  //Переход к следующему вопросу
-  //   const toNextQuestion = () => {
-  //     navigate("/questions/step-8");
-  //   };
+  // dayByMonth готовый календарь со сменами на год по месяцам
+  const dayByMonth = useMemo(
+    () =>
+      generateShiftPattern(
+        2025,
+        startDayPattern,
+        shiftPattern,
+        dayHours,
+        nightHours
+      ),
+    [startDayPattern, shiftPattern, dayHours, nightHours]
+  );
 
-  //   //Переход к предыдущему вопросу
-  //   const toPreviousQuestion = () => {
-  //     navigate("/questions/step-6");
-  //   };
+  useEffect(() => {
+    setDayByMonth(dayByMonth);
+  }, [dayByMonth, setDayByMonth]);
+
+  const handleDaySelect = (dayId:number, monthIndex:number) => {
+    const foundDay = dayByMonth[monthIndex]?.find((day) => day.id === dayId);
+
+    if (!foundDay) {
+    return;
+  }
+    setSelectedDay({ id: dayId, month: monthIndex });
+    setStartDayPattern(foundDay.yearId); // Обновляем startDayPattern
+    router.push("/steps/eighth");
+  };
+
+
 
   return (
     <div className={styles.container}>
       <Header />
-
       <div className={styles.fieldContainer}>
-        <p>Ваш график смен на год</p>
-        <div className={styles.calendarYear}>
+        <p>Выберите день с которого начать строить график смен</p>
+        <div className={styles.gridContainer}>
           {dayByMonth.map((monthDays, monthIndex) => (
-            <Month
-              key={`choose-start-${monthIndex}`}
+            <ChooseStartDay
+              key={`month-${monthIndex}`} // ← УБРАЛИ startDayPattern
               monthIndex={monthIndex}
               days={monthDays}
+              onChange={handleDaySelect}
+              selectedDay={selectedDay}
             />
           ))}
         </div>
-      </div>
-      <div className={styles.buttonContainer}>
-        {/* <button onClick={toPreviousQuestion}>Назад</button>
-        <button disabled={isDisabled} onClick={toNextQuestion}>
-          Далее
-        </button> */}
       </div>
     </div>
   );
 };
 
-export default ShiftsReady;
+export default StepSeven;

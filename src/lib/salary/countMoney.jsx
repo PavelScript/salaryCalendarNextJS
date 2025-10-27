@@ -1,4 +1,4 @@
-export const CountMoney = (dayByMonth, salaryPerMonthInput, districtCoefficient, northCoefficient) => {
+export const CountMoney = (dayByMonth, salaryPerMonthInput, districtCoefficient, northCoefficient, bonusPercent) => {
   // Норматив по часам для каждого месяца
   const normalHours = [
     136, 160, 167, 175, 144, 151, 184, 168, 176, 184, 151, 176,
@@ -9,6 +9,7 @@ export const CountMoney = (dayByMonth, salaryPerMonthInput, districtCoefficient,
   const monthHoursSum = [];
   const moneyPerHour = [];
   const moneyPerMonth = [];
+  const bonusPercentMultiplier = bonusPercent/100;
 
   for (let i = 0; i < dayByMonth.length; i++) {
     // Суммируем дневные и ночные часы за месяц
@@ -32,11 +33,11 @@ export const CountMoney = (dayByMonth, salaryPerMonthInput, districtCoefficient,
       // Бонус от прошлого месяца: 30% от прошлой ставки × часы прошлого месяца
       const rateLastMonth = moneyPerHour[i - 1];
       const hoursLastMonth = monthHoursSum[i - 1];
-      currentPay += 0.3 * rateLastMonth * hoursLastMonth;
+      currentPay += bonusPercentMultiplier * rateLastMonth * hoursLastMonth*0.87*districtCoefficient*northCoefficient;
     }
 
     const totalPay = currentPay + nightBonus;
-    moneyPerMonth.push(parseInt(totalPay));
+    moneyPerMonth.push(Math.round(totalPay));
   }
 
 

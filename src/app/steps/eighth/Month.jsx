@@ -10,7 +10,7 @@ const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 const Month = ({ monthIndex, days }) => {
   const { dayByMonth } = useShiftStore();
-  const { salaryPerMonth, districtCoefficient, northCoefficient } = useSalaryStore();
+  const { salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent } = useSalaryStore();
 
   // Защита от пустых данных
   if (!days || days.length === 0) {
@@ -23,9 +23,10 @@ const Month = ({ monthIndex, days }) => {
       dayByMonth,
       salaryPerMonth,
       districtCoefficient,
-      northCoefficient
+      northCoefficient,
+      bonusPercent,
     );
-  }, [dayByMonth, salaryPerMonth, districtCoefficient, northCoefficient]);
+  }, [dayByMonth, salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent]);
 
   // Извлечение смен и праздников
   const holidays = days.filter((day) => day.holiday).map((day) => day.id);
@@ -128,7 +129,7 @@ const nightShifts = useMemo(() => {
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(2) || 0} ₽
+        Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ type QuestionFormProps = {
   label: string;
   inputMode: "decimal" | "numeric" | "tel" | "text";
   placeholder: string;
-  currentValue: number;
+  currentValue: string;
   onSubmit: (data: SalaryFormData) => void;
   onBack: () => void; // 👈 Теперь передаём объект, а не строку
 };

@@ -34,7 +34,7 @@ const StepTwo = () => {
           placeholder="   Например: 54000"
           onSubmit={handleSubmit}
           onBack={goBack}
-          currentValue = {salaryPerMonth}
+          currentValue = {salaryPerMonth?.toString() ?? ""}
         />
       </div>
     </div>

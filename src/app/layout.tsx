@@ -20,8 +20,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
-      <body className={inter.variable}> {/* ✅ Используем переменную шрифта */}
+      <head>
+        {/* iOS: позволяет добавлять в «Домашний экран» */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        {/* Стиль статус-бара (опционально) */}
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+        {/* Название приложения (для ярлыка) */}
+        <meta name="apple-mobile-web-app-title" content="SalaryCalendar" />
+
+        {/* Иконка для iPhone (разные размеры) */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/apple-touch-icon.png"
+        />
+      </head>
+      <body className={inter.variable}>
+        {" "}
+        {/* ✅ Используем переменную шрифта */}
         {children}
       </body>
     </html>
