@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="manifest" href="/manifest.json" />
         {/* iOS: позволяет добавлять в «Домашний экран» */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
 

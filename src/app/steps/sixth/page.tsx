@@ -10,12 +10,16 @@ const StepSix = () => {
   const { setNorthCoefficient, northCoefficient } = useSalaryStore();
   const router = useRouter();
 
-    const goBack = () => {
+  const goBack = () => {
     router.push("/steps/fifth");
   };
 
   const handleSubmit = (data: { salary: string }) => {
-    setNorthCoefficient(parseFloat(data.salary));
+    let value = data.salary.trim();
+    if (value.includes(",")) {
+      value = value.replace(/,/g, ".");
+    }
+    setNorthCoefficient(parseFloat(value));
     router.push("/steps/seventh");
   };
 

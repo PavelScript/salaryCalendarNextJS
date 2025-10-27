@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useShiftStore } from "@/store/useShiftStore";
 import { useMemo, useEffect, useState } from "react";
 import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
-import ChooseStartDay from "../seventh/chooseStartDay";
+import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
 
 

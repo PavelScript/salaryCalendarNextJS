@@ -15,7 +15,11 @@ const StepFive = () => {
   };
 
   const handleSubmit = (data: { salary: string }) => {
-    setDistrictCoefficient(parseFloat(data.salary));
+    let value = data.salary.trim();
+    if (value.includes(",")) {
+      value = value.replace(/,/g, ".");
+    }
+    setDistrictCoefficient(parseFloat(value));
     router.push("/steps/sixth");
   };
 

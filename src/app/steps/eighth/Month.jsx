@@ -10,7 +10,7 @@ const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 const Month = ({ monthIndex, days }) => {
   const { dayByMonth } = useShiftStore();
-  const { salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent } = useSalaryStore();
+  const { salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent, nightHourBonus } = useSalaryStore();
 
   // Защита от пустых данных
   if (!days || days.length === 0) {
@@ -25,8 +25,9 @@ const Month = ({ monthIndex, days }) => {
       districtCoefficient,
       northCoefficient,
       bonusPercent,
+      nightHourBonus
     );
-  }, [dayByMonth, salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent]);
+  }, [dayByMonth, salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent, nightHourBonus]);
 
   // Извлечение смен и праздников
   const holidays = days.filter((day) => day.holiday).map((day) => day.id);

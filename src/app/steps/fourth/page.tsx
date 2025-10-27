@@ -38,11 +38,13 @@ const StepFour= () => {
         setShiftPattern(["dayShift", "nightShift", "offShift"]);
         setDayHours([12, 2, 2]);
         setNightHours([0, 2, 6]);
+        router.push("/steps/fifth");
         break;
       case "2days2daysOff":
         setShiftPattern(["dayShift", "dayShift", "offShift", "offShift"]);
         setDayHours([12, 12, 0, 0]);
         setNightHours([0, 0, 0, 0]);
+        router.push("/steps/fifth");
         break;
       case "2days2nights4daysOff":
         setShiftPattern([
@@ -57,16 +59,21 @@ const StepFour= () => {
         ]);
         setDayHours([12, 12, 2, 4, 2, 0, 0, 0]);
         setNightHours([0, 0, 2, 6, 6, 0, 0, 0]);
+        router.push("/steps/nightBonus");
         break;
       case "1day1nightDayOff":
         setShiftPattern(["dayShift", "nightShift", "offShift"]);
         setDayHours([12, 2, 2]);
         setNightHours([0, 2, 6]);
+        router.push("/steps/nightBonus");
         break;
       default:
         setShiftPattern([]);
+        
+        
     }
-    router.push("/steps/fifth");
+
+    
   };
 
   //Получить выбранный график сменности от пользователя из QuestionSelect
