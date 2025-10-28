@@ -10,7 +10,13 @@ const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 const Month = ({ monthIndex, days }) => {
   const { dayByMonth } = useShiftStore();
-  const { salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent, nightHourBonus } = useSalaryStore();
+  const {
+    salaryPerMonth,
+    districtCoefficient,
+    northCoefficient,
+    bonusPercent,
+    nightHourBonus,
+  } = useSalaryStore();
 
   // Защита от пустых данных
   if (!days || days.length === 0) {
@@ -18,7 +24,7 @@ const Month = ({ monthIndex, days }) => {
   }
 
   // Расчёт зарплаты с мемоизацией
-  const moneyPerMonth = useMemo(() => {
+  const { moneyPerMonth, monthHoursSum } = useMemo(() => {
     return CountMoney(
       dayByMonth,
       salaryPerMonth,
@@ -27,21 +33,28 @@ const Month = ({ monthIndex, days }) => {
       bonusPercent,
       nightHourBonus
     );
-  }, [dayByMonth, salaryPerMonth, districtCoefficient, northCoefficient, bonusPercent, nightHourBonus]);
+  }, [
+    dayByMonth,
+    salaryPerMonth,
+    districtCoefficient,
+    northCoefficient,
+    bonusPercent,
+    nightHourBonus,
+  ]);
 
   // Извлечение смен и праздников
   const holidays = days.filter((day) => day.holiday).map((day) => day.id);
-const dayShifts = useMemo(() => {
-  return days
-    .filter((day) => day.workShift === "dayShift")
-    .map((day) => day.id);
-}, [days]);
+  const dayShifts = useMemo(() => {
+    return days
+      .filter((day) => day.workShift === "dayShift")
+      .map((day) => day.id);
+  }, [days]);
 
-const nightShifts = useMemo(() => {
-  return days
-    .filter((day) => day.workShift === "nightShift")
-    .map((day) => day.id);
-}, [days]);
+  const nightShifts = useMemo(() => {
+    return days
+      .filter((day) => day.workShift === "nightShift")
+      .map((day) => day.id);
+  }, [days]);
 
   // Состояние выбранных дней
   const [daysChosen, setDaysChosen] = useState([]);
@@ -59,25 +72,19 @@ const nightShifts = useMemo(() => {
   // Обработчики выбора
   const choseDay = (id) => {
     setDaysChosen((prev) =>
-      prev.includes(id)
-        ? prev.filter((dayId) => dayId !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((dayId) => dayId !== id) : [...prev, id]
     );
   };
 
   const choseNight = (id) => {
     setNightsChosen((prev) =>
-      prev.includes(id)
-        ? prev.filter((dayId) => dayId !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((dayId) => dayId !== id) : [...prev, id]
     );
   };
 
   // Календарь
   const startDayOfWeek = new Date(2025, monthIndex, 1).getDay();
   const emptyCellsBefore = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
-
-
 
   return (
     <div className={styles.container}>
@@ -119,18 +126,15 @@ const nightShifts = useMemo(() => {
           };
 
           return (
-            <button
-              key={day.id}
-              className={btnClass}
-              onClick={handleClick}
-            >
+            <button key={day.id} className={btnClass} onClick={handleClick}>
               {day.id}
             </button>
           );
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽
+        Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽ <br></br>
+        Отработано часов: {monthHoursSum[monthIndex] || 0} ч
       </div>
     </div>
   );

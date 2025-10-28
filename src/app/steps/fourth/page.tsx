@@ -58,7 +58,7 @@ const StepFour= () => {
           "offShift",
         ]);
         setDayHours([12, 12, 2, 4, 2, 0, 0, 0]);
-        setNightHours([0, 0, 2, 6, 6, 0, 0, 0]);
+        setNightHours([0, 0, 2, 8, 6, 0, 0, 0]);
         router.push("/steps/nightBonus");
         break;
       case "1day1nightDayOff":
