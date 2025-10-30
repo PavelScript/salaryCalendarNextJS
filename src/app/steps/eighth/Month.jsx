@@ -24,7 +24,7 @@ const Month = ({ monthIndex, days }) => {
   }
 
   // Расчёт зарплаты с мемоизацией
-  const { moneyPerMonth, monthHoursSum } = useMemo(() => {
+  const { moneyPerMonth, monthHoursSum, normalHours } = useMemo(() => {
     return CountMoney(
       dayByMonth,
       salaryPerMonth,
@@ -134,7 +134,7 @@ const Month = ({ monthIndex, days }) => {
       </div>
       <div className={styles.moneyPerMonth}>
         Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽ <br></br>
-        Отработано часов: {monthHoursSum[monthIndex] || 0} ч
+        Отработано часов: {monthHoursSum[monthIndex] || 0} ч / Норма: {normalHours[monthIndex]}
       </div>
     </div>
   );

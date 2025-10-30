@@ -11,15 +11,6 @@ const ShiftsReady = () => {
 
   const { dayByMonth } = useShiftStore();
 
-  //Переход к следующему вопросу
-  //   const toNextQuestion = () => {
-  //     navigate("/questions/step-8");
-  //   };
-
-  //   //Переход к предыдущему вопросу
-  //   const toPreviousQuestion = () => {
-  //     navigate("/questions/step-6");
-  //   };
 
   return (
     <div className={styles.container}>
@@ -37,10 +28,7 @@ const ShiftsReady = () => {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        {/* <button onClick={toPreviousQuestion}>Назад</button>
-        <button disabled={isDisabled} onClick={toNextQuestion}>
-          Далее
-        </button> */}
+
       </div>
     </div>
   );
