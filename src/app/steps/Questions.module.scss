@@ -9,18 +9,18 @@
 
     .questionForm {
         margin-bottom: 20vh;
+        
 
     }
 
 
     .inputField {
         width: 95%;
-        height: 35vh;
         background-color: rgb(39, 39, 39);
         border-radius: 15px;
         display: flex;
         flex-direction: column;
-        margin-bottom: 22vh;
+        margin-bottom: 20vh;
         justify-content: space-between;
 
 
@@ -131,10 +131,18 @@
 
 
     @media(min-width: 1200px) {
+
+        .questionForm {
+        margin-bottom: 40vh;
+        
+
+    }
+
+
+  
         .inputField {
             width: 60vw;
-            height:20vh;
-
+            margin-bottom: 40vh;
             h1 {
                 font-size: 1.5rem;
                 text-align:center;

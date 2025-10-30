@@ -1,5 +1,6 @@
 .container {
     width: 100wv;
+    height: 100vh;
 
     .fieldContainer {
         display: flex;
@@ -9,7 +10,7 @@
         justify-self: center;
         align-self: center;
         border-radius: 15px;
-        padding: 20px;
+        padding: 1%;
         background-color: rgb(39, 39, 39);
 
         p {
@@ -20,10 +21,9 @@
 
 }
 
-@media(min-width:1200px) {
+@media(min-width:1500px) {
     .container {
         .fieldContainer {
-        height:90vh;
             .calendarYear {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);

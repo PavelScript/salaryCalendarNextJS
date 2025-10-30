@@ -8,7 +8,7 @@ import styles from "../Questions.module.scss";
 import Header from "@/components/Header/Header";
 import { useShiftStore } from "@/store/useShiftStore";
 
-const StepFour= () => {
+const StepFour = () => {
   const router = useRouter();
 
   const {
@@ -22,14 +22,17 @@ const StepFour= () => {
   const shiftOptionsKey = [
     { value: "1day1dayOff", label: "1 день / 1 выходной" },
     { value: "2days2daysOff", label: "2 дня / 2 выходных" },
-    { value: "2days2nights4daysOff", label: "2 дня / 2 ночи / 4 выходных" },
     { value: "1day1nightDayOff", label: "1 день / 1 ночь / выходной" },
+    { value: "2days2nights4daysOff", label: "2 дня / 2 ночи / 4 выходных" },
+    {
+      value: "2daysDayOff2nights3DaysOff",
+      label: "2 дня / 1 выходной / 2 ночи / 3 выходных",
+    },
   ];
 
-    const goBack = () => {
+  const goBack = () => {
     router.push("/steps/third");
   };
-
 
   const handleSubmit = ({ shiftPatternKey }: { shiftPatternKey: string }) => {
     setShiftPatternKey(shiftPatternKey);
@@ -61,6 +64,22 @@ const StepFour= () => {
         setNightHours([0, 0, 2, 8, 6, 0, 0, 0]);
         router.push("/steps/nightBonus");
         break;
+      case "2daysDayOff2nights3DaysOff":
+        setShiftPattern([
+          "dayShift",
+          "dayShift",
+          "offShift",
+          "nightShift",
+          "nightShift",
+          "offShift",
+          "offShift",
+          "offShift",
+        ]);
+        setDayHours([12, 12, 0, 2, 4, 2, 0, 0]);
+        setNightHours([0, 0, 0, 2, 8, 6, 0, 0]);
+        router.push("/steps/nightBonus");
+        break;
+
       case "1day1nightDayOff":
         setShiftPattern(["dayShift", "nightShift", "offShift"]);
         setDayHours([12, 2, 2]);
@@ -69,11 +88,7 @@ const StepFour= () => {
         break;
       default:
         setShiftPattern([]);
-        
-        
     }
-
-    
   };
 
   //Получить выбранный график сменности от пользователя из QuestionSelect

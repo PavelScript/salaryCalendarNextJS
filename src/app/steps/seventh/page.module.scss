@@ -1,5 +1,6 @@
 .container {
     width:100wv;
+    height: 100vh;
 
     .fieldContainer {
         display: flex;
@@ -20,10 +21,9 @@
 
 }
 
-@media(min-width:1200px) {
+@media(min-width:1500px) {
     .container {
         .fieldContainer {
-            height:90vh;
             .gridContainer {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);

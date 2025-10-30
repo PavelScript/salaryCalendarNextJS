@@ -7,9 +7,10 @@ import Header from "@/components/Header/Header"
 
 
 const First = () => {
-  const router = useRouter(); // ✅ Используем router.push
+  const router = useRouter(); 
   const nextQuestion = () => {
-    router.push("/steps/second"); // ✅ Перенаправление в Next.js
+    router.push("/steps/second"); 
+    
   };
   return (
     <div className={styles.container}>

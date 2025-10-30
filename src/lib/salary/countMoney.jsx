@@ -10,7 +10,7 @@ export const CountMoney = (
   const normalHours = [
     136, 160, 167, 175, 144, 151, 184, 168, 176, 184, 151, 176,
   ];
-  console.log(dayByMonth)
+
   const dayHoursSum = [];
   const nightHoursSum = [];
   const monthHoursSum = [];

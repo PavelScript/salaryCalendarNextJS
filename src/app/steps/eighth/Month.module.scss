@@ -9,6 +9,7 @@
     height: 100%;
     padding-top: 5%;
     font-size: 1rem;
+    justify-content: space-between;;
 
     .moneyPerMonth {
         margin-top: 1rem;
@@ -18,7 +19,7 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-gap: 7px;
+        grid-gap: 0.5rem;
         justify-content: center;
         text-align: center;
 
@@ -33,7 +34,7 @@
         button {
             background-color: rgb(14, 101, 125);
             width: 40px;
-            height: 20px;
+            height: 30px;
             border-radius: 3px;
         }
 
