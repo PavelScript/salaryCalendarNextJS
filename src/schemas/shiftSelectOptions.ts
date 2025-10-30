@@ -5,7 +5,7 @@ const VALID_PATTERNS = [
   "2days2daysOff",
   "2days2nights4daysOff",
   "1day1nightDayOff",
-  "2days2nights4daysOff",
+  "2daysDayOff2nights3DaysOff",
 ] as const;
 
 type ValidPattern = (typeof VALID_PATTERNS)[number];
