@@ -133,7 +133,7 @@ const Month = ({ monthIndex, days }) => {
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽ <br></br>
+        Заработано за месяц: ≈ {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽ <br></br>
         Отработано часов: {monthHoursSum[monthIndex] || 0} ч / Норма: {normalHours[monthIndex]}
       </div>
     </div>

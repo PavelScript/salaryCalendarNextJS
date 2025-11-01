@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google"; // ✅ Импортируем Inter
 import "./globals.css";
+import YandexMetrika from "@/components/YandexMetrica/YandexMetrica";
 
-// Настройка шрифта Inter
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   variable: "--font-inter", // Можно назвать переменную как угодно
 });
 
@@ -24,13 +24,10 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         {/* iOS: позволяет добавлять в «Домашний экран» */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-
         {/* Стиль статус-бара (опционально) */}
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
         {/* Название приложения (для ярлыка) */}
         <meta name="apple-mobile-web-app-title" content="SalaryCalendar" />
-
         {/* Иконка для iPhone (разные размеры) */}
         <link
           rel="apple-touch-icon"
@@ -39,9 +36,8 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.variable}>
-        {" "}
-        {/* ✅ Используем переменную шрифта */}
         {children}
+        <YandexMetrika />
       </body>
     </html>
   );
