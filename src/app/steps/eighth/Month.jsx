@@ -5,11 +5,16 @@ import styles from "./Month.module.scss";
 import { CountMoney } from "@/lib/salary/countMoney";
 import { useShiftStore } from "@/store/useShiftStore";
 import { useSalaryStore } from "@/store/useSalaryStore";
+import ChooseShiftTypeWindow from "@/components/ChooseShiftTypeWindow/ChooseShiftTypeWindow";
+import { createPortal } from "react-dom";
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-const Month = ({ monthIndex, days }) => {
-  const { dayByMonth } = useShiftStore();
+const Month = ({ monthIndex }) => {
+  const { dayByMonth, setWorkShift } = useShiftStore();
+  const days = dayByMonth[monthIndex] || [];
+  const [shiftWindowPosition, setShiftWindowPosition] = useState(null);
+
   const {
     salaryPerMonth,
     districtCoefficient,
@@ -18,12 +23,6 @@ const Month = ({ monthIndex, days }) => {
     nightHourBonus,
   } = useSalaryStore();
 
-  // Защита от пустых данных
-  if (!days || days.length === 0) {
-    return <div className={styles.container}>Загрузка...</div>;
-  }
-
-  // Расчёт зарплаты с мемоизацией
   const { moneyPerMonth, monthHoursSum, normalHours } = useMemo(() => {
     return CountMoney(
       dayByMonth,
@@ -42,52 +41,77 @@ const Month = ({ monthIndex, days }) => {
     nightHourBonus,
   ]);
 
-  // Извлечение смен и праздников
-  const holidays = days.filter((day) => day.holiday).map((day) => day.id);
-  const dayShifts = useMemo(() => {
-    return days
-      .filter((day) => day.workShift === "dayShift")
-      .map((day) => day.id);
-  }, [days]);
+  // Мемоизируйте все вычисления на основе `days`
+  const holidays = useMemo(() => 
+    days.filter(d => d.holiday).map(d => d.id), 
+    [days]
+  );
 
-  const nightShifts = useMemo(() => {
-    return days
-      .filter((day) => day.workShift === "nightShift")
-      .map((day) => day.id);
-  }, [days]);
+  const dayShifts = useMemo(() => 
+    days.filter(d => d.workShift === "dayShift").map(d => d.id), 
+    [days]
+  );
 
-  // Состояние выбранных дней
-  const [daysChosen, setDaysChosen] = useState([]);
-  const [nightsChosen, setNightsChosen] = useState([]);
+  const nightShifts = useMemo(() => 
+    days.filter(d => d.workShift === "nightShift").map(d => d.id), 
+    [days]
+  );
 
-  // Обновление состояния при изменении смен
-  useEffect(() => {
-    setDaysChosen(dayShifts);
-  }, [dayShifts]);
-
-  useEffect(() => {
-    setNightsChosen(nightShifts);
-  }, [nightShifts]);
-
-  // Обработчики выбора
-  const choseDay = (id) => {
-    setDaysChosen((prev) =>
-      prev.includes(id) ? prev.filter((dayId) => dayId !== id) : [...prev, id]
-    );
+  const handleSelectShift = (dayId, shiftType) => {
+    setWorkShift(monthIndex, dayId, shiftType);
+    setShiftWindowPosition(null);
   };
 
-  const choseNight = (id) => {
-    setNightsChosen((prev) =>
-      prev.includes(id) ? prev.filter((dayId) => dayId !== id) : [...prev, id]
-    );
+  const handleClick = (e, dayId) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const popupWidth = 180;
+    let x = rect.left;
+    if (rect.left + popupWidth > window.innerWidth) {
+      x = window.innerWidth - popupWidth;
+    }
+    x = Math.max(x, 0);
+
+    setShiftWindowPosition({ x, y: rect.bottom, dayId });
   };
 
-  // Календарь
+  // useEffect(() => {
+  //   const handleClickOutside = () => {
+  //     if (shiftWindowPosition) {
+  //       setShiftWindowPosition(null);
+  //     }
+  //   };
+
+  //   if (shiftWindowPosition) {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => document.removeEventListener("mousedown", handleClickOutside);
+  //   }
+  // }, [shiftWindowPosition]);
+
   const startDayOfWeek = new Date(2025, monthIndex, 1).getDay();
   const emptyCellsBefore = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
 
   return (
     <div className={styles.container}>
+      {shiftWindowPosition &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            style={{
+              position: "fixed",
+              left: `${shiftWindowPosition.x}px`,
+              top: `${shiftWindowPosition.y}px`,
+              zIndex: 10000,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ChooseShiftTypeWindow
+              onClose={() => setShiftWindowPosition(null)}
+              onSelect={(shiftType) => handleSelectShift(shiftWindowPosition.dayId, shiftType)}
+            />
+          </div>,
+          document.body
+        )}
+
       <div className={styles.grid}>
         <div></div>
         <div className={styles.month}>
@@ -107,8 +131,8 @@ const Month = ({ monthIndex, days }) => {
 
         {days.map((day) => {
           const isHoliday = holidays.includes(day.id);
-          const isChosenDay = daysChosen.includes(day.id);
-          const isChosenNight = nightsChosen.includes(day.id);
+          const isChosenDay = dayShifts.includes(day.id);      
+          const isChosenNight = nightShifts.includes(day.id);  
 
           let btnClass = styles.btnDefault;
           if (isChosenDay && isHoliday) btnClass = styles.holidayDaysChosen;
@@ -116,25 +140,22 @@ const Month = ({ monthIndex, days }) => {
           else if (isChosenNight) btnClass = styles.btnChosenNight;
           else if (isHoliday) btnClass = styles.holidayDays;
 
-          // Определяем, какую функцию вызывать
-          const handleClick = () => {
-            if (day.workShift === "dayShift") {
-              choseDay(day.id);
-            } else if (day.workShift === "nightShift") {
-              choseNight(day.id);
-            }
-          };
-
           return (
-            <button key={day.id} className={btnClass} onClick={handleClick}>
+            <button
+              key={day.id}
+              className={btnClass}
+              onClick={(e) => handleClick(e, day.id)}
+            >
               {day.id}
             </button>
           );
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: ≈ {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽ <br></br>
-        Отработано часов: {monthHoursSum[monthIndex] || 0} ч / Норма: {normalHours[monthIndex]}
+        Заработано за месяц: ≈ {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽{" "}
+        <br />
+        Отработано часов: {monthHoursSum[monthIndex] || 0} ч / Норма:{" "}
+        {normalHours[monthIndex]}
       </div>
     </div>
   );

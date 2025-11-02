@@ -29,11 +29,11 @@ export default function RootLayout({
         {/* Название приложения (для ярлыка) */}
         <meta name="apple-mobile-web-app-title" content="SalaryCalendar" />
         {/* Иконка для iPhone (разные размеры) */}
-        <link
+        {/* <link
           rel="apple-touch-icon"
           sizes="180x180"
           href="/icons/apple-touch-icon.png"
-        />
+        /> */}
       </head>
       <body className={inter.variable}>
         {children}

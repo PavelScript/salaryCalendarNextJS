@@ -28,11 +28,16 @@ interface ShiftState {
   dayByMonth: MonthDays[];
   setStartDayPattern: (value: number) => void;
   setStartDayChosen: (value: boolean) => void;
-  setShiftPatternKey:(value: string) => void;
+  setShiftPatternKey: (value: string) => void;
   setShiftPattern: (pattern: ShiftType[]) => void;
   setDayHours: (pattern: number[]) => void;
   setNightHours: (pattern: number[]) => void;
   setDayByMonth: (days: MonthDays[]) => void;
+  setWorkShift: (
+    monthIndex: number,
+    dayId: number,
+    shiftType: ShiftType | "none"
+  ) => void;
 }
 
 export const useShiftStore = create<ShiftState>()(
@@ -47,12 +52,51 @@ export const useShiftStore = create<ShiftState>()(
       nightHours: [],
       setStartDayPattern: (value) => set({ startDayPattern: value }),
       setStartDayChosen: (value) => set({ startDayChosen: value }),
-      setShiftPatternKey: (value) => set({shiftPatternKey: value}),
+      setShiftPatternKey: (value) => set({ shiftPatternKey: value }),
       setShiftPattern: (pattern) => set({ shiftPattern: pattern }),
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
       setDayByMonth: (days) => set({ dayByMonth: days }),
+      setWorkShift: (
+        monthIndex: number,
+        dayId: number,
+        shiftType: ShiftType | "none"
+      ) =>
+        set((state) => {
+          const newDayByMonth = [...state.dayByMonth];
 
+          if (!newDayByMonth[monthIndex]) return state;
+
+          const newMonth = [...newDayByMonth[monthIndex]];
+          const dayIndex = newMonth.findIndex((day) => day.id === dayId);
+          if (dayIndex === -1) return state;
+
+          const workShift = shiftType === "none" ? "offShift" : shiftType;
+
+          // Определяем часы в зависимости от типа смены
+          let dayHours = 0;
+          let nightHours = 0;
+
+          if (workShift === "dayShift") {
+            dayHours = 12;
+            nightHours = 0;
+          } else if (workShift === "nightShift") {
+
+            
+          }
+          // для "offShift" остаются 0
+
+          newMonth[dayIndex] = {
+            ...newMonth[dayIndex],
+            workShift,
+            dayHours,
+            nightHours,
+          };
+
+          newDayByMonth[monthIndex] = newMonth; 
+
+          return { dayByMonth: newDayByMonth };
+        }),
     }),
     {
       name: "shift-storage", // unique name for localStorage key
@@ -64,4 +108,3 @@ export const useShiftStore = create<ShiftState>()(
     }
   )
 );
-
