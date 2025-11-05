@@ -1,15 +1,4 @@
-interface ShiftDay {
-  yearId: number;
-  id: number; // день месяца (1–31)
-  year: number;
-  month: number; // 0–11 (как в JS Date)
-  workShift: "dayShift" | "nightShift" | "offShift";
-  weekDay: number; // 0 (воскресенье) – 6 (суббота)
-  holiday: boolean;
-  extraShift: boolean;
-  dayHours: number;
-  nightHours: number;
-}
+import type { Day} from "@/types/user.types"
 
 export const generateShiftPattern = (
   year: number,
@@ -18,7 +7,7 @@ export const generateShiftPattern = (
   dayHours: number[],
   nightHours: number[]
 ) => {
-  const DAYS: ShiftDay[] = [];
+  const DAYS: Day[] = [];
   let yearId = 0;
 
   for (let month = 0; month < 12; month++) {
@@ -80,14 +69,6 @@ export const generateShiftPattern = (
     patternIndex++;
   }
 
-  // Разделение по месяцам
-const daysByMonth: ShiftDay[][] = Array.from({ length: 12 }, () => []);
 
-for (const day of DAYS) {
-  daysByMonth[day.month].push(day);
-}
-
-
-
-  return daysByMonth;
+  return DAYS;
 };

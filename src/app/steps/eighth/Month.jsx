@@ -11,8 +11,18 @@ import { createPortal } from "react-dom";
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 const Month = ({ monthIndex }) => {
-  const { dayByMonth, setWorkShift } = useShiftStore();
-  const days = dayByMonth[monthIndex] || [];
+  const { DAYS, setWorkShift } = useShiftStore();
+  const daysByMonth = useMemo(() => {
+    const result = Array.from({ length: 12 }, () => []);
+    for (const day of DAYS) {
+      if (day.month >= 0 && day.month < 12) {
+        result[day.month].push(day);
+      }
+    }
+    return result;
+  }, [DAYS]);
+
+  const days = daysByMonth[monthIndex] || [];
   const [shiftWindowPosition, setShiftWindowPosition] = useState(null);
 
   const {
@@ -25,7 +35,7 @@ const Month = ({ monthIndex }) => {
 
   const { moneyPerMonth, monthHoursSum, normalHours } = useMemo(() => {
     return CountMoney(
-      dayByMonth,
+      daysByMonth,
       salaryPerMonth,
       districtCoefficient,
       northCoefficient,
@@ -33,7 +43,7 @@ const Month = ({ monthIndex }) => {
       nightHourBonus
     );
   }, [
-    dayByMonth,
+    daysByMonth,
     salaryPerMonth,
     districtCoefficient,
     northCoefficient,
@@ -42,18 +52,18 @@ const Month = ({ monthIndex }) => {
   ]);
 
   // Мемоизируйте все вычисления на основе `days`
-  const holidays = useMemo(() => 
-    days.filter(d => d.holiday).map(d => d.id), 
+  const holidays = useMemo(
+    () => days.filter((d) => d.holiday).map((d) => d.id),
     [days]
   );
 
-  const dayShifts = useMemo(() => 
-    days.filter(d => d.workShift === "dayShift").map(d => d.id), 
+  const dayShifts = useMemo(
+    () => days.filter((d) => d.workShift === "dayShift").map((d) => d.id),
     [days]
   );
 
-  const nightShifts = useMemo(() => 
-    days.filter(d => d.workShift === "nightShift").map(d => d.id), 
+  const nightShifts = useMemo(
+    () => days.filter((d) => d.workShift === "nightShift").map((d) => d.id),
     [days]
   );
 
@@ -65,27 +75,28 @@ const Month = ({ monthIndex }) => {
   const handleClick = (e, dayId) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const popupWidth = 180;
+    const popupHeight = 200; // исправил опечатку: height, а не heigth
+
+    // Позиция по X
     let x = rect.left;
     if (rect.left + popupWidth > window.innerWidth) {
-      x = window.innerWidth - popupWidth;
+      x = window.innerWidth - popupWidth; // прижать к правому краю
     }
-    x = Math.max(x, 0);
+    x = Math.max(x, 0); // не уходить за левый край
 
-    setShiftWindowPosition({ x, y: rect.bottom, dayId });
+    // Позиция по Y
+    let y = rect.bottom; // по умолчанию — под кнопкой
+
+    // Если не помещается снизу — показываем ВЫШЕ кнопки
+    if (rect.bottom + popupHeight > window.innerHeight) {
+      y = rect.top - popupHeight; // окно над кнопкой
+    }
+
+    // Защита: не уходить за верхний край экрана
+    y = Math.max(y, 0);
+
+    setShiftWindowPosition({ x, y, dayId });
   };
-
-  // useEffect(() => {
-  //   const handleClickOutside = () => {
-  //     if (shiftWindowPosition) {
-  //       setShiftWindowPosition(null);
-  //     }
-  //   };
-
-  //   if (shiftWindowPosition) {
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //     return () => document.removeEventListener("mousedown", handleClickOutside);
-  //   }
-  // }, [shiftWindowPosition]);
 
   const startDayOfWeek = new Date(2025, monthIndex, 1).getDay();
   const emptyCellsBefore = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
@@ -106,7 +117,9 @@ const Month = ({ monthIndex }) => {
           >
             <ChooseShiftTypeWindow
               onClose={() => setShiftWindowPosition(null)}
-              onSelect={(shiftType) => handleSelectShift(shiftWindowPosition.dayId, shiftType)}
+              onSelect={(shiftType) =>
+                handleSelectShift(shiftWindowPosition.dayId, shiftType)
+              }
             />
           </div>,
           document.body
@@ -131,8 +144,8 @@ const Month = ({ monthIndex }) => {
 
         {days.map((day) => {
           const isHoliday = holidays.includes(day.id);
-          const isChosenDay = dayShifts.includes(day.id);      
-          const isChosenNight = nightShifts.includes(day.id);  
+          const isChosenDay = dayShifts.includes(day.id);
+          const isChosenNight = nightShifts.includes(day.id);
 
           let btnClass = styles.btnDefault;
           if (isChosenDay && isHoliday) btnClass = styles.holidayDaysChosen;

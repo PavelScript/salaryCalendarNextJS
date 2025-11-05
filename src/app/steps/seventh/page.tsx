@@ -8,7 +8,7 @@ import { useMemo, useEffect, useState } from "react";
 import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
 import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
-
+import type { Day} from "@/types/user.types"
 
 const StepSeven = () => {
   const router = useRouter();
@@ -16,15 +16,18 @@ const StepSeven = () => {
     startDayPattern,
     setStartDayPattern,
     shiftPattern,
-    setDayByMonth,
+    setDAYS,
     dayHours,
     nightHours,
   } = useShiftStore();
 
-  const [selectedDay, setSelectedDay] = useState<{ id: number; month: number } | null>(null);
+  const [selectedDay, setSelectedDay] = useState<{
+    id: number;
+    month: number;
+  } | null>(null);
 
   // dayByMonth готовый календарь со сменами на год по месяцам
-  const dayByMonth = useMemo(
+  const DAYS = useMemo(
     () =>
       generateShiftPattern(
         2025,
@@ -37,21 +40,25 @@ const StepSeven = () => {
   );
 
   useEffect(() => {
-    setDayByMonth(dayByMonth);
-  }, [dayByMonth, setDayByMonth]);
+    setDAYS(DAYS);
+  }, [DAYS, setDAYS]);
 
-  const handleDaySelect = (dayId:number, monthIndex:number) => {
-    const foundDay = dayByMonth[monthIndex]?.find((day) => day.id === dayId);
+  const daysByMonth: Day[][] = Array.from({ length: 12 }, () => []);
+
+  for (const day of DAYS) {
+    daysByMonth[day.month].push(day);
+  }
+
+  const handleDaySelect = (dayId: number, monthIndex: number) => {
+    const foundDay = daysByMonth[monthIndex]?.find((day) => day.id === dayId);
 
     if (!foundDay) {
-    return;
-  }
+      return;
+    }
     setSelectedDay({ id: dayId, month: monthIndex });
     setStartDayPattern(foundDay.yearId); // Обновляем startDayPattern
     router.push("/steps/eighth");
   };
-
-
 
   return (
     <div className={styles.container}>
@@ -59,7 +66,7 @@ const StepSeven = () => {
       <div className={styles.fieldContainer}>
         <p>Выберите день с которого начать строить график смен</p>
         <div className={styles.gridContainer}>
-          {dayByMonth.map((monthDays, monthIndex) => (
+          {daysByMonth.map((monthDays, monthIndex) => (
             <ChooseStartDay
               key={`month-${monthIndex}`} // ← УБРАЛИ startDayPattern
               monthIndex={monthIndex}

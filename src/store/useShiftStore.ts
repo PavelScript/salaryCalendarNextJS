@@ -1,23 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { Day, ShiftType } from "@/types/user.types";
 
-// Типы смен
-type ShiftType = "dayShift" | "nightShift" | "offShift";
-
-interface Day {
-  yearId: number;
-  id: number; // день месяца (1–31)
-  year: number;
-  month: number; // 0–11 (как в JS Date)
-  workShift: "dayShift" | "nightShift" | "offShift";
-  weekDay: number; // 0 (воскресенье) – 6 (суббота)
-  holiday: boolean;
-  extraShift: boolean;
-  dayHours: number;
-  nightHours: number;
-}
-
-type MonthDays = Day[];
 interface ShiftState {
   startDayPattern: number;
   startDayChosen: boolean;
@@ -25,14 +9,14 @@ interface ShiftState {
   shiftPattern: ShiftType[];
   dayHours: number[];
   nightHours: number[];
-  dayByMonth: MonthDays[];
+  DAYS: Day[];
   setStartDayPattern: (value: number) => void;
   setStartDayChosen: (value: boolean) => void;
   setShiftPatternKey: (value: string) => void;
   setShiftPattern: (pattern: ShiftType[]) => void;
   setDayHours: (pattern: number[]) => void;
   setNightHours: (pattern: number[]) => void;
-  setDayByMonth: (days: MonthDays[]) => void;
+  setDAYS: (days: Day[]) => void;
   setWorkShift: (
     monthIndex: number,
     dayId: number,
@@ -47,7 +31,7 @@ export const useShiftStore = create<ShiftState>()(
       startDayChosen: false,
       shiftPatternKey: "",
       shiftPattern: [],
-      dayByMonth: [],
+      DAYS: [],
       dayHours: [],
       nightHours: [],
       setStartDayPattern: (value) => set({ startDayPattern: value }),
@@ -56,54 +40,68 @@ export const useShiftStore = create<ShiftState>()(
       setShiftPattern: (pattern) => set({ shiftPattern: pattern }),
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
-      setDayByMonth: (days) => set({ dayByMonth: days }),
+      setDAYS: (days) => set({ DAYS: days }),
       setWorkShift: (
         monthIndex: number,
         dayId: number,
         shiftType: ShiftType | "none"
       ) =>
         set((state) => {
-          const newDayByMonth = [...state.dayByMonth];
+          const newDays = [...state.DAYS];
+          const dayIndex = newDays.findIndex(
+            (day) => day.month === monthIndex && day.id === dayId
+          );
 
-          if (!newDayByMonth[monthIndex]) return state;
-
-          const newMonth = [...newDayByMonth[monthIndex]];
-          const dayIndex = newMonth.findIndex((day) => day.id === dayId);
           if (dayIndex === -1) return state;
 
           const workShift = shiftType === "none" ? "offShift" : shiftType;
 
-          // Определяем часы в зависимости от типа смены
-          let dayHours = 0;
-          let nightHours = 0;
-
-          if (workShift === "dayShift") {
-            dayHours = 12;
-            nightHours = 0;
-          } else if (workShift === "nightShift") {
-
-            
-          }
-          // для "offShift" остаются 0
-
-          newMonth[dayIndex] = {
-            ...newMonth[dayIndex],
+          // Обновляем текущий день
+          const updatedDay = {
+            ...newDays[dayIndex],
             workShift,
-            dayHours,
-            nightHours,
+            dayHours: 0,
+            nightHours: 0,
           };
 
-          newDayByMonth[monthIndex] = newMonth; 
+          if (workShift === "offShift") {
+            updatedDay.dayHours = 0;
+            const nextDayIndex = dayIndex + 1;
+            if (nextDayIndex < newDays.length) {
+              newDays[nextDayIndex] = {
+                ...newDays[nextDayIndex],
+                dayHours: 0,
+                nightHours: 0,
+              };
+            }
+          }
 
-          return { dayByMonth: newDayByMonth };
+          // Устанавливаем часы в зависимости от типа смены
+          if (workShift === "dayShift") {
+            updatedDay.dayHours = 12;
+          } else if (workShift === "nightShift") {
+            updatedDay.dayHours = 2;
+            updatedDay.nightHours = 2;
+
+            // Обновляем следующий день для ночной смены
+            const nextDayIndex = dayIndex + 1;
+            if (nextDayIndex < newDays.length) {
+              newDays[nextDayIndex] = {
+                ...newDays[nextDayIndex],
+                dayHours: 2,
+                nightHours: 6,
+              };
+            }
+          }
+
+          newDays[dayIndex] = updatedDay;
+          return { DAYS: newDays };
         }),
     }),
     {
-      name: "shift-storage", // unique name for localStorage key
-      // Optional: you can serialize/deserialize Date objects if needed
+      name: "shift-storage",
       partialize: (state) => ({
         ...state,
-        // Add any special serialization here if needed
       }),
     }
   )
