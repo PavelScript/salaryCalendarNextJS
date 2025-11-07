@@ -41,56 +41,61 @@ export const useShiftStore = create<ShiftState>()(
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
       setDAYS: (days) => set({ DAYS: days }),
-      setWorkShift: (
-        monthIndex: number,
-        dayId: number,
-        shiftType: ShiftType | "none"
-      ) =>
+      setWorkShift: (monthIndex, dayId, shiftType) =>
         set((state) => {
           const newDays = [...state.DAYS];
           const dayIndex = newDays.findIndex(
-            (day) => day.month === monthIndex && day.id === dayId
+            (d) => d.month === monthIndex && d.id === dayId
           );
-
           if (dayIndex === -1) return state;
 
-          const workShift = shiftType === "none" ? "offShift" : shiftType;
+          const oldShift = newDays[dayIndex].workShift;
+          const newShift = shiftType === "none" ? "offShift" : shiftType;
+          const prevShift = newDays[dayIndex - 1]?.workShift;
 
-          // Обновляем текущий день
-          const updatedDay = {
-            ...newDays[dayIndex],
-            workShift,
-            dayHours: 0,
-            nightHours: 0,
-          };
+          // 1. Удаляем старый "хвост" ночной смены, если был
+          if (oldShift === "nightShift") {
+            const nextId = dayIndex + 1;
 
-          if (workShift === "offShift") {
-            updatedDay.dayHours = 0;
-            const nextDayIndex = dayIndex + 1;
-            if (nextDayIndex < newDays.length) {
-              newDays[nextDayIndex] = {
-                ...newDays[nextDayIndex],
-                dayHours: 0,
-                nightHours: 0,
+            if (nextId < newDays.length) {
+              newDays[nextId] = {
+                ...newDays[nextId],
+                dayHours: Math.max(0, newDays[nextId].dayHours - 2),
+                nightHours: Math.max(0, newDays[nextId].nightHours - 6),
               };
             }
           }
 
-          // Устанавливаем часы в зависимости от типа смены
-          if (workShift === "dayShift") {
+          // 2. Устанавливаем новый тип смены
+          const updatedDay = { ...newDays[dayIndex], workShift: newShift };
+
+          if (newShift === "dayShift") {
             updatedDay.dayHours = 12;
-          } else if (workShift === "nightShift") {
+            updatedDay.nightHours = 0;
+          } else if (newShift === "nightShift") {
             updatedDay.dayHours = 2;
             updatedDay.nightHours = 2;
+              if (prevShift === "nightShift") {
+                updatedDay.dayHours = 4;
+                updatedDay.nightHours = 8;
+              }
 
-            // Обновляем следующий день для ночной смены
-            const nextDayIndex = dayIndex + 1;
-            if (nextDayIndex < newDays.length) {
-              newDays[nextDayIndex] = {
-                ...newDays[nextDayIndex],
-                dayHours: 2,
-                nightHours: 6,
+            // Adding remains of night shift to the next day
+            const nextId = dayIndex + 1;
+            if (nextId < newDays.length) {
+              newDays[nextId] = {
+                ...newDays[nextId],
+                dayHours: (newDays[nextId].dayHours || 0) + 2,
+                nightHours: (newDays[nextId].nightHours || 0) + 6,
               };
+            }
+          } else {
+            if (prevShift === "nightShift") {
+              updatedDay.dayHours = 2;
+              updatedDay.nightHours = 6;
+            } else {
+              updatedDay.dayHours = 0;
+              updatedDay.nightHours = 0;
             }
           }
 

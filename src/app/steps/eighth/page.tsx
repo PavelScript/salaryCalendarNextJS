@@ -16,6 +16,7 @@ const ShiftsReady = () => {
     daysByMonth[day.month].push(day);
   }
 
+  console.log(DAYS.filter((d)=> d.month === 1))
   return (
     <div className={styles.container}>
       <Header />
