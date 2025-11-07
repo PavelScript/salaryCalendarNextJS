@@ -54,7 +54,11 @@
 @media(min-width:1500px) {
     .container {
         .fieldContainer {
-            .showInfoButton {
+            .showInfoButtonDefault {
+                display: none;
+            }
+
+            .showInfoButtonGray {
                 display: none;
             }
 
