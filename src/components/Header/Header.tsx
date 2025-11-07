@@ -6,7 +6,6 @@ import { useShiftStore } from "@/store/useShiftStore";
 const Header = () => {
   const { DAYS } = useShiftStore();
 
-
   // Проверяем, что dayByMonth — массив и содержит хотя бы один месяц с данными
   const hasSchedule = Array.isArray(DAYS) && DAYS.length > 0;
 
