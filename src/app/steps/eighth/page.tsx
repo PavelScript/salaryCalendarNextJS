@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.scss";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useShiftStore } from "@/store/useShiftStore";
 import Header from "@/components/Header/Header";
 import type { Day } from "@/types/user.types";
@@ -10,6 +10,22 @@ import Info from "@/components/Info/Info";
 import Month from "./Month";
 
 const ShiftsReady = () => {
+  const currentMonthRef = useRef<HTMLDivElement>(null);
+  const currentMonth = new Date().getMonth();
+
+  useEffect(() => {
+  if (currentMonthRef.current) {
+    setTimeout(() => {
+      if (currentMonthRef.current) {
+        currentMonthRef.current.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 150);
+  }
+}, []);
+
   const [showInfo, setShowInfo] = useState(false);
   const [text, setText] = useState("Показать справку по цветовым обозначениям");
   const { DAYS } = useShiftStore();
@@ -47,7 +63,12 @@ const ShiftsReady = () => {
         <p>Ваш график смен на 2025 год </p>
         <div className={styles.calendarYear}>
           {daysByMonth.map((_, monthIndex) => (
-            <Month key={monthIndex} monthIndex={monthIndex} />
+            <div
+              key={monthIndex}
+              ref={monthIndex === currentMonth ? currentMonthRef : null}
+            >
+              <Month key={monthIndex} monthIndex={monthIndex} />
+            </div>
           ))}
         </div>
       </div>

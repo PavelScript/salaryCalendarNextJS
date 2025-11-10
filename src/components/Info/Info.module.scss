@@ -8,7 +8,7 @@
     flex-direction: column;
     gap: 0.5vh;
     align-items: center;
-    
+
 
 
     .dayShift {
@@ -67,10 +67,36 @@
         color: rgb(233, 233, 233);
     }
 
+    .holidayDaysChosen {
+        background: GOLDENROD;
+        background: linear-gradient(145deg, goldenrod 45%, rgba(221, 74, 30, 1) 45%);
+        text-align: center;
+        justify-self: center;
+        width: 50%;
+        font-weight: 300;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        color: rgb(233, 233, 233);
 
-    @media(min-width:1200px){
+    }
+
+    .holidayNightChosen {
+        background: rgb(15, 44, 138);
+        background: linear-gradient(145deg, rgb(15, 44, 138) 45%, rgba(221, 74, 30, 1) 45%);
+        text-align: center;
+        justify-self: center;
+        width: 50%;
+        font-weight: 300;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        color: rgb(233, 233, 233);
+
+    }
+
+
+    @media(min-width:1200px) {
         width: 20vw;
-        min-width:min-content;
+        min-width: min-content;
         padding: 1%;
         padding-bottom: 4%;
     }

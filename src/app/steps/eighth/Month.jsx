@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo} from "react";
 import styles from "./Month.module.scss";
 import { CountMoney } from "@/lib/salary/countMoney";
 import { useShiftStore } from "@/store/useShiftStore";
@@ -12,6 +12,12 @@ const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 const Month = ({ monthIndex }) => {
   const { DAYS, setWorkShift } = useShiftStore();
+
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+  
   const daysByMonth = useMemo(() => {
     const result = Array.from({ length: 12 }, () => []);
     for (const day of DAYS) {
@@ -21,6 +27,12 @@ const Month = ({ monthIndex }) => {
     }
     return result;
   }, [DAYS]);
+
+  const isCurrentDay = (dayId, month) => {
+    return (
+      currentYear === 2025 && currentMonth === month && currentDay === dayId
+    );
+  };
 
   const days = daysByMonth[monthIndex] || [];
   const [shiftWindowPosition, setShiftWindowPosition] = useState(null);
@@ -146,12 +158,19 @@ const Month = ({ monthIndex }) => {
           const isHoliday = holidays.includes(day.id);
           const isChosenDay = dayShifts.includes(day.id);
           const isChosenNight = nightShifts.includes(day.id);
+          const isToday = isCurrentDay(day.id, monthIndex);
 
           let btnClass = styles.btnDefault;
           if (isChosenDay && isHoliday) btnClass = styles.holidayDaysChosen;
+          else if (isChosenNight && isHoliday)
+            btnClass = styles.holidayNightChosen;
           else if (isChosenDay) btnClass = styles.btnChosenDay;
           else if (isChosenNight) btnClass = styles.btnChosenNight;
           else if (isHoliday) btnClass = styles.holidayDays;
+
+          if (isToday) {
+            btnClass = `${btnClass} ${styles.currentDay}`;
+          }
 
           return (
             <button
