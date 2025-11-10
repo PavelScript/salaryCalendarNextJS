@@ -37,10 +37,13 @@
             width: 40px;
             height: 30px;
             border-radius: 3px;
+            border: 2px solid transparent;
         }
 
         .currentDay {
-            border: 3px, rgb(207, 8, 8), solid;
+            border: 3px solid rgb(207, 8, 8);
+            box-shadow: 0 0 0 2px rgba (207, 8, 8, 0.3);
+            z-index: 1;
         }
 
 
