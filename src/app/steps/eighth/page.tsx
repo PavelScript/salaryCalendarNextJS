@@ -12,19 +12,24 @@ import Month from "./Month";
 const ShiftsReady = () => {
   const currentMonthRef = useRef<HTMLDivElement>(null);
   const currentMonth = new Date().getMonth();
+  const [year, setYear] = useState(2025);
+
+  // Functions for altering year
+  const setYear2025 = () => setYear(2025);
+  const setYear2026 = () => setYear(2026);
 
   useEffect(() => {
-  if (currentMonthRef.current) {
-    setTimeout(() => {
-      if (currentMonthRef.current) {
-        currentMonthRef.current.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }, 150);
-  }
-}, []);
+    if (currentMonthRef.current) {
+      setTimeout(() => {
+        if (currentMonthRef.current) {
+          currentMonthRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 150);
+    }
+  }, []);
 
   const [showInfo, setShowInfo] = useState(false);
   const [text, setText] = useState("Показать справку по цветовым обозначениям");
@@ -33,7 +38,10 @@ const ShiftsReady = () => {
   const daysByMonth: Day[][] = Array.from({ length: 12 }, () => []);
 
   for (const day of DAYS) {
-    daysByMonth[day.month].push(day);
+    if (day.year === year) {
+      // Только дни выбранного года
+      daysByMonth[day.month].push(day);
+    }
   }
 
   const showInfoFunc = () => {
@@ -60,14 +68,28 @@ const ShiftsReady = () => {
           {text}
         </button>
 
-        <p>Ваш график смен на 2025 год </p>
+        <p>Ваш график смен на год </p>
+        <div className={styles.yearSelection}>
+          <button
+            onClick={setYear2025}
+            className={year === 2025 ? styles.yearSelectionActive : ""}
+          >
+            2025
+          </button>
+          <button
+            onClick={setYear2026}
+            className={year === 2026 ? styles.yearSelectionActive : ""}
+          >
+            2026
+          </button>
+        </div>
         <div className={styles.calendarYear}>
           {daysByMonth.map((_, monthIndex) => (
             <div
               key={monthIndex}
               ref={monthIndex === currentMonth ? currentMonthRef : null}
             >
-              <Month key={monthIndex} monthIndex={monthIndex} />
+              <Month key={monthIndex} monthIndex={monthIndex} year={year} />
             </div>
           ))}
         </div>

@@ -33,6 +33,30 @@ export const generateShiftPattern = (
     }
   }
 
+//Generate next year days
+   for (let month = 0; month < 12; month++) {
+    // Количество дней в месяце
+    const daysInMonth = new Date(year+1, month + 1, 0).getDate();
+
+    for (let id = 1; id <= daysInMonth; id++) {
+      // День недели (0 - воскресенье, 6 - суббота)
+      const dayOfWeek = new Date(year+1, month, id).getDay();
+
+      DAYS.push({
+        yearId: yearId++,
+        id: id,
+        year: year + 1,
+        month: month,
+        workShift: "offShift",
+        weekDay: dayOfWeek,
+        holiday: false,
+        extraShift: false,
+        dayHours: 0,
+        nightHours: 0,
+      });
+    }
+  }
+
   //Push holidayDays into DAYS
   const addHolidays = (holidaysArray:number[], monthId:number) => {
     holidaysArray.forEach((dayId) => {

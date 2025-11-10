@@ -10,18 +10,18 @@ import { createPortal } from "react-dom";
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-const Month = ({ monthIndex }) => {
+const Month = ({ monthIndex, year }) => {
   const { DAYS, setWorkShift } = useShiftStore();
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
   const currentDay = currentDate.getDate();
-  
+
   const daysByMonth = useMemo(() => {
     const result = Array.from({ length: 12 }, () => []);
     for (const day of DAYS) {
-      if (day.month >= 0 && day.month < 12) {
+      if (day.month >= 0 && day.month < 12 && day.year === year) {
         result[day.month].push(day);
       }
     }
@@ -30,7 +30,7 @@ const Month = ({ monthIndex }) => {
 
   const isCurrentDay = (dayId, month) => {
     return (
-      currentYear === 2025 && currentMonth === month && currentDay === dayId
+      currentYear === year && currentMonth === month && currentDay === dayId
     );
   };
 
@@ -110,7 +110,7 @@ const Month = ({ monthIndex }) => {
     setShiftWindowPosition({ x, y, dayId });
   };
 
-  const startDayOfWeek = new Date(2025, monthIndex, 1).getDay();
+  const startDayOfWeek = new Date(year, monthIndex, 1).getDay();
   const emptyCellsBefore = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
 
   return (
@@ -140,7 +140,7 @@ const Month = ({ monthIndex }) => {
       <div className={styles.grid}>
         <div></div>
         <div className={styles.month}>
-          {new Date(2025, monthIndex).toLocaleString("ru", { month: "long" })}
+          {new Date(year, monthIndex).toLocaleString("ru", { month: "long" })}
         </div>
         <div></div>
 

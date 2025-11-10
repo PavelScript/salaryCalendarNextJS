@@ -46,7 +46,9 @@ const StepSeven = () => {
   const daysByMonth: Day[][] = Array.from({ length: 12 }, () => []);
 
   for (const day of DAYS) {
+    if (day.year === 2025) {
     daysByMonth[day.month].push(day);
+    }
   }
 
   const handleDaySelect = (dayId: number, monthIndex: number) => {
