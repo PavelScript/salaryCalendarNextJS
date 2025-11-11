@@ -57,11 +57,15 @@ export const generateShiftPattern = (
     }
   }
 
-  //Push holidayDays into DAYS
-  const addHolidays = (holidaysArray:number[], monthId:number) => {
+  const addHolidays = (holidaysArray: number[], monthId: number) => {
     holidaysArray.forEach((dayId) => {
-      const day = DAYS.find((d) => d.month === monthId && d.id === dayId);
+      // Add holiday for current year
+      const day = DAYS.find((d) => d.year === year && d.month === monthId && d.id === dayId);
       if (day) day.holiday = true;
+      
+      // Add holiday for next year
+      const dayNextYear = DAYS.find((d) => d.year === year + 1 && d.month === monthId && d.id === dayId);
+      if (dayNextYear) dayNextYear.holiday = true;
     });
   };
 
@@ -92,6 +96,8 @@ export const generateShiftPattern = (
     day.nightHours = nightHours[patternIndex % nightHours.length];
     patternIndex++;
   }
+
+  console.log(DAYS)
 
   return DAYS;
 };

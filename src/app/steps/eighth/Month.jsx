@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo} from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./Month.module.scss";
 import { CountMoney } from "@/lib/salary/countMoney";
 import { useShiftStore } from "@/store/useShiftStore";
@@ -10,15 +10,33 @@ import { createPortal } from "react-dom";
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
+// Норматив по часам для каждого месяца
+const normalHours2025 = [
+  136, 160, 167, 175, 144, 151, 184, 168, 176, 184, 151, 176,
+];
+
+const normalHours2026 = [
+  120, 152, 168, 175, 151, 167, 184, 168, 176, 176, 159, 176,
+];
+
+
 const Month = ({ monthIndex, year }) => {
   const { DAYS, setWorkShift } = useShiftStore();
+
+
+  
+  // Выбираем нормативы часов в зависимости от года
+  const normalHoursCurrent = useMemo(() => {
+    return year === 2025 ? normalHours2025 : normalHours2026;
+  }, [year]);
 
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
   const currentDay = currentDate.getDate();
 
-  const daysByMonth = useMemo(() => {
+  // Собираем дни для ВСЕХ месяцев текущего года
+  const daysByMonthCurrentYear = useMemo(() => {
     const result = Array.from({ length: 12 }, () => []);
     for (const day of DAYS) {
       if (day.month >= 0 && day.month < 12 && day.year === year) {
@@ -26,7 +44,36 @@ const Month = ({ monthIndex, year }) => {
       }
     }
     return result;
-  }, [DAYS]);
+  }, [DAYS, year]);
+
+  // Собираем дни для декабря предыдущего года для расчета премии января
+  const decemberPreviousYearDays = useMemo(() => {
+    const result = [];
+    for (const day of DAYS) {
+      if (day.month === 11 && day.year === year - 1) { // Декабрь предыдущего года
+        result.push(day);
+      }
+    }
+    return result;
+  }, [DAYS, year]);
+
+  // Объединяем данные для расчета зарплаты
+  const daysForCalculation = useMemo(() => {
+    if (monthIndex === 0 && year > 2025) { // Для января 2026 и далее
+      // Добавляем декабрь предыдущего года в начало
+      return [decemberPreviousYearDays, ...daysByMonthCurrentYear];
+    }
+    return daysByMonthCurrentYear;
+  }, [daysByMonthCurrentYear, decemberPreviousYearDays, monthIndex, year]);
+
+  // Аналогично для нормативов часов
+  const normalHoursForCalculation = useMemo(() => {
+    if (monthIndex === 0 && year > 2025) {
+      const prevYearHours = year === 2026 ? normalHours2025 : normalHours2026;
+      return [prevYearHours[11], ...normalHoursCurrent]; // Декабрь предыдущего года + текущий год
+    }
+    return normalHoursCurrent;
+  }, [normalHoursCurrent, monthIndex, year]);
 
   const isCurrentDay = (dayId, month) => {
     return (
@@ -34,7 +81,8 @@ const Month = ({ monthIndex, year }) => {
     );
   };
 
-  const days = daysByMonth[monthIndex] || [];
+  // ИСПРАВЛЕНИЕ: используем правильное название переменной
+  const days = daysByMonthCurrentYear[monthIndex] || [];
   const [shiftWindowPosition, setShiftWindowPosition] = useState(null);
 
   const {
@@ -47,23 +95,27 @@ const Month = ({ monthIndex, year }) => {
 
   const { moneyPerMonth, monthHoursSum, normalHours } = useMemo(() => {
     return CountMoney(
-      daysByMonth,
+      daysForCalculation,
       salaryPerMonth,
       districtCoefficient,
       northCoefficient,
       bonusPercent,
-      nightHourBonus
+      nightHourBonus,
+      normalHoursForCalculation
     );
   }, [
-    daysByMonth,
+    daysForCalculation,
     salaryPerMonth,
     districtCoefficient,
     northCoefficient,
     bonusPercent,
     nightHourBonus,
+    normalHoursForCalculation,
   ]);
 
-  // Мемоизируйте все вычисления на основе `days`
+  // Для отображения используем данные начиная с текущего месяца
+  const displayMonthIndex = monthIndex === 0 && year > 2025 ? monthIndex + 1 : monthIndex;
+
   const holidays = useMemo(
     () => days.filter((d) => d.holiday).map((d) => d.id),
     [days]
@@ -79,32 +131,26 @@ const Month = ({ monthIndex, year }) => {
     [days]
   );
 
-  const handleSelectShift = (dayId, shiftType) => {
-    setWorkShift(monthIndex, dayId, shiftType);
+  const handleSelectShift = (dayId, shiftType, year) => {
+    setWorkShift(monthIndex, dayId, shiftType, year);
     setShiftWindowPosition(null);
   };
 
   const handleClick = (e, dayId) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const popupWidth = 180;
-    const popupHeight = 200; // исправил опечатку: height, а не heigth
+    const popupHeight = 200;
 
-    // Позиция по X
     let x = rect.left;
     if (rect.left + popupWidth > window.innerWidth) {
-      x = window.innerWidth - popupWidth; // прижать к правому краю
+      x = window.innerWidth - popupWidth;
     }
-    x = Math.max(x, 0); // не уходить за левый край
+    x = Math.max(x, 0);
 
-    // Позиция по Y
-    let y = rect.bottom; // по умолчанию — под кнопкой
-
-    // Если не помещается снизу — показываем ВЫШЕ кнопки
+    let y = rect.bottom;
     if (rect.bottom + popupHeight > window.innerHeight) {
-      y = rect.top - popupHeight; // окно над кнопкой
+      y = rect.top - popupHeight;
     }
-
-    // Защита: не уходить за верхний край экрана
     y = Math.max(y, 0);
 
     setShiftWindowPosition({ x, y, dayId });
@@ -130,7 +176,7 @@ const Month = ({ monthIndex, year }) => {
             <ChooseShiftTypeWindow
               onClose={() => setShiftWindowPosition(null)}
               onSelect={(shiftType) =>
-                handleSelectShift(shiftWindowPosition.dayId, shiftType)
+                handleSelectShift(shiftWindowPosition.dayId, shiftType, year)
               }
             />
           </div>,
@@ -184,10 +230,10 @@ const Month = ({ monthIndex, year }) => {
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: ≈ {moneyPerMonth[monthIndex]?.toFixed(0) || 0} ₽{" "}
+        Заработано за месяц: ≈ {moneyPerMonth[displayMonthIndex]?.toFixed(0) || 0} ₽{" "}
         <br />
-        Отработано часов: {monthHoursSum[monthIndex] || 0} ч / Норма:{" "}
-        {normalHours[monthIndex]}
+        Отработано часов: {monthHoursSum[displayMonthIndex] || 0} ч / Норма:{" "}
+        {normalHours[displayMonthIndex]}
       </div>
     </div>
   );

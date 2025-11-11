@@ -20,7 +20,8 @@ interface ShiftState {
   setWorkShift: (
     monthIndex: number,
     dayId: number,
-    shiftType: ShiftType | "none"
+    shiftType: ShiftType | "none",
+    year: number
   ) => void;
 }
 
@@ -41,11 +42,12 @@ export const useShiftStore = create<ShiftState>()(
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
       setDAYS: (days) => set({ DAYS: days }),
-      setWorkShift: (monthIndex, dayId, shiftType) =>
+      setWorkShift: (monthIndex, dayId, shiftType, year) =>
         set((state) => {
           const newDays = [...state.DAYS];
+          console.log(year);
           const dayIndex = newDays.findIndex(
-            (d) => d.month === monthIndex && d.id === dayId
+            (d) => d.month === monthIndex && d.id === dayId && d.year === year
           );
           if (dayIndex === -1) return state;
 

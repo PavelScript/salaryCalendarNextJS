@@ -4,12 +4,10 @@ export const CountMoney = (
   districtCoefficient,
   northCoefficient,
   bonusPercent,
-  nightHourBonus
+  nightHourBonus,
+  normalHours
 ) => {
-  // Норматив по часам для каждого месяца
-  const normalHours = [
-    136, 160, 167, 175, 144, 151, 184, 168, 176, 184, 151, 176,
-  ];
+
 
   const moneyPerMonth = [];
   const monthHoursSum = [];
