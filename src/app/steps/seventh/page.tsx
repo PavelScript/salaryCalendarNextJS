@@ -8,10 +8,14 @@ import { useMemo, useEffect, useState } from "react";
 import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
 import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
-import type { Day} from "@/types/user.types"
+import type { Day } from "@/types/user.types";
 
 const StepSeven = () => {
   const router = useRouter();
+
+  const goBack = () => {
+    router.push("/steps/sixth");
+  };
   const {
     startDayPattern,
     setStartDayPattern,
@@ -47,7 +51,7 @@ const StepSeven = () => {
 
   for (const day of DAYS) {
     if (day.year === 2025) {
-    daysByMonth[day.month].push(day);
+      daysByMonth[day.month].push(day);
     }
   }
 
@@ -66,6 +70,9 @@ const StepSeven = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.fieldContainer}>
+        <button onClick={goBack} className={styles.goBack}>
+          Назад
+        </button>
         <p>Выберите день с которого начать строить график смен</p>
         <div className={styles.gridContainer}>
           {daysByMonth.map((monthDays, monthIndex) => (

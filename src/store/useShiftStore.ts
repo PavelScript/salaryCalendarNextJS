@@ -45,7 +45,6 @@ export const useShiftStore = create<ShiftState>()(
       setWorkShift: (monthIndex, dayId, shiftType, year) =>
         set((state) => {
           const newDays = [...state.DAYS];
-          console.log(year);
           const dayIndex = newDays.findIndex(
             (d) => d.month === monthIndex && d.id === dayId && d.year === year
           );

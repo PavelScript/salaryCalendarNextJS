@@ -6,10 +6,17 @@ import { useShiftStore } from "@/store/useShiftStore";
 import Header from "@/components/Header/Header";
 import type { Day } from "@/types/user.types";
 import Info from "@/components/Info/Info";
+import YandexAd from "@/components/YandexAd/yandexAd";
+import { useRouter } from "next/navigation";
 
 import Month from "./Month";
 
 const ShiftsReady = () => {
+  const router = useRouter();
+
+  const goBack = () => {
+    router.push("/steps/seventh");
+  };
   const currentMonthRef = useRef<HTMLDivElement>(null);
   const currentMonth = new Date().getMonth();
   const [year, setYear] = useState(2025);
@@ -67,6 +74,14 @@ const ShiftsReady = () => {
         >
           {text}
         </button>
+        <div className={styles.adPlusBackButton}>
+          <button onClick={goBack} className={styles.goBack}>
+            Назад
+          </button>
+          <div className={styles.ad}>
+            <YandexAd blockId="R-A-17629664-3" />
+          </div>
+        </div>
 
         <p>Ваш график смен на год </p>
         <div className={styles.yearSelection}>
@@ -89,11 +104,31 @@ const ShiftsReady = () => {
               key={monthIndex}
               ref={monthIndex === currentMonth ? currentMonthRef : null}
             >
-              <Month key={monthIndex} monthIndex={monthIndex} year={year} />
+              <Month
+                key={monthIndex}
+                monthIndex={monthIndex}
+                year={year}
+                showAd={monthIndex % 2 === 0}
+              />
             </div>
           ))}
         </div>
+        <div className={styles.yearSelectionSecond}>
+          <button
+            onClick={setYear2025}
+            className={year === 2025 ? styles.yearSelectionActive : ""}
+          >
+            2025
+          </button>
+          <button
+            onClick={setYear2026}
+            className={year === 2026 ? styles.yearSelectionActive : ""}
+          >
+            2026
+          </button>
+        </div>
       </div>
+      <YandexAd blockId="R-A-17629664-1" />
     </div>
   );
 };

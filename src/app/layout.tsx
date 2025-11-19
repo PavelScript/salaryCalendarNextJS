@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // ✅ Импортируем Inter
+import { Inter } from "next/font/google";
 import "./globals.css";
 import YandexMetrika from "@/components/YandexMetrica/YandexMetrica";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-inter", // Можно назвать переменную как угодно
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -22,18 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
-        {/* iOS: позволяет добавлять в «Домашний экран» */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        {/* Стиль статус-бара (опционально) */}
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        {/* Название приложения (для ярлыка) */}
         <meta name="apple-mobile-web-app-title" content="SalaryCalendar" />
-        {/* Иконка для iPhone (разные размеры) */}
-        {/* <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/icons/apple-touch-icon.png"
-        /> */}
+        {/* УДАЛИТЕ скрипт Яндекс рекламы отсюда */}
       </head>
       <body className={inter.variable}>
         {children}

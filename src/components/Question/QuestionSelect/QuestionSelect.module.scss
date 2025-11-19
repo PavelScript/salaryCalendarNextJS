@@ -31,7 +31,7 @@
             flex-direction: column;
 
             select {
-                margin-top:10px;
+                margin-top: 10px;
                 padding-left: 5px;
                 font-size: 16px;
                 height: 40px;
@@ -42,7 +42,7 @@
             }
 
             label {
-                margin-top:20px;
+                margin-top: 20px;
                 font-size: 0.9rem;
 
 
@@ -51,6 +51,11 @@
             .buttons {
                 display: flex;
                 gap: 5px;
+
+                .backButton {
+                    background-color: #0e657d;
+                    color: white;
+                }
 
 
                 button {

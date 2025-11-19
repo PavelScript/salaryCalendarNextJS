@@ -97,7 +97,6 @@ export const generateShiftPattern = (
     patternIndex++;
   }
 
-  console.log(DAYS)
 
   return DAYS;
 };

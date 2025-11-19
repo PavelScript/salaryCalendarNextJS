@@ -53,6 +53,11 @@
                 display: flex;
                 gap: 5px;
 
+                .backButton {
+                    background-color: #0e657d;
+                    color:white;
+                }
+
 
                 button {
                     background-color: rgb(255, 136, 0);

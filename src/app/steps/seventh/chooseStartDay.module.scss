@@ -48,7 +48,37 @@
     }
 
 
+    @media(min-width:1200px) {
+        .yandexAdDiv {
+            display: none;
+        }
+
+
+        font-size: 0.8rem;
+
+        .grid {
+            button {
+                font-size: 0.7rem;
+                width: 30px;
+                height: 25px;
+            }
+        }
+
+    }
+
+     @media(min-width: 1500px) {
+        font-size: 1rem;
+
+         .grid {
+            button {
+                font-size: 1rem;
+                width:40px;
+                height:30px;
+            }
+        }
+
+    }
+
 
 
 }
-

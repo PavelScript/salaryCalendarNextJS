@@ -7,6 +7,7 @@ import { useShiftStore } from "@/store/useShiftStore";
 import { useSalaryStore } from "@/store/useSalaryStore";
 import ChooseShiftTypeWindow from "@/components/ChooseShiftTypeWindow/ChooseShiftTypeWindow";
 import { createPortal } from "react-dom";
+import YandexAd from "@/components/YandexAd/yandexAd";
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -19,12 +20,9 @@ const normalHours2026 = [
   120, 152, 168, 175, 151, 167, 184, 168, 176, 176, 159, 176,
 ];
 
-
-const Month = ({ monthIndex, year }) => {
+const Month = ({ monthIndex, year, showAd = false }) => {
   const { DAYS, setWorkShift } = useShiftStore();
 
-
-  
   // Выбираем нормативы часов в зависимости от года
   const normalHoursCurrent = useMemo(() => {
     return year === 2025 ? normalHours2025 : normalHours2026;
@@ -50,7 +48,8 @@ const Month = ({ monthIndex, year }) => {
   const decemberPreviousYearDays = useMemo(() => {
     const result = [];
     for (const day of DAYS) {
-      if (day.month === 11 && day.year === year - 1) { // Декабрь предыдущего года
+      if (day.month === 11 && day.year === year - 1) {
+        // Декабрь предыдущего года
         result.push(day);
       }
     }
@@ -59,7 +58,8 @@ const Month = ({ monthIndex, year }) => {
 
   // Объединяем данные для расчета зарплаты
   const daysForCalculation = useMemo(() => {
-    if (monthIndex === 0 && year > 2025) { // Для января 2026 и далее
+    if (monthIndex === 0 && year > 2025) {
+      // Для января 2026 и далее
       // Добавляем декабрь предыдущего года в начало
       return [decemberPreviousYearDays, ...daysByMonthCurrentYear];
     }
@@ -114,7 +114,8 @@ const Month = ({ monthIndex, year }) => {
   ]);
 
   // Для отображения используем данные начиная с текущего месяца
-  const displayMonthIndex = monthIndex === 0 && year > 2025 ? monthIndex + 1 : monthIndex;
+  const displayMonthIndex =
+    monthIndex === 0 && year > 2025 ? monthIndex + 1 : monthIndex;
 
   const holidays = useMemo(
     () => days.filter((d) => d.holiday).map((d) => d.id),
@@ -182,7 +183,11 @@ const Month = ({ monthIndex, year }) => {
           </div>,
           document.body
         )}
-
+        {showAd && (
+          <div className={styles.yandexAdDiv}>
+            <YandexAd blockId="R-A-17629664-2" />
+          </div>
+        )}
       <div className={styles.grid}>
         <div></div>
         <div className={styles.month}>
@@ -230,8 +235,8 @@ const Month = ({ monthIndex, year }) => {
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: ≈ {moneyPerMonth[displayMonthIndex]?.toFixed(0) || 0} ₽{" "}
-        <br />
+        Заработано за месяц: ≈{" "}
+        {moneyPerMonth[displayMonthIndex]?.toFixed(0) || 0} ₽ <br />
         Отработано часов: {monthHoursSum[displayMonthIndex] || 0} ч / Норма:{" "}
         {normalHours[displayMonthIndex]}
       </div>

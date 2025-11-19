@@ -15,7 +15,7 @@ type QuestionFormProps = {
   placeholder: string;
   currentValue: string;
   onSubmit: (data: SalaryFormData) => void;
-  onBack: () => void; // 👈 Теперь передаём объект, а не строку
+  onBack: () => void; 
 };
 const QuestionInput = ({
   title,
@@ -34,12 +34,11 @@ const QuestionInput = ({
     resolver: zodResolver(salarySchemaNumbers),
     mode: "onChange",
     defaultValues: {
-      salary: String(currentValue), // 👈 Предзаполнение!
+      salary: String(currentValue), 
     },
   });
 
   const onSubmitHandler = (data: SalaryFormData) => {
-    // Отправляем полный объект (можно расширить позже)
     onSubmit(data);
   };
 
@@ -50,7 +49,7 @@ const QuestionInput = ({
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <label>{label}</label>
           <input
-            {...register("salary")} // 👈 Регистрация поля по имени из схемы
+            {...register("salary")} 
             type="tel"
             inputMode={inputMode}
             placeholder={placeholder}
