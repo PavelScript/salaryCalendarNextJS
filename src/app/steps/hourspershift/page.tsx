@@ -8,18 +8,18 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 
 
 
-const StepThree = () => {
+const HoursPerShift = () => {
 
-  const { setBonusPercent, bonusPercent } = useSalaryStore();
+  const { hoursPerShift, setHoursPerShift } = useSalaryStore();
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/second");
+    router.push("/steps/monthbonus");
   };
 
   const handleSubmit = (data: { salary: string }) => {
-    setBonusPercent(parseInt(data.salary));
-    router.push("/steps/fourth");
+    setHoursPerShift(parseInt(data.salary));
+    router.push("/steps/shiftpattern");
   };
   
 
@@ -28,17 +28,17 @@ const StepThree = () => {
       <Header />
       <div className={styles.questionForm}>
         <QuestionInput
-          title="Введите сколько % от оклада составляет ежемесячная премия"
-          label="Процент премии"
+          title="Введите количество часов в смене"
+          label="Количество часов в смене"
           inputMode="decimal"
-          placeholder="   Например: 30"
+          placeholder="   Например: 12"
           onSubmit={handleSubmit}
           onBack={goBack}
-          currentValue = {bonusPercent?.toString() ?? ""}
+          currentValue = {hoursPerShift?.toString() ?? ""}
         />
       </div>
     </div>
   );
 };
 
-export default StepThree;
+export default HoursPerShift;

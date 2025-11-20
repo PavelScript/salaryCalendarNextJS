@@ -10,11 +10,11 @@ import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
 import type { Day } from "@/types/user.types";
 
-const StepSeven = () => {
+const ChooseStartDayPage = () => {
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/sixth");
+    router.push("/steps/northcoefficient");
   };
   const {
     startDayPattern,
@@ -63,7 +63,7 @@ const StepSeven = () => {
     }
     setSelectedDay({ id: dayId, month: monthIndex });
     setStartDayPattern(foundDay.yearId); // Обновляем startDayPattern
-    router.push("/steps/eighth");
+    router.push("/steps/shiftsready");
   };
 
   return (
@@ -90,4 +90,4 @@ const StepSeven = () => {
   );
 };
 
-export default StepSeven;
+export default ChooseStartDayPage;

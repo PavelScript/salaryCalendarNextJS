@@ -9,7 +9,7 @@ import Header from "@/components/Header/Header"
 const First = () => {
   const router = useRouter(); 
   const nextQuestion = () => {
-    router.push("/steps/second"); 
+    router.push("/steps/wage"); 
     
   };
   return (

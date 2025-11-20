@@ -15,7 +15,7 @@ const ShiftsReady = () => {
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/seventh");
+    router.push("/steps/choosestartdaypage");
   };
   const currentMonthRef = useRef<HTMLDivElement>(null);
   const currentMonth = new Date().getMonth();

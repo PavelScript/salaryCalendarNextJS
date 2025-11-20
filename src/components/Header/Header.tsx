@@ -15,7 +15,7 @@ const Header = () => {
         Главная
       </Link>
       {hasSchedule && (
-        <Link href="/steps/eighth" className={styles.shiftReady}>
+        <Link href="/steps/shiftsready" className={styles.shiftReady}>
           Готовый график смен
         </Link>
       )}

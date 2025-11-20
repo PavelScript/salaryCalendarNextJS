@@ -5,7 +5,7 @@ export const CountMoney = (
   northCoefficient,
   bonusPercent,
   nightHourBonus,
-  normalHours
+  normalHours,
 ) => {
 
 

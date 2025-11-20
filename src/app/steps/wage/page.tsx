@@ -8,7 +8,7 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 
 
 
-const StepTwo = () => {
+const Wage = () => {
 
   const { setSalaryPerMonth, salaryPerMonth } = useSalaryStore();
   const router = useRouter();
@@ -19,7 +19,7 @@ const StepTwo = () => {
 
   const handleSubmit = (data: { salary: string }) => {
     setSalaryPerMonth(parseInt(data.salary));
-    router.push("/steps/third");
+    router.push("/steps/monthbonus");
   };
   
 
@@ -41,4 +41,4 @@ const StepTwo = () => {
   );
 };
 
-export default StepTwo;
+export default Wage;

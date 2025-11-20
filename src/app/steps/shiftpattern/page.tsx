@@ -7,8 +7,9 @@ import QuestionSelect from "@/components/Question/QuestionSelect/QuestionSelect"
 import styles from "../Questions.module.scss";
 import Header from "@/components/Header/Header";
 import { useShiftStore } from "@/store/useShiftStore";
+import { useSalaryStore } from "@/store/useSalaryStore";
 
-const StepFour = () => {
+const ShiftPattern = () => {
   const router = useRouter();
 
   const {
@@ -18,6 +19,14 @@ const StepFour = () => {
     setDayHours,
     setNightHours,
   } = useShiftStore();
+
+  const { hoursPerShift } = useSalaryStore();
+
+  let hoursPerShiftNumber: number;
+  
+  if (hoursPerShift) {
+    hoursPerShiftNumber = hoursPerShift;
+  }
 
   const shiftOptionsKey = [
     { value: "1day1dayOff", label: "1 день / 1 выходной" },
@@ -31,7 +40,7 @@ const StepFour = () => {
   ];
 
   const goBack = () => {
-    router.push("/steps/third");
+    router.push("/steps/monthbonus");
   };
 
   const handleSubmit = ({ shiftPatternKey }: { shiftPatternKey: string }) => {
@@ -39,15 +48,15 @@ const StepFour = () => {
     switch (shiftPatternKey) {
       case "1day1dayOff":
         setShiftPattern(["dayShift", "nightShift", "offShift"]);
-        setDayHours([12, 2, 2]);
-        setNightHours([0, 2, 6]);
-        router.push("/steps/fifth");
+        setDayHours([hoursPerShiftNumber, 2, 2]);
+        setNightHours([0, 2, hoursPerShiftNumber-6]);
+        router.push("/steps/districtcoefficient");
         break;
       case "2days2daysOff":
         setShiftPattern(["dayShift", "dayShift", "offShift", "offShift"]);
-        setDayHours([12, 12, 0, 0]);
+        setDayHours([hoursPerShiftNumber, hoursPerShiftNumber, 0, 0]);
         setNightHours([0, 0, 0, 0]);
-        router.push("/steps/fifth");
+        router.push("/steps/districtcoefficient");
         break;
       case "2days2nights4daysOff":
         setShiftPattern([
@@ -60,8 +69,8 @@ const StepFour = () => {
           "offShift",
           "offShift",
         ]);
-        setDayHours([12, 12, 2, 4, 2, 0, 0, 0]);
-        setNightHours([0, 0, 2, 8, 6, 0, 0, 0]);
+        setDayHours([hoursPerShiftNumber, hoursPerShiftNumber, 2, 4, 2, 0, 0, 0]);
+        setNightHours([0, 0, 2, hoursPerShiftNumber-4, hoursPerShiftNumber-6, 0, 0, 0]);
         router.push("/steps/nightBonus");
         break;
       case "2daysDayOff2nights3DaysOff":
@@ -75,15 +84,15 @@ const StepFour = () => {
           "offShift",
           "offShift",
         ]);
-        setDayHours([12, 12, 0, 2, 4, 2, 0, 0]);
-        setNightHours([0, 0, 0, 2, 8, 6, 0, 0]);
+        setDayHours([hoursPerShiftNumber, hoursPerShiftNumber, 0, 2, 4, 2, 0, 0]);
+        setNightHours([0, 0, 0, 2, hoursPerShiftNumber-4, hoursPerShiftNumber-6, 0, 0]);
         router.push("/steps/nightBonus");
         break;
 
       case "1day1nightDayOff":
         setShiftPattern(["dayShift", "nightShift", "offShift"]);
-        setDayHours([12, 2, 2]);
-        setNightHours([0, 2, 6]);
+        setDayHours([hoursPerShiftNumber, 2, 2]);
+        setNightHours([0, 2, hoursPerShiftNumber-6]);
         router.push("/steps/nightBonus");
         break;
       default:
@@ -110,4 +119,4 @@ const StepFour = () => {
   );
 };
 
-export default StepFour;
+export default ShiftPattern;

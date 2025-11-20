@@ -13,11 +13,17 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Header />
+
       <div className={styles.flexContainer}>
-        <p className={styles.text}>
-          Построй график <br></br>рассчитай зарплату <br></br>{" "}
-          <span>на год вперед</span>
-        </p>
+        <div className={styles.textPlusButton}>
+          <p className={styles.text}>
+            Построй график <br></br>рассчитай зарплату <br></br>{" "}
+            <span>на год вперед</span>
+          </p>
+          <button onClick={goToCalculation} className={styles.startCalcBtn}>
+            ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП
+          </button>
+        </div>
         <Image
           src="/images/raschetkiMainPage.png"
           className={styles.calcImage}
@@ -26,10 +32,6 @@ export default function Home() {
           alt="Picture of the author"
         />
       </div>
-
-      <button onClick={goToCalculation} className={styles.startCalcBtn}>
-        ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП
-      </button>
     </div>
   );
 }

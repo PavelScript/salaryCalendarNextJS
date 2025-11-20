@@ -6,12 +6,12 @@ import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
 
-const StepFive = () => {
+const DistrictCoefficient = () => {
   const { setDistrictCoefficient, districtCoefficient } = useSalaryStore();
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/fourth");
+    router.push("/steps/shiftpattern");
   };
 
   const handleSubmit = (data: { salary: string }) => {
@@ -20,7 +20,7 @@ const StepFive = () => {
       value = value.replace(/,/g, ".");
     }
     setDistrictCoefficient(parseFloat(value));
-    router.push("/steps/sixth");
+    router.push("/steps/northcoefficient");
   };
 
   return (
@@ -54,4 +54,4 @@ const StepFive = () => {
   );
 };
 
-export default StepFive;
+export default DistrictCoefficient;

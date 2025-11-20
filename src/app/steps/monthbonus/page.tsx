@@ -8,18 +8,18 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 
 
 
-const NightHourBonus = () => {
+const MonthBonus = () => {
 
-  const { setNightHourBonus, nightHourBonus } = useSalaryStore();
+  const { setBonusPercent, bonusPercent } = useSalaryStore();
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/shiftpattern");
+    router.push("/steps/wage");
   };
 
   const handleSubmit = (data: { salary: string }) => {
-    setNightHourBonus(parseInt(data.salary));
-    router.push("/steps/districtcoefficient");
+    setBonusPercent(parseInt(data.salary));
+    router.push("/steps/hourspershift");
   };
   
 
@@ -28,17 +28,17 @@ const NightHourBonus = () => {
       <Header />
       <div className={styles.questionForm}>
         <QuestionInput
-          title="Введите сколько % доплата за ночные часы"
-          label="Процент доплаты"
+          title="Введите сколько % от оклада составляет ежемесячная премия"
+          label="Процент премии"
           inputMode="decimal"
-          placeholder="   Например: 40"
+          placeholder="   Например: 30"
           onSubmit={handleSubmit}
           onBack={goBack}
-          currentValue = {nightHourBonus?.toString() ?? ""}
+          currentValue = {bonusPercent?.toString() ?? ""}
         />
       </div>
     </div>
   );
 };
 
-export default NightHourBonus;
+export default MonthBonus;
