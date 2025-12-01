@@ -4,7 +4,8 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import ym, { YMInitializer } from "react-yandex-metrika";
 
-const YM_COUNTER_ID = 105065080; // Замените на ваш ID счетчика
+const YM_COUNTER_ID = 105426425; 
+// const YM_COUNTER_ID = 105065080;
 
 const YandexMetrika = () => {
   const pathname = usePathname();

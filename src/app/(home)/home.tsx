@@ -1,0 +1,51 @@
+"use client";
+import styles from "./page.module.scss";
+import { useRouter } from "next/navigation";
+import Header from "@/components/Header/Header";
+import Image from "next/image";
+
+export default function Home() {
+  const router = useRouter(); // ✅ Используем router.push
+  const goToCalculation = () => {
+    router.push("/steps/first"); // ✅ Перенаправление в Next.js
+  };
+
+  return (
+    <div className={styles.container}>
+      <Header />
+      <div className={styles.flexContainer}>
+        <div className={styles.textPlusButton}>
+          <h1 className={styles.text}>
+            Построй график <br></br>рассчитай зарплату <br></br>{" "}
+            <span>на год вперед</span>
+          </h1>
+          <button onClick={goToCalculation} className={styles.startCalcBtn}>
+            ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП
+          </button>
+        </div>
+        <Image
+          src="/images/raschetkiMainPage.png"
+          className={styles.calcImage}
+          width={1100}
+          height={800}
+          alt="Picture of the author"
+        />
+      </div>
+      <div className={styles.waveSection}>
+        <svg
+          width="100vw"
+          height="15vh"
+          className={styles.waveSVG}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1000 140"
+        >
+          <path
+            fill="#282828"
+            fillOpacity="1"
+            d="M0,224L480,64L960,96L1440,0L1440,320L960,320L480,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  );
+}

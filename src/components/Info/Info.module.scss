@@ -9,90 +9,75 @@
     gap: 0.5vh;
     align-items: center;
 
+    p{
+        margin-bottom:3vh;
+    }
+    .dayTypeRow {
+        display: flex;
+        width: 70vw;
+        justify-content: space-between;
+        border-bottom: 1px white dotted;
+
+        span {
+            text-align: center;
+            font-size:0.8rem;
+            font-weight: 300;
+            align-self: center;
+
+        }
+
+        div {
+            width: 40px;
+            height: 30px;
+        }
 
 
-    .dayShift {
-        background-color: #daa520;
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 600;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: rgb(39, 39, 39);
+        .dayShift {
+            background-color: #daa520;
+            border-radius: 5px;
+            color: rgb(39, 39, 39);
+
+        }
+
+        .nightShift {
+            background-color: #0f2c8a;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .holidayShift {
+            background-color: #972222;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .holidayOffShift {
+            background-color: #dd4a1e;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .offShift {
+            background-color: #0e657d;
+            border-radius: 5px;
+            color: rgb(233, 233, 233);
+        }
+
+        .holidayDaysChosen {
+            background: GOLDENROD;
+            background: linear-gradient(145deg, goldenrod 45%, rgba(221, 74, 30, 1) 45%);
+            border-radius: 5px;
+            color: rgb(233, 233, 233);
+        }
+
+        .holidayNightChosen {
+            background: rgb(15, 44, 138);
+            background: linear-gradient(145deg, rgb(15, 44, 138) 45%, rgba(221, 74, 30, 1) 45%);
+            border-radius: 5px;
+            color: rgb(233, 233, 233);
+        }
 
     }
-
-    .nightShift {
-        background-color: #0f2c8a;
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: white;
-    }
-
-    .holidayShift {
-        background-color: #972222;
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: white;
-    }
-
-    .holidayOffShift {
-        background-color: #dd4a1e;
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: white;
-    }
-
-    .offShift {
-        background-color: #0e657d;
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: rgb(233, 233, 233);
-    }
-
-    .holidayDaysChosen {
-        background: GOLDENROD;
-        background: linear-gradient(145deg, goldenrod 45%, rgba(221, 74, 30, 1) 45%);
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: rgb(233, 233, 233);
-
-    }
-
-    .holidayNightChosen {
-        background: rgb(15, 44, 138);
-        background: linear-gradient(145deg, rgb(15, 44, 138) 45%, rgba(221, 74, 30, 1) 45%);
-        text-align: center;
-        justify-self: center;
-        width: 50%;
-        font-weight: 300;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        color: rgb(233, 233, 233);
-
-    }
-
 
     @media(min-width:1200px) {
         width: 20vw;

@@ -2,6 +2,7 @@
 .header {
     width:100vw;
     display: flex;
+    flex-shrink: 0;
     font-size:18px;
     align-items: center;
     justify-content:flex-start;

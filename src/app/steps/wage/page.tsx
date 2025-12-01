@@ -1,44 +1,15 @@
-"use client";
 
-import { useRouter } from "next/navigation";
-import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
-import Header from "@/components/Header/Header";
-import styles from "../Questions.module.scss";
-import { useSalaryStore } from "@/store/useSalaryStore";
+import type { Metadata } from "next";
+import Wage from "./Wage"
 
-
-
-const Wage = () => {
-
-  const { setSalaryPerMonth, salaryPerMonth } = useSalaryStore();
-  const router = useRouter();
-
-  const goBack = () => {
-    router.push("/steps/first");
-  };
-
-  const handleSubmit = (data: { salary: string }) => {
-    setSalaryPerMonth(parseInt(data.salary));
-    router.push("/steps/monthbonus");
-  };
-  
-
-  return (
-    <div className={styles.container}>
-      <Header />
-      <div className={styles.questionForm}>
-        <QuestionInput
-          title="Введите сумму вашего оклада"
-          label="Оклад (в рублях)"
-          inputMode="decimal"
-          placeholder="   Например: 54000"
-          onSubmit={handleSubmit}
-          onBack={goBack}
-          currentValue = {salaryPerMonth?.toString() ?? ""}
-        />
-      </div>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: "Укажите ваш оклад", 
+  description:
+    "Данные не передаются третьим лицам, все расчеты происходят у вас на устройстве",
 };
 
-export default Wage;
+export default function WagePage(){
+  return (
+    <Wage/>
+  )
+}

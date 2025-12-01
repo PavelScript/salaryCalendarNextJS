@@ -1,5 +1,14 @@
 .container {
 
+    .adUpper {
+        margin-top: 2vh;
+        display:flex;
+        justify-self:center;
+        align-self: center;
+        width: 90vw;
+        height: 10vh;
+    }
+
     .fieldContainer {
         display: flex;
         flex-direction: column;
@@ -152,6 +161,11 @@
 
 @media(min-width:1200px) {
     .container {
+
+        .adUpper {
+            display: none;
+        }
+
         .fieldContainer {
 
             p {

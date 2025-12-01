@@ -8,6 +8,7 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 import ChooseShiftTypeWindow from "@/components/ChooseShiftTypeWindow/ChooseShiftTypeWindow";
 import { createPortal } from "react-dom";
 import YandexAd from "@/components/YandexAd/yandexAd";
+import HoursPerShift from "../hourspershift/page";
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -22,7 +23,7 @@ const normalHours2026 = [
 
 const Month = ({ monthIndex, year, showAd = false }) => {
   const { DAYS, setWorkShift } = useShiftStore();
-
+  const { hoursPerShift } = useSalaryStore();
   // Выбираем нормативы часов в зависимости от года
   const normalHoursCurrent = useMemo(() => {
     return year === 2025 ? normalHours2025 : normalHours2026;
@@ -133,7 +134,7 @@ const Month = ({ monthIndex, year, showAd = false }) => {
   );
 
   const handleSelectShift = (dayId, shiftType, year) => {
-    setWorkShift(monthIndex, dayId, shiftType, year);
+    setWorkShift(monthIndex, dayId, shiftType, year, hoursPerShift);
     setShiftWindowPosition(null);
   };
 
@@ -183,11 +184,11 @@ const Month = ({ monthIndex, year, showAd = false }) => {
           </div>,
           document.body
         )}
-        {showAd && (
-          <div className={styles.yandexAdDiv}>
-            <YandexAd blockId="R-A-17629664-2" />
-          </div>
-        )}
+      {showAd && (
+        <div className={styles.yandexAdDiv}>
+          <YandexAd blockId="R-A-17629664-2" />
+        </div>
+      )}
       <div className={styles.grid}>
         <div></div>
         <div className={styles.month}>

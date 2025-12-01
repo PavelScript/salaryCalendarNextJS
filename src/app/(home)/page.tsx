@@ -1,37 +1,45 @@
-"use client"; // ← Обязательно на первой строке!
-import styles from "./page.module.scss";
-import { useRouter } from "next/navigation";
-import Header from "@/components/Header/Header";
-import Image from "next/image";
+import type { Metadata } from "next";
+import Home from "./home";
+import SectionOne from "./sectionOne/sectionOne";
 
-export default function Home() {
-  const router = useRouter(); // ✅ Используем router.push
-  const goToCalculation = () => {
-    router.push("/steps/first"); // ✅ Перенаправление в Next.js
-  };
+export const metadata: Metadata = {
+  title: "Расчётки.ру ",
+  description:
+    "Бесплатный онлайн-кальклуятор зарплаты при сменном графике работы, график смен",
 
+  // Open Graph (для Facebook, Telegram, VK и т.д.)
+  openGraph: {
+    title: "Расчётка.ру — Бесплатный калькулятор смен и зарплаты",
+    description:
+      "Постройте график смен и рассчитайте зарплату на год вперед. Быстро, удобно, бесплатно.",
+    url: "https://raschetki.ru",
+    siteName: "Расчётки.ру",
+    images: [
+      {
+        url: "/images/raschetkiMainPage.png",
+        width: 1100,
+        height: 800,
+      },
+    ],
+    locale: "ru_RU",
+    type: "website",
+  },
+
+  // Twitter Card (для Twitter/X)
+  twitter: {
+    card: "summary_large_image",
+    title: "Расчётка.ру — Бесплатный калькулятор смен и зарплаты",
+    description:
+      "Постройте график смен и рассчитайте зарплату на год вперед. Быстро, удобно, бесплатно.",
+    images: ["/images/raschetkiMainPage.png"],
+  },
+};
+
+export default function WagePage() {
   return (
-    <div className={styles.container}>
-      <Header />
-
-      <div className={styles.flexContainer}>
-        <div className={styles.textPlusButton}>
-          <p className={styles.text}>
-            Построй график <br></br>рассчитай зарплату <br></br>{" "}
-            <span>на год вперед</span>
-          </p>
-          <button onClick={goToCalculation} className={styles.startCalcBtn}>
-            ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП
-          </button>
-        </div>
-        <Image
-          src="/images/raschetkiMainPage.png"
-          className={styles.calcImage}
-          width={1100}
-          height={800}
-          alt="Picture of the author"
-        />
-      </div>
-    </div>
+    <>
+      <Home />
+      <SectionOne />
+    </>
   );
 }

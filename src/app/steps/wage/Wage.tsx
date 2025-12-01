@@ -5,42 +5,35 @@ import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
 import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
-
-
-const HoursPerShift = () => {
-
-  const { hoursPerShift, setHoursPerShift } = useSalaryStore();
+const Wage = () => {
+  const { setSalaryPerMonth, salaryPerMonth } = useSalaryStore();
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/monthbonus");
+    router.push("/steps/first");
   };
 
   const handleSubmit = (data: { salary: string }) => {
-    setHoursPerShift(parseInt(data.salary));
-    router.push("/steps/shiftpattern");
+    setSalaryPerMonth(parseInt(data.salary));
+    router.push("/steps/monthbonus");
   };
-  
 
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles.questionForm}>
         <QuestionInput
-          title="Введите количество часов в смене"
-          label="Количество часов в смене"
+          title="Введите сумму вашего оклада"
+          label="Оклад (в рублях)"
           inputMode="decimal"
-          placeholder="   Например: 12"
+          placeholder="   Например: 54000"
           onSubmit={handleSubmit}
           onBack={goBack}
-          currentValue = {hoursPerShift?.toString() ?? ""}
+          currentValue={salaryPerMonth?.toString() ?? ""}
         />
       </div>
     </div>
   );
 };
 
-export default HoursPerShift;
-
-
-
+export default Wage;

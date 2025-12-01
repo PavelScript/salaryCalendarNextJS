@@ -1,35 +1,17 @@
-'use client'
-import styles from "../Questions.module.scss";
-import { useRouter } from "next/navigation";
-import Header from "@/components/Header/Header"
 
+import type { Metadata } from 'next';
+import Greeting from "./greeting"
 
-
-
-const First = () => {
-  const router = useRouter(); 
-  const nextQuestion = () => {
-    router.push("/steps/wage"); 
-    
-  };
-  return (
-    <div className={styles.container}>
-      <Header/>
-      <div className={styles.inputField}>
-
-
-        <h1>В несколько простых шагов мы отобразим график на год и примерный доход
-          за каждый месяц.</h1>
-
-        <p>
-          Все введенные данные не передаются третьим лицам. Хранятся у вас на
-          устройстве.
-        </p>
-
-        <button onClick={nextQuestion}>Приступим</button>
-      </div>
-    </div>
-  );
+export const metadata:Metadata = {
+  title: "Добро пожаловать в  калькулятор смен Расчётки.ру",
+  description: "Мы не храним ваши данные и не передаём их третьим лицам",
 };
 
-export default First;
+
+export default function GreetingPage() {
+  return (
+    <Greeting />
+  )
+}
+
+

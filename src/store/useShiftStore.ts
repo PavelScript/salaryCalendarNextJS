@@ -2,7 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Day, ShiftType } from "@/types/user.types";
 
+
+
+
 interface ShiftState {
+  
   startDayPattern: number;
   startDayChosen: boolean;
   shiftPatternKey: string;
@@ -21,11 +25,13 @@ interface ShiftState {
     monthIndex: number,
     dayId: number,
     shiftType: ShiftType | "none",
-    year: number
+    year: number,
+    hoursPerShift:number,
   ) => void;
 }
 
 export const useShiftStore = create<ShiftState>()(
+  
   persist(
     (set) => ({
       startDayPattern: 0,
@@ -42,8 +48,11 @@ export const useShiftStore = create<ShiftState>()(
       setDayHours: (pattern) => set({ dayHours: pattern }),
       setNightHours: (pattern) => set({ nightHours: pattern }),
       setDAYS: (days) => set({ DAYS: days }),
-      setWorkShift: (monthIndex, dayId, shiftType, year) =>
+      setWorkShift: (monthIndex, dayId, shiftType, year, hoursPerShift) =>
         set((state) => {
+          
+          const hoursPerShiftNum = hoursPerShift ?? 0;
+
           const newDays = [...state.DAYS];
           const dayIndex = newDays.findIndex(
             (d) => d.month === monthIndex && d.id === dayId && d.year === year
@@ -71,14 +80,14 @@ export const useShiftStore = create<ShiftState>()(
           const updatedDay = { ...newDays[dayIndex], workShift: newShift };
 
           if (newShift === "dayShift") {
-            updatedDay.dayHours = 12;
+            updatedDay.dayHours = hoursPerShiftNum;
             updatedDay.nightHours = 0;
           } else if (newShift === "nightShift") {
             updatedDay.dayHours = 2;
             updatedDay.nightHours = 2;
               if (prevShift === "nightShift") {
                 updatedDay.dayHours = 4;
-                updatedDay.nightHours = 8;
+                updatedDay.nightHours = hoursPerShiftNum-4;
               }
 
             // Adding remains of night shift to the next day
@@ -87,13 +96,13 @@ export const useShiftStore = create<ShiftState>()(
               newDays[nextId] = {
                 ...newDays[nextId],
                 dayHours: (newDays[nextId].dayHours || 0) + 2,
-                nightHours: (newDays[nextId].nightHours || 0) + 6,
+                nightHours: (newDays[nextId].nightHours || 0) + hoursPerShiftNum-6,
               };
             }
           } else {
             if (prevShift === "nightShift") {
               updatedDay.dayHours = 2;
-              updatedDay.nightHours = 6;
+              updatedDay.nightHours = hoursPerShiftNum-6;
             } else {
               updatedDay.dayHours = 0;
               updatedDay.nightHours = 0;
