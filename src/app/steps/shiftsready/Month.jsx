@@ -82,7 +82,6 @@ const Month = ({ monthIndex, year, showAd = false }) => {
     );
   };
 
-  // ИСПРАВЛЕНИЕ: используем правильное название переменной
   const days = daysByMonthCurrentYear[monthIndex] || [];
   const [shiftWindowPosition, setShiftWindowPosition] = useState(null);
 
@@ -94,16 +93,22 @@ const Month = ({ monthIndex, year, showAd = false }) => {
     nightHourBonus,
   } = useSalaryStore();
 
-  const { moneyPerMonth, monthHoursSum, normalHours } = useMemo(() => {
-    return CountMoney(
-      daysForCalculation,
-      salaryPerMonth,
+  const {
+    moneyPerMonth,
+    monthHoursSum,
+    moneyPerMonth1,
+    moneyPerMonth2,
+    normalHours,
+  } = useMemo(() => {
+    return CountMoney({
+      dayByMonth: daysForCalculation,
+      salaryPerMonthInput: salaryPerMonth,
       districtCoefficient,
       northCoefficient,
       bonusPercent,
       nightHourBonus,
-      normalHoursForCalculation
-    );
+      normalHours: normalHoursForCalculation,
+    });
   }, [
     daysForCalculation,
     salaryPerMonth,
@@ -236,10 +241,37 @@ const Month = ({ monthIndex, year, showAd = false }) => {
         })}
       </div>
       <div className={styles.moneyPerMonth}>
-        Заработано за месяц: ≈{" "}
-        {moneyPerMonth[displayMonthIndex]?.toFixed(0) || 0} ₽ <br />
-        Отработано часов: {monthHoursSum[displayMonthIndex] || 0} ч / Норма:{" "}
-        {normalHours[displayMonthIndex]}
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                Заработано за месяц
+              </td>
+              <td>{moneyPerMonth[displayMonthIndex]?.toFixed(0) || 0} ₽</td>
+            </tr>
+            <tr>
+              <td>
+                За первую половину
+              </td>
+              <td>{moneyPerMonth1[displayMonthIndex]?.toFixed(0) || 0} ₽</td>
+            </tr>
+            <tr>
+              <td>
+                За вторую половину
+              </td>
+              <td>{moneyPerMonth2[displayMonthIndex]?.toFixed(0) || 0} ₽</td>
+            </tr>
+            <tr>
+              <td>
+                Отработано часов/Норма
+              </td>
+              <td>
+                {monthHoursSum[displayMonthIndex] || 0}/
+                {normalHours[displayMonthIndex] || 0} ч
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

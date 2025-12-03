@@ -9,14 +9,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Расчётки.ру ",
+  title: "Расчётки.ру",
   description:
-    "Бесплатный онлайн-кальклуятор зарплаты при сменном графике работы, график смен",
+    "Бесплатный онлайн-калькулятор зарплаты при сменном графике работы, график смен",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 
   icons: {
-    icon: "/images/favicon.svg",
+    icon: "/favicon.ico",
     apple: "/images/iphoneIco.png",
-
   },
 };
 
@@ -31,7 +39,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="SalaryCalendar" />
+        <meta name="apple-mobile-web-app-title" content="Расчётки.ру" />
       </head>
       <body className={inter.variable}>
         {children}

@@ -110,7 +110,7 @@ const ShiftsReady = () => {
                 key={monthIndex}
                 monthIndex={monthIndex}
                 year={year}
-                showAd={monthIndex === 10}
+                showAd={monthIndex === 11}
               />
             </div>
           ))}

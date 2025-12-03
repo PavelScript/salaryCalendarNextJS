@@ -82,13 +82,39 @@
 
         }
 
-        .moneyPerMonth {
-            margin-top: 0.4rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+
+
+
+    }
+
+    .moneyPerMonth {
+        margin-top: 0.6rem;
+        margin-bottom: 1.5rem;
+        width:100%;
+        font-size:0.9rem;
+
+
+        table {
+            width: 100%;
+            // border: 1px solid white;
+            border-radius: 15px;
+            overflow: hidden;
+            border-collapse: separate;
+            border-spacing: 0; // ← убирает промежутки между ячейками
         }
 
+        th,
+        td {
+            padding: 2%;
+            border: none;
 
+        }
+
+        // Внутренние горизонтальные разделители — только между строками
+        tr:not(:last-child) th,
+        tr:not(:last-child) td {
+            border-bottom: 1px solid white;
+        }
     }
 
     @media(min-width:1200px) {
@@ -120,5 +146,19 @@
             }
         }
 
+        .moneyPerMonth {
+            width: 80%;
+       
+
+        }
+    }
+       @media(min-width: 1900px) {
+
+
+        .moneyPerMonth {
+            width: 65%;
+       
+
+        }
     }
 }
