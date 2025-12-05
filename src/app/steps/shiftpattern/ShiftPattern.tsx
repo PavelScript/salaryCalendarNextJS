@@ -10,6 +10,21 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 
 const ShiftPattern = () => {
   const router = useRouter();
+    const { bonusPercent, salaryPerMonth, hoursPerShift} =
+    useSalaryStore();
+
+
+  if (salaryPerMonth === null || salaryPerMonth <= 0) {
+    router.push("/");
+  }
+
+  if (bonusPercent === null || bonusPercent < 0) {
+    router.push("/");
+  }
+
+   if (hoursPerShift === null || hoursPerShift <= 0) {
+    router.push("/");
+  }
 
   const {
     shiftPatternKey,
@@ -19,7 +34,6 @@ const ShiftPattern = () => {
     setNightHours,
   } = useShiftStore();
 
-  const { hoursPerShift } = useSalaryStore();
 
   let hoursPerShiftNumber: number;
   

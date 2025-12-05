@@ -156,7 +156,17 @@
 
 
         .moneyPerMonth {
-            width: 65%;
+            width: 75%;
+       
+
+        }
+    }
+
+      @media(min-width: 2500px) {
+
+
+        .moneyPerMonth {
+            width: 60%;
        
 
         }

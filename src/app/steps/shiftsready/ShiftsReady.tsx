@@ -9,9 +9,40 @@ import Info from "@/components/Info/Info";
 import YandexAd from "@/components/YandexAd/yandexAd";
 import { useRouter } from "next/navigation";
 import Month from "./Month";
+import { useSalaryStore } from "@/store/useSalaryStore";
 
 const ShiftsReady = () => {
   const router = useRouter();
+  const { bonusPercent, salaryPerMonth, hoursPerShift } = useSalaryStore();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const isDataLoaded =
+        bonusPercent !== undefined &&
+        salaryPerMonth !== undefined &&
+        hoursPerShift !== undefined;
+
+      if (!isDataLoaded) {
+        console.warn("Данные не загрузились вовремя");
+        return;
+      }
+
+      const isValidData =
+        bonusPercent != null &&
+        bonusPercent >= 0 &&
+        salaryPerMonth != null &&
+        salaryPerMonth > 0 &&
+        hoursPerShift != null &&
+        hoursPerShift > 0;
+
+      if (!isValidData) {
+        console.log("Некорректные данные, редирект...");
+        router.push("/");
+      }
+    }, 800); // Даем 800ms на загрузку из localStorage
+
+    return () => clearTimeout(timer);
+  }, [bonusPercent, salaryPerMonth, hoursPerShift, router]);
 
   const goBack = () => {
     router.push("/steps/choosestartdaypage");
@@ -83,6 +114,9 @@ const ShiftsReady = () => {
           <div className={styles.ad}>
             <YandexAd blockId="R-A-17629664-3" />
           </div>
+          <div className={styles.infoDesktop}>
+            <Info />
+          </div>
         </div>
 
         <p>Ваш график смен на год </p>
@@ -110,7 +144,7 @@ const ShiftsReady = () => {
                 key={monthIndex}
                 monthIndex={monthIndex}
                 year={year}
-                showAd={monthIndex === 11}
+                showAd={monthIndex === 13}
               />
             </div>
           ))}

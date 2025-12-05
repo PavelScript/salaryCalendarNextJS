@@ -1,13 +1,10 @@
 "use client";
 import styles from "./sectionOne.module.scss";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Info from "@/components/Info/Info"
 
 export default function SectionOne() {
-  const router = useRouter(); // ✅ Используем router.push
-  //   const goToCalculation = () => {
-  //     router.push("/steps/first"); // ✅ Перенаправление в Next.js
-  //   };
+
 
   return (
     <div className={styles.container}>
@@ -30,26 +27,17 @@ export default function SectionOne() {
           </ul>
         </div>
         <div className={styles.flexContainerFirst}>
-          <Image
-            src="/images/dayTypes.png"
-            className={styles.dayTypes}
-            width={350}
-            height={300}
-            alt="Picture of the author"
-          />
+          <Info/>
           <div className={styles.dayExplanationDiv}>
             <Image
               src="/images/designationExplanation.png"
               className={styles.dayExplanationImage}
               width={450}
-              height={430}
+              height={480}
               alt="Picture of the author"
             />
           </div>
         </div>
-        {/* <button onClick={goToCalculation} className={styles.startCalcBtn}>
-            ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП
-          </button> */}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
 
 const MonthBonus = () => {
-  const { setBonusPercent, bonusPercent } = useSalaryStore();
+  const { setBonusPercent, bonusPercent} = useSalaryStore();
   const router = useRouter();
 
   const goBack = () => {

@@ -1,4 +1,3 @@
-//Pick the first Day Page
 "use client";
 
 import styles from "./page.module.scss";
@@ -8,14 +7,47 @@ import { useMemo, useEffect, useState } from "react";
 import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
 import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
+import { useSalaryStore } from "@/store/useSalaryStore";
 import type { Day } from "@/types/user.types";
 
 const ChooseStartDayPage = () => {
   const router = useRouter();
+  const { bonusPercent, salaryPerMonth, hoursPerShift } = useSalaryStore();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const isDataLoaded =
+        bonusPercent !== undefined &&
+        salaryPerMonth !== undefined &&
+        hoursPerShift !== undefined;
+
+      if (!isDataLoaded) {
+        console.warn("Данные не загрузились вовремя");
+        return;
+      }
+
+      const isValidData =
+        bonusPercent != null &&
+        bonusPercent >= 0 &&
+        salaryPerMonth != null &&
+        salaryPerMonth > 0 &&
+        hoursPerShift != null &&
+        hoursPerShift > 0;
+
+      if (!isValidData) {
+        console.log("Некорректные данные, редирект...");
+        router.push("/");
+      }
+    }, 800);
+
+    // Очищаем таймер при размонтировании компонента
+    return () => clearTimeout(timer);
+  }, [bonusPercent, salaryPerMonth, hoursPerShift, router]);
 
   const goBack = () => {
     router.push("/steps/northcoefficient");
   };
+
   const {
     startDayPattern,
     setStartDayPattern,
@@ -77,7 +109,7 @@ const ChooseStartDayPage = () => {
         <div className={styles.gridContainer}>
           {daysByMonth.map((monthDays, monthIndex) => (
             <ChooseStartDay
-              key={`month-${monthIndex}`} // ← УБРАЛИ startDayPattern
+              key={`month-${monthIndex}`}
               monthIndex={monthIndex}
               days={monthDays}
               onChange={handleDaySelect}

@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   description:
     "Бесплатный онлайн-кальклуятор зарплаты при сменном графике работы, график смен",
 
+  robots: {
+    index: true, 
+    follow: true,
+  },
+
   // Open Graph (для Facebook, Telegram, VK и т.д.)
   openGraph: {
     title: "Расчётка.ру — Бесплатный калькулятор смен и зарплаты",

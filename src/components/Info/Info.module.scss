@@ -9,18 +9,20 @@
     gap: 0.5vh;
     align-items: center;
 
-    p{
-        margin-bottom:3vh;
+
+    p {
+        margin-bottom: 3vh;
     }
+
     .dayTypeRow {
         display: flex;
         width: 70vw;
         justify-content: space-between;
-        border-bottom: 1px white dotted;
+        border-bottom: 1px white solid;
 
         span {
             text-align: center;
-            font-size:0.8rem;
+            font-size: 0.9rem;
             font-weight: 300;
             align-self: center;
 
@@ -83,6 +85,10 @@
         width: 20vw;
         min-width: min-content;
         padding: 1%;
-        padding-bottom: 4%;
+
+
+        .dayTypeRow {
+            width: 15vw;
+        }
     }
 }

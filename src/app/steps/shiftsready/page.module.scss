@@ -2,8 +2,8 @@
 
     .adUpper {
         margin-top: 2vh;
-        display:flex;
-        justify-self:center;
+        display: flex;
+        justify-self: center;
         align-self: center;
         width: 90vw;
         height: 10vh;
@@ -23,6 +23,10 @@
         .adPlusBackButton {
             display: flex;
             justify-content: center;
+
+            .infoDesktop {
+                display: none;
+            }
 
             .ad {
                 display: none;
@@ -176,15 +180,23 @@
 
             .adPlusBackButton {
                 display: flex;
-                align-self: center;
+                align-self: space-between;
                 margin-bottom: 5vh;
-                gap: 15vw;
+                gap: 5vw;
+
+                .infoDesktop {
+                    display: block;
+                    width: 20vw;
+                }
+
+
 
                 .ad {
                     display: flex;
                     align-self: center;
                     width: 30vw;
                     height: 10vh;
+            
                 }
 
                 width:100vw;
