@@ -9,7 +9,22 @@
 
     .questionForm {
         margin-bottom: 20vh;
-        
+        display: flex;
+        flex-direction: column;
+
+
+        .note {
+            background-color: rgb(39, 39, 39);
+            padding: 2%;
+            display: flex;
+            align-self: center;
+            width: 95vw;
+            border-radius: 15px;
+            margin-bottom: 10vh;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
 
     }
 
@@ -61,10 +76,10 @@
             font-weight: 600;
 
             @media (hover: hover) and (pointer: fine) {
-                        &:hover {
-                            background-color: rgba(255, 136, 0, 0.468);
-                        }
-                    }
+                &:hover {
+                    background-color: rgba(255, 136, 0, 0.468);
+                }
+            }
         }
 
 
@@ -140,28 +155,38 @@
     @media(min-width: 1200px) {
 
         .questionForm {
-        margin-bottom: 40vh;
-        
+            margin-bottom: 40vh;
 
-    }
+            .note {
+                width: 40%;
+
+                p {
+                    text-align: center;
+                    margin: auto;
+                }
+            }
 
 
-  
+        }
+
+
+
         .inputField {
             width: 60vw;
             margin-bottom: 40vh;
+
             h1 {
                 font-size: 1.5rem;
-                text-align:center;
+                text-align: center;
 
             }
 
             p {
                 font-size: 1rem;
-                text-align:center;
-                opacity:0.8;
-                margin-bottom:0.5rem;
-                
+                text-align: center;
+                opacity: 0.8;
+                margin-bottom: 0.5rem;
+
 
             }
         }

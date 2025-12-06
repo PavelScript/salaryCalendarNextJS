@@ -119,6 +119,7 @@ const ShiftPattern = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.questionForm}>
+        <div className={styles.note}><p>Сайт в активной разработке <br></br> Скоро появятся и другие варинты графиков</p></div>
         <QuestionSelect
           title="Выберите свой график работы"
           label="График работы"
