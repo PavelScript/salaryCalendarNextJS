@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  nextjscalc:
+    build: .           # Собирает образ из Dockerfile в текущей папке
+    container_name: nextjscalc
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env          # Подключает переменные окружения из файла .env

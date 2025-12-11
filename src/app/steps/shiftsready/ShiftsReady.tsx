@@ -39,7 +39,7 @@ const ShiftsReady = () => {
         console.log("Некорректные данные, редирект...");
         router.push("/");
       }
-    }, 800); // Даем 800ms на загрузку из localStorage
+    }, 800); 
 
     return () => clearTimeout(timer);
   }, [bonusPercent, salaryPerMonth, hoursPerShift, router]);

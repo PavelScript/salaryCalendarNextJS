@@ -3,12 +3,31 @@ import styles from "./page.module.scss";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header/Header";
 import Image from "next/image";
+import { useShiftStore } from "@/store/useShiftStore";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const router = useRouter(); // ✅ Используем router.push
+  const router = useRouter();
+  const { DAYS } = useShiftStore();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const hasSchedule = Array.isArray(DAYS) && DAYS.length > 0;
+    const stayOnHomePage = sessionStorage.getItem("stayOnHomePage") === "true";
+
+    if (hasSchedule && !stayOnHomePage) {
+      router.push("/steps/shiftsready");
+    } else {
+      setReady(true);
+    }
+  }, [DAYS, router]);
+
   const goToCalculation = () => {
-    router.push("/steps/first"); // ✅ Перенаправление в Next.js
+    sessionStorage.removeItem("stayOnHomePage");
+    router.push("/steps/first");
   };
+
+  if (!ready) return null;
 
   return (
     <div className={styles.container}>
