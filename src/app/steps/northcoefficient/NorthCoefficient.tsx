@@ -6,6 +6,7 @@ import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
 
+
 const NorthCoefficient = () => {
   const { setNorthCoefficient, northCoefficient } = useSalaryStore();
   const router = useRouter();
@@ -27,6 +28,7 @@ const NorthCoefficient = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.questionForm}>
+        <div className={styles.note}><p>Коэффициент не может быть меньше 1</p></div>
         <QuestionInput
           title={
             <>

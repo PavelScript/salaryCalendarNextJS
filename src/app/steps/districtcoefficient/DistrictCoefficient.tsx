@@ -5,6 +5,7 @@ import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
 import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
+import Link from 'next/link'
 
 const DistrictCoefficient = () => {
   const { setDistrictCoefficient, districtCoefficient } = useSalaryStore();
@@ -27,6 +28,7 @@ const DistrictCoefficient = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.questionForm}>
+         <div className={styles.note}><p>Коэффициент не может быть меньше 1<br></br> Узнать свой коэффициент можно здесь:  <Link className={styles.link} href="https://www.consultant.ru/document/cons_doc_LAW_118861/">районные коэффициенты</Link></p></div>
         <QuestionInput
           title={
             <>

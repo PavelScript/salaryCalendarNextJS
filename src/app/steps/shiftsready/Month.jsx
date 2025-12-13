@@ -8,7 +8,7 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 import ChooseShiftTypeWindow from "@/components/ChooseShiftTypeWindow/ChooseShiftTypeWindow";
 import { createPortal } from "react-dom";
 import YandexAd from "@/components/YandexAd/yandexAd";
-import HoursPerShift from "../hourspershift/page";
+
 
 const DAYS_OF_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
