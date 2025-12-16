@@ -39,7 +39,7 @@ const ShiftsReady = () => {
         console.log("Некорректные данные, редирект...");
         router.push("/");
       }
-    }, 800); 
+    }, 800);
 
     return () => clearTimeout(timer);
   }, [bonusPercent, salaryPerMonth, hoursPerShift, router]);
@@ -49,11 +49,6 @@ const ShiftsReady = () => {
   };
   const currentMonthRef = useRef<HTMLDivElement>(null);
   const currentMonth = new Date().getMonth();
-  const [year, setYear] = useState(2025);
-
-  // Functions for altering year
-  const setYear2025 = () => setYear(2025);
-  const setYear2026 = () => setYear(2026);
 
   useEffect(() => {
     if (currentMonthRef.current) {
@@ -72,12 +67,20 @@ const ShiftsReady = () => {
   const [text, setText] = useState("Показать справку по цветовым обозначениям");
   const { DAYS } = useShiftStore();
 
-  const daysByMonth: Day[][] = Array.from({ length: 12 }, () => []);
+  const daysByMonth2025: Day[][] = Array.from({ length: 12 }, () => []);
+  const daysByMonth2026: Day[][] = Array.from({ length: 12 }, () => []);
 
   for (const day of DAYS) {
-    if (day.year === year) {
+    if (day.year === 2025) {
       // Только дни выбранного года
-      daysByMonth[day.month].push(day);
+      daysByMonth2025[day.month].push(day);
+    }
+  }
+
+  for (const day of DAYS) {
+    if (day.year === 2026) {
+      // Только дни выбранного года
+      daysByMonth2026[day.month].push(day);
     }
   }
 
@@ -119,23 +122,10 @@ const ShiftsReady = () => {
           </div>
         </div>
 
-        <p>Ваш график смен на год </p>
-        <div className={styles.yearSelection}>
-          <button
-            onClick={setYear2025}
-            className={year === 2025 ? styles.yearSelectionActive : ""}
-          >
-            2025
-          </button>
-          <button
-            onClick={setYear2026}
-            className={year === 2026 ? styles.yearSelectionActive : ""}
-          >
-            2026
-          </button>
-        </div>
+        <p>Ваш график смен на 2025-2026</p>
+        <p className={styles.currentYear}>2025</p>
         <div className={styles.calendarYear}>
-          {daysByMonth.map((_, monthIndex) => (
+          {daysByMonth2025.map((_, monthIndex) => (
             <div
               key={monthIndex}
               ref={monthIndex === currentMonth ? currentMonthRef : null}
@@ -143,26 +133,26 @@ const ShiftsReady = () => {
               <Month
                 key={monthIndex}
                 monthIndex={monthIndex}
-                year={year}
+                year={2025}
                 showAd={monthIndex === 13}
               />
             </div>
           ))}
         </div>
-        <div className={styles.yearSelectionSecond}>
-          <button
-            onClick={setYear2025}
-            className={year === 2025 ? styles.yearSelectionActive : ""}
-          >
-            2025
-          </button>
-          <button
-            onClick={setYear2026}
-            className={year === 2026 ? styles.yearSelectionActive : ""}
-          >
-            2026
-          </button>
+        <p className={styles.currentYear}>2026</p>
+        <div className={styles.calendarYear}>
+          {daysByMonth2026.map((_, monthIndex) => (
+            <div key={monthIndex}>
+              <Month
+                key={monthIndex}
+                monthIndex={monthIndex}
+                year={2026}
+                showAd={monthIndex === 1}
+              />
+            </div>
+          ))}
         </div>
+        <div className={styles.yearSelectionSecond}></div>
       </div>
       <YandexAd blockId="R-A-17629664-1" />
     </div>

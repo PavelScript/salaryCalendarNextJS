@@ -1,0 +1,131 @@
+.container {
+
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .errorMessageContainer {
+        margin-top: 14px;
+        width: 95%;
+        text-align: center;
+    }
+
+
+    .inputField {
+
+        border-radius: 15px;
+        padding: 20px;
+        width: 95%;
+        max-width: 1000px;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(39, 39, 39);
+
+
+        .errorMessage {
+            margin-top: 10px;
+
+        }
+
+        form {
+
+            .gridWrapper {
+                display: grid;
+                grid-template-columns: 4fr 1fr 4fr;
+                gap: 10px;
+            }
+
+
+            input {
+                margin-top: 10px;
+                width: 100%;
+                padding-left: 5px;
+                border-radius: 3px;
+                font-size: 16px;
+                height: 40px;
+            }
+
+            .firstDays {
+                margin-top: 10px;
+                width: 100%;
+                padding-left: 5px;
+                border-radius: 3px;
+                font-size: 16px;
+                height: 40px;
+                border: 2px gray solid;
+                text-align: center;
+            }
+
+
+            label {
+                margin-top: 20px;
+                font-size: 0.9rem;
+
+            }
+
+            .buttons {
+                display: flex;
+                gap: 5px;
+
+                .backButton {
+                    background-color: #0e657d;
+                    color: white;
+                }
+
+
+                button {
+                    background-color: rgb(255, 136, 0);
+                    border-radius: 15px;
+                    width: 52%;
+                    height: 40px;
+                    font-size: 1rem;
+                    color: black;
+                    margin-top: 10px;
+                    font-weight: 600;
+
+
+                    @media (hover: hover) and (pointer: fine) {
+                        &:hover {
+                            background-color: rgba(255, 136, 0, 0.468);
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+    }
+
+
+    .errorMsgContainer {
+        margin-top: 20px;
+        border-radius: 15px;
+        padding: 20px;
+        height: fit-content;
+        width: 80%;
+        display: flex;
+        color: rgb(222, 20, 20);
+        font-weight: 700;
+        background-color: rgb(39, 39, 39);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        .inputField {
+            width: 60vw;
+            align-items: center;
+
+
+            form {
+                gap: 10px;
+
+            }
+
+        }
+    }
+
+}

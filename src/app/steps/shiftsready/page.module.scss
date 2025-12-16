@@ -87,7 +87,22 @@
         p {
             text-align: center;
             font-weight: 200;
+
         }
+
+        .currentYear {
+            text-align: center;
+            font-weight: 800;
+            margin-top: 15px;
+            font-size: 1.5rem;
+            width: 100%;
+            background-color: #e69111;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            color: rgb(39, 39, 39);
+
+        }
+
 
         .yearSelection {
             display: flex;
@@ -172,6 +187,13 @@
 
         .fieldContainer {
 
+            .currentYear {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            
+
+            }
+
             p {
                 font-size: 2rem;
                 margin-bottom: 2rem;
@@ -196,7 +218,7 @@
                     align-self: center;
                     width: 30vw;
                     height: 10vh;
-            
+
                 }
 
                 width:100vw;
