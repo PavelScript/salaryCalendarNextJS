@@ -12,7 +12,7 @@ const NightBonus = () => {
   const router = useRouter();
 
   const goBack = () => {
-    router.push("/steps/shiftpattern");
+    router.push("/steps/shiftpatternconstructor");
   };
 
   const handleSubmit = (data: { salary: string }) => {

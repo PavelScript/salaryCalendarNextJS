@@ -10,16 +10,10 @@ import { useSalaryStore } from "@/store/useSalaryStore";
 const HoursPerShift = () => {
 
 
- const {bonusPercent, salaryPerMonth,hoursPerShift, setHoursPerShift} = useSalaryStore();
+ const {hoursPerShift, setHoursPerShift} = useSalaryStore();
   const router = useRouter();
 
-  if (salaryPerMonth === null || salaryPerMonth <= 0  ) {
-    router.push("/");
-  }
 
-  if (bonusPercent === null || bonusPercent < 0  ) {
-    router.push("/");
-  }
 
   const goBack = () => {
     router.push("/steps/monthbonus");
@@ -27,7 +21,7 @@ const HoursPerShift = () => {
 
   const handleSubmit = (data: { salary: string }) => {
     setHoursPerShift(parseInt(data.salary));
-    router.push("/steps/shiftpattern");
+    router.push("/steps/shiftpatternconstructor");
   };
   
 

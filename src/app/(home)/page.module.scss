@@ -25,7 +25,7 @@
         height: 90vh;
         align-items: center;
 
-      
+
         .calcImage {
             display: none;
         }
@@ -38,6 +38,7 @@
             gap: 2vh;
 
             .startCalcBtn {
+                animation: glowPulse 2s infinite ease-in-out;
                 align-self: center;
                 background-color: #ffffff;
                 font-size: 1rem;
@@ -58,7 +59,7 @@
                 width: 90vw;
                 color: black;
                 font-size: 2rem;
-                font-weight:400;
+                font-weight: 400;
 
                 span {
                     font-weight: 800;
@@ -119,7 +120,7 @@
 
             .textPlusButton {
                 .text {
-                    
+
                     font-size: 2.8rem;
                 }
 
@@ -149,4 +150,22 @@
 
 .calcImage {
     animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 15px rgba(11, 116, 236, 0.7),
+            0 0 30px rgba(255, 85, 0, 0.5),
+            0 0 45px rgba(255, 60, 0, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(255, 136, 0, 0.9),
+            0 0 40px rgba(255, 85, 0, 0.7),
+            0 0 60px rgba(255, 60, 0, 0.5);
+    }
 }

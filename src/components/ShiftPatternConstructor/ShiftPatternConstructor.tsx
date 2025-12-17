@@ -1,116 +1,212 @@
-// "use client";
 
-// import { useState } from "react";
-// import styles from "./ShiftPatternConstructor.module.scss";
+import { z } from "zod";
+import { useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import styles from "./ShiftPatternConstructor.module.scss";
+import type { ShiftType } from "@/types/user.types";
+import RedCrossIcon from "../../../public/icons/redCrossIcon";
+import { shiftPatternSchema} from "@/schemas/shiftPatternSchema";
 
-// type ShiftBlock = {
-//   id: string;
-//   type: "dayShift" | "nightShift" | "dayOff";
-//   days: number;
-// };
+type ShiftPatternFormData = z.infer<typeof shiftPatternSchema>;
 
-// const ShiftPatternConstructor = () => {
-//   const [blocks, setBlocks] = useState<ShiftBlock[]>([
-//     { id: "1", type: "dayShift", days: 2 },
-//   ]);
+type Props = {
+  onSubmit: (shiftPatternArray: ShiftType[]) => void;
+  onBack: () => void;
+  initialBlocks?: Array<{ type: ShiftType; days: number }>;
+};
 
-//   const shiftOptions = [
-//     { value: "dayShift", label: "день" },
-//     { value: "nightShift", label: "ночь" },
-//     { value: "dayOff", label: "выходной" },
-//   ];
+const ShiftPatternConstructor = ({ onSubmit, onBack, initialBlocks }: Props) => {
+  const {
+    control,
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<ShiftPatternFormData>({
+    resolver: zodResolver(shiftPatternSchema),
+    mode: "onChange",
+    defaultValues: {
+      blocks: initialBlocks 
+        ? initialBlocks.map((block, index) => ({
+            id: String(index + 1),
+            type: block.type as "dayShift" | "nightShift" | "offShift",
+            days: String(block.days),
+          }))
+        : [{ id: "1", type: "dayShift", days: "2" }],
+    },
+  });
 
-//   const handleTypeChange = (id: string, value: string) => {
-//     setBlocks(blocks.map(b => b.id === id ? { ...b, type: value as any } : b));
-//   };
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "blocks",
+  });
 
-//   const handleDaysChange = (id: string, value: string) => {
-//     const num = Number(value);
-//     if (!isNaN(num) && num >= 1) {
-//       setBlocks(blocks.map(b => b.id === id ? { ...b, days: num } : b));
-//     }
-//   };
+  const shiftOptions = [
+    { value: "dayShift", label: "дневные" },
+    { value: "nightShift", label: "ночные" },
+    { value: "offShift", label: "выходные" },
+  ];
 
-//   const addBlock = () => {
-//     const newId = String(Date.now());
-//     setBlocks([...blocks, { id: newId, type: "dayOff", days: 1 }]);
-//   };
+  const addBlock = () => {
+    const newId = String(Date.now());
+    append({ id: newId, type: "offShift", days: "1" });
+  };
 
-//   const removeBlock = (id: string) => {
-//     if (blocks.length > 1) {
-//       setBlocks(blocks.filter(b => b.id !== id));
-//     }
-//   };
+  const removeBlock = (index: number) => {
+    if (fields.length > 1) {
+      remove(index);
+    }
+  };
 
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-    
-//     // Валидация: хотя бы один рабочий день
-//     const hasWork = blocks.some(b => b.type !== "dayOff");
-//     if (!hasWork) {
-//       alert("График должен содержать хотя бы один рабочий день (день или ночь).");
-//       return;
-//     }
+  const handleFormSubmit = (data: ShiftPatternFormData) => {
+    // Преобразуем данные в нужный формат
+    const shiftPatternArray: ShiftType[] = [];
 
-//     console.log("Собранный график:", blocks);
-//     // Здесь вы можете передать blocks в родительский компонент через пропс или контекст
-//   };
+    for (const block of data.blocks) {
+      const days = parseInt(block.days) || 1;
+      for (let i = 0; i < days; i++) {
+        shiftPatternArray.push(block.type);
+      }
+    }
 
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.inputField}>
-//         <h2>Соберите свой график работы</h2>
-//         <form onSubmit={handleSubmit}>
-//           <div className={styles.blocksContainer}>
-//             {blocks.map((block) => (
-//               <div key={block.id} className={styles.blockRow}>
-//                 <input
-//                   type="number"
-//                   inputMode="numeric"
-//                   min="1"
-//                   value={block.days}
-//                   onChange={(e) => handleDaysChange(block.id, e.target.value)}
-//                   className={styles.daysInput}
-//                 />
-//                 <select
-//                   value={block.type}
-//                   onChange={(e) => handleTypeChange(block.id, e.target.value)}
-//                   className={styles.typeSelect}
-//                 >
-//                   {shiftOptions.map((opt) => (
-//                     <option key={opt.value} value={opt.value}>
-//                       {opt.label}
-//                     </option>
-//                   ))}
-//                 </select>
-//                 <button
-//                   type="button"
-//                   onClick={() => removeBlock(block.id)}
-//                   className={styles.removeBtn}
-//                   disabled={blocks.length <= 1}
-//                 >
-//                   🗑️
-//                 </button>
-//               </div>
-//             ))}
-//           </div>
+    onSubmit(shiftPatternArray);
+  };
 
-//           <button type="button" onClick={addBlock} className={styles.addButton}>
-//             + Добавить период
-//           </button>
+  // Отслеживаем изменения для валидации в реальном времени
+  const watchedBlocks = watch("blocks");
+  const hasWorkDays = watchedBlocks?.some((b) => b.type !== "offShift");
 
-//           <div className={styles.formControls}>
-//             <button type="button" className={styles.backButton}>
-//               Назад
-//             </button>
-//             <button type="submit" className={styles.nextButton}>
-//               Далее
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className={styles.container}>
+      <div className={styles.inputField}>
+        <h2>Составьте свой график работы</h2>
+        
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <div className={styles.blocksContainer}>
+            {fields.map((field, index) => (
+              <div key={field.id} className={styles.blockRow}>
+                <div className={styles.inputGroup}>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    placeholder="Дни"
+                    className={`${styles.daysInput} ${
+                      errors.blocks?.[index]?.days ? styles.inputError : ""
+                    }`}
+                    {...register(`blocks.${index}.days` as const, {
+                      onChange: (e) => {
+                        const value = e.target.value;
+                        // Автоматическая валидация при вводе
+                        if (value === "") {
+                          setValue(`blocks.${index}.days`, "", {
+                            shouldValidate: true,
+                          });
+                        } else if (/^\d+$/.test(value)) {
+                          setValue(`blocks.${index}.days`, value, {
+                            shouldValidate: true,
+                          });
+                        }
+                      },
+                    })}
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      if (value === "" || parseInt(value) < 1) {
+                        setValue(`blocks.${index}.days`, "1", {
+                          shouldValidate: true,
+                        });
+                      }
+                    }}
+                    onFocus={(e) => e.target.select()}
+                    onKeyDown={(e) => {
+                      // Разрешаем управляющие клавиши
+                      if (
+                        [
+                          "Backspace",
+                          "Delete",
+                          "Tab",
+                          "ArrowLeft",
+                          "ArrowRight",
+                          "Home",
+                          "End",
+                        ].includes(e.key)
+                      ) {
+                        return;
+                      }
+                      // Разрешаем только цифры
+                      if (!/\d/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
+                </div>
 
-// export default ShiftPatternConstructor;
+                <div className={styles.inputGroup}>
+                  <select
+                    className={styles.typeSelect}
+                    {...register(`blocks.${index}.type` as const)}
+                  >
+                    {shiftOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => removeBlock(index)}
+                  className={styles.removeBtn}
+                  disabled={fields.length <= 1}
+                  aria-label="Удалить период"
+                >
+                  <RedCrossIcon size={20} />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {errors.blocks?.root && (
+            <div className={styles.formError}>
+              {errors.blocks.root.message}
+            </div>
+          )}
+
+          {!hasWorkDays && fields.length > 0 && (
+            <div className={styles.warningMessage}>
+              ⚠️ Добавьте хотя бы один рабочий день (дневные или ночные смены)
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={addBlock}
+            className={styles.addButton}
+          >
+            + Добавить период
+          </button>
+
+          <div className={styles.formControls}>
+            <button
+              type="button"
+              onClick={onBack}
+              className={styles.backButton}
+            >
+              Назад
+            </button>
+            <button
+              type="submit"
+              className={styles.nextButton}
+              disabled={!isValid || !hasWorkDays}
+            >
+              Далее
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default ShiftPatternConstructor;
