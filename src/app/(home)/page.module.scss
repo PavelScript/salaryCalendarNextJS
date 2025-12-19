@@ -25,6 +25,12 @@
         height: 90vh;
         align-items: center;
 
+        .calcImageMini {
+            align-self: center;
+            width: 330px;
+            height: 240px;
+        }
+
 
         .calcImage {
             display: none;
@@ -35,13 +41,12 @@
             display: flex;
             flex-direction: column;
             width: auto;
-            gap: 2vh;
+            gap: 6vh;
 
             .startCalcBtn {
                 animation: glowPulse 2s infinite ease-in-out;
                 align-self: center;
                 background-color: #ffffff;
-                font-size: 1rem;
                 width: 100%;
                 height: 7vh;
                 border-radius: 10px;
@@ -56,14 +61,17 @@
             }
 
             .text {
-                width: 90vw;
-                color: black;
-                font-size: 2rem;
-                font-weight: 400;
+                width:90vw;
+                line-height: 1.1;
+                font-weight: 700;
+                text-align: center;
+                color: #fff;
 
                 span {
+                    color: #e3c82d; 
                     font-weight: 800;
                 }
+
             }
         }
     }
@@ -79,6 +87,10 @@
             height: 95vh;
             gap: 6vw;
 
+            .calcImageMini {
+                display: none;
+            }
+
 
             .textPlusButton {
 
@@ -88,7 +100,7 @@
                 .text {
                     font-size: 3.5rem;
                     align-content: center;
-                    width: 40vw;
+                    width: 30vw;
                 }
 
                 .startCalcBtn {
@@ -120,13 +132,14 @@
 
             .textPlusButton {
                 .text {
-
-                    font-size: 2.8rem;
+                    font-size: 1.8rem;
                 }
 
                 .startCalcBtn {
                     font-size: 1rem;
                 }
+
+
             }
         }
     }

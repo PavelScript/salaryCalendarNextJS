@@ -189,11 +189,11 @@ const Month = ({ monthIndex, year, showAd = false }) => {
           </div>,
           document.body
         )}
-      {showAd && (
+      {/* {showAd && (
         <div className={styles.yandexAdDiv}>
           <YandexAd blockId="R-A-17629664-2" />
         </div>
-      )}
+      )} */}
       <div className={styles.grid}>
         <div></div>
         <div className={styles.month}>

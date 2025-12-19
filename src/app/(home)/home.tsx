@@ -34,9 +34,16 @@ export default function Home() {
       <Header />
       <div className={styles.flexContainer}>
         <div className={styles.textPlusButton}>
+          <Image
+            src="/images/raschetkiMainPage.png"
+            className={styles.calcImageMini}
+            width={330}
+            height={240}
+            alt="Календарь смен и расчёт зарплаты в сервисе Расчётки — интерфейс калькулятора для сменного графика"
+          />
           <h1 className={styles.text}>
-            Построй график <br></br>рассчитай зарплату <br></br>{" "}
-            <span>на год вперед</span>
+            Календарь смен и калькулятор зарплаты <br />
+            <span>для сменного графика</span>
           </h1>
           <button onClick={goToCalculation} className={styles.startCalcBtn}>
             ПОСТРОИТЬ ГРАФИК И УЗНАТЬ ЗП

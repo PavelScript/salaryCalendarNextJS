@@ -60,7 +60,7 @@ const ShiftPatternConstructor = ({ onSubmit, onBack, initialBlocks }: Props) => 
   };
 
   const handleFormSubmit = (data: ShiftPatternFormData) => {
-    // Преобразуем данные в нужный формат
+    
     const shiftPatternArray: ShiftType[] = [];
 
     for (const block of data.blocks) {
@@ -73,7 +73,6 @@ const ShiftPatternConstructor = ({ onSubmit, onBack, initialBlocks }: Props) => 
     onSubmit(shiftPatternArray);
   };
 
-  // Отслеживаем изменения для валидации в реальном времени
   const watchedBlocks = watch("blocks");
   const hasWorkDays = watchedBlocks?.some((b) => b.type !== "offShift");
 
@@ -118,26 +117,6 @@ const ShiftPatternConstructor = ({ onSubmit, onBack, initialBlocks }: Props) => 
                       }
                     }}
                     onFocus={(e) => e.target.select()}
-                    onKeyDown={(e) => {
-                      // Разрешаем управляющие клавиши
-                      if (
-                        [
-                          "Backspace",
-                          "Delete",
-                          "Tab",
-                          "ArrowLeft",
-                          "ArrowRight",
-                          "Home",
-                          "End",
-                        ].includes(e.key)
-                      ) {
-                        return;
-                      }
-                      // Разрешаем только цифры
-                      if (!/\d/.test(e.key)) {
-                        e.preventDefault();
-                      }
-                    }}
                   />
                 </div>
 

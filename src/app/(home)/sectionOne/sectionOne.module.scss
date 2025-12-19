@@ -4,26 +4,61 @@
     width: 100vw;
     display: flex;
     justify-content: center;
-    padding-bottom: 5vh;
+    padding-bottom: 7vh;
 
     .flexContainer {
         margin-top: 10vh;
         width: 90vw;
         justify-items: center;
 
+        .flexImageLi {
+            display: flex;
+            flex-direction: column;
+
+            .dayExplanationDiv {
+                margin-top: 5vh;
+                border: white solid 1px;
+                border-radius: 15px;
+                padding: 5px;
+                align-self: center;
+
+
+            }
+
+            .listOfParameters {
+                margin-top: 5vh;
+                margin-left: 10vw;
+                width: 80vw;
+                font-weight: 200;
+                justify-self: center;
+                font-size: 1rem;
+                line-height: 1.5;
+
+
+
+                li {
+                    list-style-image: url('data:image/svg+xml,<svg width="15z" height="15" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="%23000000" stroke="%23000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M866.133333 258.133333L362.666667 761.6l-204.8-204.8L98.133333 618.666667 362.666667 881.066667l563.2-563.2z" fill="rgb(0, 222, 18)"></path></g></svg>');
+                }
+            }
+
+        }
+
         h2 {
             justify-content: center;
             text-align: center;
-            font-size: 2.5rem;
-            line-height: 2;
+            font-size: 1.5rem;
+            line-height: 1;
+            text-wrap: pretty;
+            margin-bottom: 1rem;
 
         }
 
         h3 {
             text-align: center;
-            font-size: 1.5rem;
-            line-height: 2;
+            font-size: 1rem;
+            line-height: 1;
             font-weight: 400;
+            text-wrap: pretty;
         }
 
 
@@ -34,26 +69,16 @@
         }
 
         p {
+            margin-top: 1rem;
             text-align: center;
-            width: 40vw;
-            font-size: 1.5rem;
+            width: 90vw;
+            font-size: 1rem;
             font-weight: 200;
 
         }
 
 
-        .listOfParameters {
-            font-weight: 300;
-            padding: 80px;
-            justify-self: center;
-            font-size: 1.3rem;
 
-
-
-            li {
-                list-style-image: url('data:image/svg+xml,<svg width="30" height="30" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="%23000000" stroke="%23000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M866.133333 258.133333L362.666667 761.6l-204.8-204.8L98.133333 618.666667 362.666667 881.066667l563.2-563.2z" fill="rgb(0, 222, 18)"></path></g></svg>');
-            }
-        }
 
         .flexContainerFirst {
             margin-top: 5vh;
@@ -62,14 +87,10 @@
             justify-content: space-around;
 
             .dayTypes {
-                margin-top:3vh;
+                margin-top: 3vh;
             }
 
-            .dayExplanationDiv {
-                border: white solid 1px;
-                border-radius: 15px;
-                padding: 5px;
-            }
+
 
 
 
@@ -80,9 +101,102 @@
 
 }
 
-@media(max-width: 1200px) {
+@media(min-width: 1200px) {
     .container {
-        display: none;
-    }
+        .flexContainer {
+            margin-top: 10vh;
+            width: 90vw;
+            justify-items: center;
 
+            h2 {
+                justify-content: center;
+                text-align: center;
+                font-size: 2.5rem;
+                line-height: 2;
+
+            }
+
+            h3 {
+                text-align: center;
+                font-size: 1.5rem;
+                line-height: 2;
+                font-weight: 400;
+            }
+
+
+            span {
+                font-weight: 700;
+                line-height: 2;
+
+            }
+
+            p {
+                text-align: center;
+                width: 40vw;
+                font-size: 1.5rem;
+                font-weight: 200;
+
+            }
+
+
+
+            .flexImageLi {
+                display: flex;
+                flex-direction: row;
+                width: 90wv;
+                gap:8vw;
+
+                .dayExplanationDiv {
+                    margin-top: 5vh;
+                    border: white solid 1px;
+                    border-radius: 15px;
+                    padding: 5px;
+
+
+                }
+
+                .listOfParameters {
+                    margin-top: 3vh;
+                    margin-left: 10vw;
+                    font-weight: 200;
+                    justify-self: center;
+                    font-size: 1.2rem;
+                    width: auto;
+                    margin:auto;
+                    
+
+
+
+                    li {
+                        list-style-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="%23000000" stroke="%23000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M866.133333 258.133333L362.666667 761.6l-204.8-204.8L98.133333 618.666667 362.666667 881.066667l563.2-563.2z" fill="rgb(0, 222, 18)"></path></g></svg>');
+                    }
+                }
+
+
+
+
+
+
+
+            }
+
+            .flexContainerFirst {
+                margin-top: 5vh;
+                width: 80vw;
+                display: flex;
+                justify-content: space-around;
+
+                .dayTypes {
+                    margin-top: 3vh;
+                }
+
+
+
+
+
+
+            }
+
+        }
+    }
 }
