@@ -66,9 +66,10 @@ const ShiftsReady = () => {
   return (
     <div className={styles.container}>
       <Header />
-      {/* <div className={styles.adUpper}>
-        <YandexAd blockId="R-A-17629664-4" />
-      </div> */}
+      {/* Ad for mobile devices */}
+      <div className={styles.adUpper}>
+        <YandexAd blockId="R-A-17925515-2" />
+      </div>
       <div className={styles.fieldContainer}>
         {showInfo && <Info />}
         <button
@@ -81,11 +82,12 @@ const ShiftsReady = () => {
         </button>
         <div className={styles.adPlusBackButton}>
           <button onClick={goBack} className={styles.goBack}>
-            Назад
+            Назад к выбору первой смены
           </button>
-          {/* <div className={styles.ad}>
-            <YandexAd blockId="R-A-17629664-3" />
-          </div> */}
+           {/*Ad for pc devices*/}
+          <div className={styles.ad}>
+            <YandexAd blockId="R-A-17925515-3" />
+          </div> 
           <div className={styles.infoDesktop}>
             <Info />
           </div>
@@ -103,7 +105,7 @@ const ShiftsReady = () => {
                 key={monthIndex}
                 monthIndex={monthIndex}
                 year={2025}
-                showAd={monthIndex === 13}
+                showAd={monthIndex === 11}
               />
             </div>
           ))}
@@ -116,13 +118,13 @@ const ShiftsReady = () => {
                 key={monthIndex}
                 monthIndex={monthIndex}
                 year={2026}
-                showAd={monthIndex === 1}
+                showAd={false}
               />
             </div>
           ))}
         </div>
       </div>
-      {/* <YandexAd blockId="R-A-17629664-1" /> */}
+      <YandexAd blockId="R-A-17925515-1" />
     </div>
   );
 };
