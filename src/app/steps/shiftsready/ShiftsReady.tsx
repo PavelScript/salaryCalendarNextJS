@@ -66,9 +66,9 @@ const ShiftsReady = () => {
   return (
     <div className={styles.container}>
       <Header />
-      {/* <div className={styles.adUpper}>
-        <YandexAd blockId="R-A-17629664-4" />
-      </div> */}
+      <div className={styles.adUpper}>
+        <YandexAd blockId="R-A-17925515-2" />
+      </div>
       <div className={styles.fieldContainer}>
         {showInfo && <Info />}
         <button
@@ -81,11 +81,11 @@ const ShiftsReady = () => {
         </button>
         <div className={styles.adPlusBackButton}>
           <button onClick={goBack} className={styles.goBack}>
-            Назад
+            Назад к выбору первой смены
           </button>
-          {/* <div className={styles.ad}>
-            <YandexAd blockId="R-A-17629664-3" />
-          </div> */}
+          <div className={styles.ad}>
+            <YandexAd blockId="R-A-17925515-3" />
+          </div>
           <div className={styles.infoDesktop}>
             <Info />
           </div>
@@ -122,7 +122,7 @@ const ShiftsReady = () => {
           ))}
         </div>
       </div>
-      {/* <YandexAd blockId="R-A-17629664-1" /> */}
+      <YandexAd blockId="R-A-17925515-1" />
     </div>
   );
 };

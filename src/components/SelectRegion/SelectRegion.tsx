@@ -1,33 +1,42 @@
 "use client";
 import styles from "./SelectRegion.module.scss";
 import { useForm } from "react-hook-form";
-import RegionalCoefficients from "./RegionalCoefficients";
+import { inputOptions } from "./RegionalCoefficients";
 
 const SelectRegion = () => {
-  const { register, handlesubmit } = useForm();
-
-  const inputOptions: string[] = [];
-  for (const region in RegionalCoefficients) {
-    inputOptions.push(region);
-  }
-  console.log(inputOptions);
-  const onSubmit = (data: any) => {
-    console.log(data);
+  type FormValues = {
+    region: string;
   };
+  const { register, handleSubmit } = useForm<FormValues>();
+
+  const onSubmit = (data: FormValues) => console.log(data.region);
 
   return (
     <div className={styles.container}>
       <div className={styles.inputField}>
-        <input
-          {...register("Region")}
-          placeholder="Введите регион"
-          list="region-suggestions"
-        ></input>
-        <datalist id="region-suggestions">
-          {inputOptions.map((region1) => (
-            <option key={region1} value={region1} />
-          ))}
-        </datalist>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            {...register("region", { required: true })}
+            placeholder="Введите регион"
+            list="region-suggestions"
+          ></input>
+          <datalist id="region-suggestions">
+            {inputOptions.map((region) => (
+              <option key={region} value={region} />
+            ))}
+          </datalist>
+          <input
+            {...register("region", { required: true })}
+            placeholder="Введите регион"
+            list="region-suggestions"
+          ></input>
+          <datalist id="region-suggestions">
+            {inputOptions.map((region) => (
+              <option key={region} value={region} />
+            ))}
+          </datalist>
+          <button type="submit">Далее</button>
+        </form>
       </div>
     </div>
   );

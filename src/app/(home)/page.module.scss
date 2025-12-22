@@ -6,8 +6,6 @@
     justify-content: space-between;
     background: linear-gradient(340deg, rgb(16, 66, 117) 0%, #0ab6d8 60%, #f39d1d 100%);
 
-
-
     .waveSection {
         position: relative;
         flex-grow: 1;
@@ -40,7 +38,7 @@
         .textPlusButton {
             display: flex;
             flex-direction: column;
-            width: auto;
+            width: 90vw;
             gap: 6vh;
 
             .startCalcBtn {

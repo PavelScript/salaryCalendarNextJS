@@ -169,7 +169,13 @@ const regionalCoefficientsByRegion = {
     note: "Бердюжский, Вагайский, Викуловский, Голышмановский, Исетский, Казанский, Нижнетавдинский, Омутинский, Сладковский, Тобольский, Туринский, Уватский, Юргинский, Ялуторовский районы — 1.2",
     source: "Закон Тюменской области от 11.07.2002 № 413",
   },
+
+  "Ханты-Мансийский АО": {
+    coefficient: 1.15,
+    northCoefficient: 1.7,
+  },
 };
 
+const inputOptions: string[] = Object.keys(regionalCoefficientsByRegion);
 
-export default regionalCoefficientsByRegion;
+export { regionalCoefficientsByRegion, inputOptions };

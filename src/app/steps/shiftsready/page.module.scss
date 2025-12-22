@@ -36,6 +36,8 @@
 
             .goBack {
                 width: 40%;
+                padding-top: 10px;
+                padding-bottom: 10px;
                 font-size: 1rem;
                 border-radius: 5px;
                 align-self: center;
@@ -190,7 +192,7 @@
             .currentYear {
                 padding-top: 1rem;
                 padding-bottom: 1rem;
-            
+
 
             }
 
@@ -225,7 +227,8 @@
 
                 .goBack {
                     width: 20%;
-                    height: 30px;
+                    height: 50px;
+
                 }
             }
 
