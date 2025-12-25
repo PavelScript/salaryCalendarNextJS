@@ -34,24 +34,6 @@ const ShiftsReady = () => {
 
   const [showInfo, setShowInfo] = useState(false);
   const [text, setText] = useState("Показать справку по цветовым обозначениям");
-  const { DAYS } = useShiftStore();
-
-  const daysByMonth2025: Day[][] = Array.from({ length: 12 }, () => []);
-  const daysByMonth2026: Day[][] = Array.from({ length: 12 }, () => []);
-
-  for (const day of DAYS) {
-    if (day.year === 2025) {
-      // Только дни выбранного года
-      daysByMonth2025[day.month].push(day);
-    }
-  }
-
-  for (const day of DAYS) {
-    if (day.year === 2026) {
-      // Только дни выбранного года
-      daysByMonth2026[day.month].push(day);
-    }
-  }
 
   const showInfoFunc = () => {
     if (showInfo) {
@@ -84,10 +66,10 @@ const ShiftsReady = () => {
           <button onClick={goBack} className={styles.goBack}>
             Назад к выбору первой смены
           </button>
-           {/*Ad for pc devices*/}
+          {/*Ad for pc devices*/}
           <div className={styles.ad}>
             <YandexAd blockId="R-A-17925515-3" />
-          </div> 
+          </div>
           <div className={styles.infoDesktop}>
             <Info />
           </div>
@@ -96,13 +78,12 @@ const ShiftsReady = () => {
         <p>Ваш график смен на 2025-2026</p>
         <p className={styles.currentYear}>2025</p>
         <div className={styles.calendarYear}>
-          {daysByMonth2025.map((_, monthIndex) => (
+          {[8, 9, 10, 11].map((monthIndex) => (
             <div
               key={monthIndex}
               ref={monthIndex === currentMonth ? currentMonthRef : null}
             >
               <Month
-                key={monthIndex}
                 monthIndex={monthIndex}
                 year={2025}
                 showAd={monthIndex === 11}
@@ -112,7 +93,7 @@ const ShiftsReady = () => {
         </div>
         <p className={styles.currentYear}>2026</p>
         <div className={styles.calendarYear}>
-          {daysByMonth2026.map((_, monthIndex) => (
+          {Array.from({ length: 12 }, (_, monthIndex) => (
             <div key={monthIndex}>
               <Month
                 key={monthIndex}
