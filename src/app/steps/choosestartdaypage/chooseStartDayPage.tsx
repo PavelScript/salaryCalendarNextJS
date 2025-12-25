@@ -9,8 +9,10 @@ import { generateShiftPattern } from "@/lib/salary/generateYearArrayByMonths";
 import ChooseStartDay from "./chooseStartDay";
 import Header from "@/components/Header/Header";
 import type { Day } from "@/types/user.types";
+import Image from "next/image";
 
 const ChooseStartDayPage = () => {
+  const currentMonth = new Date().getMonth();
   const router = useRouter();
 
   const goBack = () => {
@@ -74,12 +76,20 @@ const ChooseStartDayPage = () => {
           Назад
         </button>
         <h2>Выберите день с которого начать строить график смен</h2>
+        <Image
+          src="/images/SelectDay.gif"
+          className={styles.selectDayGif}
+          unoptimized={true}
+          width={277}
+          height={244}
+          alt="howToSelectFirstDay"
+        />
         <p>С этого дня применится выбранный вами паттерн работы</p>
         <div className={styles.gridContainer}>
-          {daysByMonth.map((monthDays, monthIndex) => (
+          {daysByMonth.slice(11).map((monthDays, monthIndex) => (
             <ChooseStartDay
-              key={`month-${monthIndex}`} // ← УБРАЛИ startDayPattern
-              monthIndex={monthIndex}
+              key={`month-${monthIndex}`}
+              monthIndex={currentMonth}
               days={monthDays}
               onChange={handleDaySelect}
               selectedDay={selectedDay}
