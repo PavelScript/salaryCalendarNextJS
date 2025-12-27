@@ -1,4 +1,4 @@
-import type { Day} from "@/types/user.types"
+import type { Day } from "@/types/user.types";
 
 export const generateShiftPattern = (
   year: number,
@@ -33,14 +33,14 @@ export const generateShiftPattern = (
     }
   }
 
-//Generate next year days
-   for (let month = 0; month < 12; month++) {
+  //Generate next year days
+  for (let month = 0; month < 12; month++) {
     // Количество дней в месяце
-    const daysInMonth = new Date(year+1, month + 1, 0).getDate();
+    const daysInMonth = new Date(year + 1, month + 1, 0).getDate();
 
     for (let id = 1; id <= daysInMonth; id++) {
       // День недели (0 - воскресенье, 6 - суббота)
-      const dayOfWeek = new Date(year+1, month, id).getDay();
+      const dayOfWeek = new Date(year + 1, month, id).getDay();
 
       DAYS.push({
         yearId: yearId++,
@@ -60,11 +60,15 @@ export const generateShiftPattern = (
   const addHolidays = (holidaysArray: number[], monthId: number) => {
     holidaysArray.forEach((dayId) => {
       // Add holiday for current year
-      const day = DAYS.find((d) => d.year === year && d.month === monthId && d.id === dayId);
+      const day = DAYS.find(
+        (d) => d.year === year && d.month === monthId && d.id === dayId
+      );
       if (day) day.holiday = true;
-      
+
       // Add holiday for next year
-      const dayNextYear = DAYS.find((d) => d.year === year + 1 && d.month === monthId && d.id === dayId);
+      const dayNextYear = DAYS.find(
+        (d) => d.year === year + 1 && d.month === monthId && d.id === dayId
+      );
       if (dayNextYear) dayNextYear.holiday = true;
     });
   };
@@ -88,15 +92,29 @@ export const generateShiftPattern = (
   let patternIndex = 0;
   startDayPattern = startDayPattern ?? 0;
 
+  const reversedShiftPattern = [...shiftPattern].reverse();
+  const reversedDayHours = [...dayHours].reverse();
+  const reversedNightHours = [...nightHours].reverse();
+
   for (let i = startDayPattern; i < DAYS.length; i++) {
     const day = DAYS[i];
-
-    day.workShift = shiftPattern[patternIndex % shiftPattern.length];
+    const idx = patternIndex % shiftPattern.length;
+    day.workShift = shiftPattern[idx];
     day.dayHours = dayHours[patternIndex % dayHours.length];
     day.nightHours = nightHours[patternIndex % nightHours.length];
     patternIndex++;
   }
 
+  patternIndex = 0; 
+  for (let i = startDayPattern - 1; i >= 0; i--) {
+    const day = DAYS[i];
+    const idx = patternIndex % reversedShiftPattern.length;
+    day.workShift = reversedShiftPattern[idx];
+    day.dayHours = reversedDayHours[patternIndex % reversedDayHours.length];
+    day.nightHours =
+      reversedNightHours[patternIndex % reversedNightHours.length];
+    patternIndex++;
+  }
 
   return DAYS;
 };

@@ -31,7 +31,6 @@ const YandexAd = ({ blockId }: { blockId: string }) => {
     <div 
       id={`yandex-ad-${blockId}`} 
       style={{ 
-        minHeight: '250px',
         margin: '20px 0'
       }} 
     />
