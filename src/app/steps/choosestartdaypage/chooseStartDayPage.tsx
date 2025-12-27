@@ -80,8 +80,8 @@ const ChooseStartDayPage = () => {
           src="/images/SelectDay.gif"
           className={styles.selectDayGif}
           unoptimized={true}
-          width={277}
-          height={244}
+          width={299}
+          height={338}
           alt="howToSelectFirstDay"
         />
         <p>С этого дня применится выбранный вами паттерн работы</p>

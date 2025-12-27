@@ -2,9 +2,7 @@
 
 import styles from "./page.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { useShiftStore } from "@/store/useShiftStore";
 import Header from "@/components/Header/Header";
-import type { Day } from "@/types/user.types";
 import Info from "@/components/Info/Info";
 import YandexAd from "@/components/YandexAd/yandexAd";
 import { useRouter } from "next/navigation";
