@@ -1,7 +1,6 @@
 "use client";
 import styles from "./sectionOne.module.scss";
 import Image from "next/image";
-import Info from "@/components/Info/Info";
 
 export default function SectionOne() {
   return (
@@ -36,9 +35,6 @@ export default function SectionOne() {
             </ul>
           </div>
         </div>
-        {/* <div className={styles.flexContainerFirst}>
-          <Info />
-        </div> */}
       </div>
     </div>
   );

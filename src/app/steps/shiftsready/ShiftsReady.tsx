@@ -77,10 +77,7 @@ const ShiftsReady = () => {
         <p className={styles.currentYear}>2025</p>
         <div className={styles.calendarYear}>
           {[8, 9, 10, 11].map((monthIndex) => (
-            <div
-              key={monthIndex}
-              ref={monthIndex === currentMonth ? currentMonthRef : null}
-            >
+            <div key={monthIndex}>
               <Month
                 monthIndex={monthIndex}
                 year={2025}
@@ -92,7 +89,10 @@ const ShiftsReady = () => {
         <p className={styles.currentYear}>2026</p>
         <div className={styles.calendarYear}>
           {Array.from({ length: 12 }, (_, monthIndex) => (
-            <div key={monthIndex}>
+            <div
+              key={monthIndex}
+              ref={monthIndex === currentMonth ? currentMonthRef : null}
+            >
               <Month
                 key={monthIndex}
                 monthIndex={monthIndex}
