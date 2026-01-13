@@ -33,7 +33,7 @@ const ShiftPatternConstructor = ({ onSubmit, onBack, initialBlocks }: Props) => 
             type: block.type as "dayShift" | "nightShift" | "offShift",
             days: String(block.days),
           }))
-        : [{ id: "1", type: "dayShift", days: "2" }],
+        : [{ id: "1", type: "dayShift", days: "2" }, {id: "2", type: "offShift", days: "2" }],
     },
   });
 

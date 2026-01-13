@@ -4,9 +4,11 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./QuestionInput.module.scss";
-import { salarySchemaNumbers } from "@/schemas/salarySchemaNumbers";
+import { salarySchemaCoeffitients } from "@/schemas/salarySchemaNumbers";
 
-type SalaryFormData = z.infer<typeof salarySchemaNumbers>;
+
+type SalaryFormData = z.infer<typeof salarySchemaCoeffitients>;
+
 
 type QuestionFormProps = {
   title: React.ReactNode;
@@ -15,9 +17,9 @@ type QuestionFormProps = {
   placeholder: string;
   currentValue: string;
   onSubmit: (data: SalaryFormData) => void;
-  onBack: () => void; 
+  onBack: () => void;
 };
-const QuestionInput = ({
+const QuestionInputCoefficients = ({
   title,
   label,
   inputMode,
@@ -31,10 +33,10 @@ const QuestionInput = ({
     handleSubmit,
     formState: { errors },
   } = useForm<SalaryFormData>({
-    resolver: zodResolver(salarySchemaNumbers),
+    resolver: zodResolver(salarySchemaCoeffitients),
     mode: "onChange",
     defaultValues: {
-      salary: String(currentValue), 
+      value: String(currentValue),
     },
   });
 
@@ -49,11 +51,11 @@ const QuestionInput = ({
         <form onSubmit={handleSubmit(onSubmitHandler)}>
           <label>{label}</label>
           <input
-            {...register("salary")} 
+            {...register("value")}
             type="tel"
             inputMode={inputMode}
             placeholder={placeholder}
-            className={errors.salary ? styles.inputError : ""}
+            className={errors.value ? styles.inputError : ""}
           />
           <div className={styles.buttons}>
             <button
@@ -69,12 +71,12 @@ const QuestionInput = ({
       </div>
       <div className={styles.errorMessageContainer}>
         {" "}
-        {errors.salary && (
-          <p className={styles.errorMessage}>{errors.salary.message}</p>
+        {errors.value && (
+          <p className={styles.errorMessage}>{errors.value.message}</p>
         )}
       </div>
     </div>
   );
 };
 
-export default QuestionInput;
+export default QuestionInputCoefficients;

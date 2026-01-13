@@ -30,7 +30,7 @@ const ChooseStartDay: React.FC<Props> = ({
   selectedDay,
 }) => {
   // Вычисляем день недели первого числа месяца
-  const startDayOfWeek = new Date(2025, monthIndex, 1).getDay();
+  const startDayOfWeek = new Date(2026, monthIndex, 1).getDay();
   const emptyCellsBefore = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
 
   return (

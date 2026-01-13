@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
+import QuestionInputCoefficients from "@/components/Question/QuestionInput/QuestionInputCoefficients";
 import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
@@ -15,8 +15,8 @@ const NorthCoefficient = () => {
     router.push("/steps/districtcoefficient");
   };
 
-  const handleSubmit = (data: { salary: string }) => {
-    let value = data.salary.trim();
+  const handleSubmit = (data: { value: string }) => {
+    let value = data.value.trim();
     if (value.includes(",")) {
       value = value.replace(/,/g, ".");
     }
@@ -29,7 +29,7 @@ const NorthCoefficient = () => {
       <Header />
       <div className={styles.questionForm}>
         <div className={styles.note}><p>Коэффициент не может быть меньше 1</p></div>
-        <QuestionInput
+        <QuestionInputCoefficients
           title={
             <>
               Введите размер{" "}

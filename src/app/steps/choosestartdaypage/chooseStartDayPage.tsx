@@ -36,7 +36,7 @@ const ChooseStartDayPage = () => {
   const DAYS = useMemo(
     () =>
       generateShiftPattern(
-        2025,
+        2026,
         startDayPattern,
         shiftPattern,
         dayHours,
@@ -52,7 +52,7 @@ const ChooseStartDayPage = () => {
   const daysByMonth: Day[][] = Array.from({ length: 12 }, () => []);
 
   for (const day of DAYS) {
-    if (day.year === 2025) {
+    if (day.year === 2026) {
       daysByMonth[day.month].push(day);
     }
   }

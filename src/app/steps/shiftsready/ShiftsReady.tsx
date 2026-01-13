@@ -73,19 +73,7 @@ const ShiftsReady = () => {
           </div>
         </div>
 
-        <p>Ваш график смен на 2025-2026</p>
-        <p className={styles.currentYear}>2025</p>
-        <div className={styles.calendarYear}>
-          {[8, 9, 10, 11].map((monthIndex) => (
-            <div key={monthIndex}>
-              <Month
-                monthIndex={monthIndex}
-                year={2025}
-                showAd={monthIndex === 11}
-              />
-            </div>
-          ))}
-        </div>
+        <p>Ваш график смен на 2026</p>
         <p className={styles.currentYear}>2026</p>
         <div className={styles.calendarYear}>
           {Array.from({ length: 12 }, (_, monthIndex) => (
@@ -97,7 +85,7 @@ const ShiftsReady = () => {
                 key={monthIndex}
                 monthIndex={monthIndex}
                 year={2026}
-                showAd={false}
+                showAd={monthIndex === 1}
               />
             </div>
           ))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import QuestionInput from "@/components/Question/QuestionInput/QuestionInput";
+import QuestionInputCoefficients from "@/components/Question/QuestionInput/QuestionInputCoefficients";
 import Header from "@/components/Header/Header";
 import styles from "../Questions.module.scss";
 import { useSalaryStore } from "@/store/useSalaryStore";
@@ -15,8 +15,8 @@ const DistrictCoefficient = () => {
     router.push("/steps/shiftpatternconstructor");
   };
 
-  const handleSubmit = (data: { salary: string }) => {
-    let value = data.salary.trim();
+  const handleSubmit = (data: { value: string }) => {
+    let value = data.value.trim();
     if (value.includes(",")) {
       value = value.replace(/,/g, ".");
     }
@@ -29,7 +29,7 @@ const DistrictCoefficient = () => {
       <Header />
       <div className={styles.questionForm}>
          <div className={styles.note}><p>Коэффициент не может быть меньше 1<br></br> Узнать свой коэффициент можно здесь:  <Link className={styles.link} href="https://www.consultant.ru/document/cons_doc_LAW_118861/">районные коэффициенты</Link></p></div>
-        <QuestionInput
+        <QuestionInputCoefficients
           title={
             <>
               Введите размер{" "}
