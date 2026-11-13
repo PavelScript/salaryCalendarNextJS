@@ -1,0 +1,200 @@
+.container {
+
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100dvh;
+    justify-content: space-between;
+    align-items: center;
+
+    .questionForm {
+        margin-bottom: 20vh;
+        display: flex;
+        flex-direction: column;
+
+
+        .note {
+            background-color: rgb(39, 39, 39);
+            padding: 2%;
+            display: flex;
+            align-self: center;
+            width: 95vw;
+            border-radius: 15px;
+            margin-bottom: 10vh;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            .link {
+                color: #e69111;
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+
+    .inputField {
+        width: 95%;
+        max-width: 1000px;
+        background-color: rgb(39, 39, 39);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20vh;
+        justify-content: space-between;
+
+
+        h1 {
+            text-align: left;
+            margin-top: 2rem;
+            font-size: 2rem;
+            font-size: 0.9rem;
+            margin-left: 1rem;
+            width: 90%;
+
+
+        }
+
+        p {
+            padding-top: 40px;
+            width: 90%;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+
+
+
+        }
+
+
+        button {
+            margin-bottom: 10px;
+            height: 50px;
+            width: 95%;
+            border-radius: 15px;
+            align-self: center;
+            color: black;
+            background-color: #e69111;
+            font-size: 1.2rem;
+            font-weight: 600;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background-color: rgba(255, 136, 0, 0.468);
+                }
+            }
+        }
+
+
+
+
+        .question {
+            display: flex;
+            flex-direction: column;
+
+            .checkboxContainer {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 1rem;
+
+                p {
+                    margin: 0;
+                }
+
+
+                .checkbox {
+
+                    margin: 0;
+                    margin-left: 0.5rem;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    justify-self: center;
+                }
+            }
+
+            input {
+                margin-bottom: 2rem;
+                height: 2rem;
+                width: 40%;
+                align-self: center;
+                background-color: #ffffff;
+                color: black;
+                text-align: center;
+                border: 2px solid black;
+                padding: 0 0.5rem;
+                font-size: 1rem;
+
+            }
+
+            .buttonContainer {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+
+            }
+
+            button {
+                width: 50%;
+            }
+
+            .select {
+
+                margin-bottom: 2rem;
+                border: 2px black;
+                height: 2rem;
+                padding: 0 0.5rem;
+                font-size: 1rem;
+                border-radius: 0;
+
+
+            }
+
+        }
+    }
+
+
+    @media(min-width: 1200px) {
+
+        .questionForm {
+            margin-bottom: 40vh;
+
+            .note {
+                width: 40%;
+
+                p {
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+
+
+        }
+
+
+
+        .inputField {
+            width: 60vw;
+            margin-bottom: 40vh;
+
+            h1 {
+                font-size: 1.5rem;
+                text-align: center;
+
+            }
+
+            p {
+                font-size: 1rem;
+                text-align: center;
+                opacity: 0.8;
+                margin-bottom: 0.5rem;
+
+
+            }
+        }
+    }
+
+}

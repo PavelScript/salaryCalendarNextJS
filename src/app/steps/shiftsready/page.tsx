@@ -1,0 +1,17 @@
+import type { Metadata } from "next";
+import ShiftsReady from "./ShiftsReady";
+
+export const metadata: Metadata = {
+  title: "Ваш готовый график смен на 2026-2027 — Расчётка.ру",
+  description:
+    "Просмотрите, отредактируйте и рассчитайте зарплату по готовому графику смен на 2026-2027 годы.",
+
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
+export default function ShiftsReadyPage() {
+  return <ShiftsReady />;
+}

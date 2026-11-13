@@ -1,0 +1,126 @@
+import type { Day } from "@/types/user.types";
+
+export const generateShiftPattern = (
+  year: number,
+  startDayPattern: number,
+  shiftPattern: ("dayShift" | "nightShift" | "offShift")[],
+  dayHours: number[],
+  nightHours: number[]
+) => {
+  const DAYS: Day[] = [];
+  let yearId = 0;
+
+  for (let month = 0; month < 12; month++) {
+    // Количество дней в месяце
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let id = 1; id <= daysInMonth; id++) {
+      // День недели (0 - воскресенье, 6 - суббота)
+      const dayOfWeek = new Date(year, month, id).getDay();
+
+      DAYS.push({
+        yearId: yearId++,
+        id: id,
+        year: year,
+        month: month,
+        workShift: "offShift",
+        weekDay: dayOfWeek,
+        holiday: false,
+        extraShift: false,
+        dayHours: 0,
+        nightHours: 0,
+      });
+    }
+  }
+
+  //Generate next year days
+  for (let month = 0; month < 12; month++) {
+    // Количество дней в месяце
+    const daysInMonth = new Date(year + 1, month + 1, 0).getDate();
+
+    for (let id = 1; id <= daysInMonth; id++) {
+      // День недели (0 - воскресенье, 6 - суббота)
+      const dayOfWeek = new Date(year + 1, month, id).getDay();
+
+      DAYS.push({
+        yearId: yearId++,
+        id: id,
+        year: year + 1,
+        month: month,
+        workShift: "offShift",
+        weekDay: dayOfWeek,
+        holiday: false,
+        extraShift: false,
+        dayHours: 0,
+        nightHours: 0,
+      });
+    }
+  }
+
+  const addHolidays = (holidaysArray: number[], monthId: number) => {
+    holidaysArray.forEach((dayId) => {
+      // Add holiday for current year
+      const day = DAYS.find(
+        (d) => d.year === year && d.month === monthId && d.id === dayId
+      );
+      if (day) day.holiday = true;
+
+      // Add holiday for next year
+      const dayNextYear = DAYS.find(
+        (d) => d.year === year + 1 && d.month === monthId && d.id === dayId
+      );
+      if (dayNextYear) dayNextYear.holiday = true;
+    });
+  };
+
+  const januaryHolidays = [1, 2, 3, 4, 5, 6, 7, 8];
+  const februaryHolidays = [23];
+  const marchHolidays = [8];
+  const mayHolidays = [1, 9];
+  const juneHolidays = [12];
+  const novemberHolidays = [4];
+
+  addHolidays(januaryHolidays, 0);
+  addHolidays(februaryHolidays, 1);
+  addHolidays(marchHolidays, 2);
+  addHolidays(mayHolidays, 4);
+  addHolidays(juneHolidays, 5);
+  addHolidays(novemberHolidays, 10);
+
+  // 31 декабря 2027 года — перенесённый выходной день по производственному календарю РФ.
+  const lastDayOf2027 = DAYS.find(
+    (day) => day.year === 2027 && day.month === 11 && day.id === 31
+  );
+  if (lastDayOf2027) lastDayOf2027.holiday = true;
+
+  //Паттерн работы
+
+  let patternIndex = 0;
+  startDayPattern = startDayPattern ?? 0;
+
+  const reversedShiftPattern = [...shiftPattern].reverse();
+  const reversedDayHours = [...dayHours].reverse();
+  const reversedNightHours = [...nightHours].reverse();
+
+  for (let i = startDayPattern; i < DAYS.length; i++) {
+    const day = DAYS[i];
+    const idx = patternIndex % shiftPattern.length;
+    day.workShift = shiftPattern[idx];
+    day.dayHours = dayHours[patternIndex % dayHours.length];
+    day.nightHours = nightHours[patternIndex % nightHours.length];
+    patternIndex++;
+  }
+
+  patternIndex = 0; 
+  for (let i = startDayPattern - 1; i >= 0; i--) {
+    const day = DAYS[i];
+    const idx = patternIndex % reversedShiftPattern.length;
+    day.workShift = reversedShiftPattern[idx];
+    day.dayHours = reversedDayHours[patternIndex % reversedDayHours.length];
+    day.nightHours =
+      reversedNightHours[patternIndex % reversedNightHours.length];
+    patternIndex++;
+  }
+
+  return DAYS;
+};

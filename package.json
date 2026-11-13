@@ -1,0 +1,35 @@
+{
+  "name": "shiftcalendar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
+    "next": "^15.5.7",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.62.0",
+    "react-yandex-metrika": "^2.6.0",
+    "sass": "^1.92.1",
+    "zod": "^4.1.8",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.2",
+    "typescript": "^5.9.3"
+  }
+}

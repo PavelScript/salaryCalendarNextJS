@@ -1,0 +1,41 @@
+
+.header {
+    width:100vw;
+    display: flex;
+    flex-shrink: 0;
+    font-size:18px;
+    align-items: center;
+    justify-content:flex-start;
+    gap: 100px;
+    padding-left: 5vw;
+    height: 7vh;
+    background-color:rgb(40, 40, 40);
+
+
+
+    .home {
+        font-weight:700;
+
+        &:hover {
+            opacity:0.7;
+        }
+    }
+
+    .shiftReady {
+        font-size:14px;
+        &:hover {
+            opacity:0.7;
+            
+        }
+    }
+
+    @media (min-width:1200px) {
+        .home {
+            font-size:1.5rem;
+        }
+
+        .shiftReady {
+            font-size:1.2rem;
+        }
+    }
+}

@@ -1,0 +1,184 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(340deg, rgb(16, 66, 117) 0%, #0ab6d8 60%, #f39d1d 100%);
+
+
+
+    .waveSection {
+        position: relative;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+
+
+    .flexContainer {
+        display: flex;
+        align-self: center;
+        width: 90vw;
+        height: 90vh;
+        align-items: center;
+
+        .calcImageMini {
+            align-self: center;
+            width: 330px;
+            height: 240px;
+        }
+
+
+        .calcImage {
+            display: none;
+        }
+
+
+        .textPlusButton {
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            gap: 6vh;
+
+            .startCalcBtn {
+                animation: glowPulse 2s infinite ease-in-out;
+                align-self: center;
+                background-color: #ffffff;
+                width: 100%;
+                height: 7vh;
+                border-radius: 10px;
+                font-weight: 800;
+                color: rgb(21, 21, 21);
+
+                @media (hover: hover) and (pointer: fine) {
+                    &:hover {
+                        background-color: rgb(255, 136, 0);
+                    }
+                }
+            }
+
+            .text {
+                width:90vw;
+                line-height: 1.1;
+                font-weight: 700;
+                text-align: center;
+                color: #fff;
+
+                span {
+                    color: #e3c82d; 
+                    font-weight: 800;
+                }
+
+            }
+        }
+    }
+}
+
+@media(min-width: 1200px) {
+    .container {
+        .flexContainer {
+            display: flex;
+            flex-direction: row;
+            width: 90vw;
+            align-items: center;
+            height: 95vh;
+            gap: 6vw;
+
+            .calcImageMini {
+                display: none;
+            }
+
+
+            .textPlusButton {
+
+
+                width: 30vw;
+
+                .text {
+                    font-size: 3.5rem;
+                    align-content: center;
+                    width: 30vw;
+                }
+
+                .startCalcBtn {
+                    height: 50px;
+                    font-size: 1.5rem;
+                }
+
+
+            }
+
+            .calcImage {
+                display: block;
+                margin-right: 5vw;
+            }
+
+
+        }
+
+    }
+}
+
+@media(max-width:1700px) {
+    .container {
+        .flexContainer {
+            .calcImage {
+                width: 800px;
+                height: 560px;
+            }
+
+            .textPlusButton {
+                .text {
+                    font-size: 1.8rem;
+                }
+
+                .startCalcBtn {
+                    font-size: 1rem;
+                }
+
+
+            }
+        }
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.textPlusButton {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.calcImage {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 15px rgba(11, 116, 236, 0.7),
+            0 0 30px rgba(255, 85, 0, 0.5),
+            0 0 45px rgba(255, 60, 0, 0.3);
+    }
+
+    50% {
+        box-shadow:
+            0 0 20px rgba(255, 136, 0, 0.9),
+            0 0 40px rgba(255, 85, 0, 0.7),
+            0 0 60px rgba(255, 60, 0, 0.5);
+    }
+}

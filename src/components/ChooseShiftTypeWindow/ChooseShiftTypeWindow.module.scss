@@ -1,0 +1,48 @@
+.ChooseShiftTypeWindow {
+    width: 40vw;
+    background-color: rgb(39, 39, 39);
+    border-radius: 15px;
+    padding: 5%;
+
+    .dayShift {
+        background-color: #daa520;
+    }
+
+    .nightShift {
+        background-color: #0f2c8a;
+        color: white;
+    }
+
+    .deleteShift {
+        background-color: #b32506;
+        color: rgb(233, 233, 233);
+    }
+
+    .back {
+        background-color: #8a8a8a;
+    }
+
+    button {
+
+        border-radius: 15px;
+        width: 90%;
+        height: 5vh;
+        font-size: 0.9rem;
+        color: black;
+        margin-top: 10px;
+        font-weight: 600;
+
+
+    }
+}
+
+
+@media(min-width: 1200px) {
+    .ChooseShiftTypeWindow {
+        width: 10vw;
+        button {
+            height: 3vh;
+        }
+
+    }
+}
